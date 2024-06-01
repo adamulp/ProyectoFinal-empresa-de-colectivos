@@ -1,0 +1,94 @@
+1. Tabla: Pasajeros (Pasajero)
+Esta tabla almacena la información personal de los pasajeros.
+ID_Pasajero (INT, PK): Identificador único del pasajero.
+Nombre (VARCHAR): Nombre del pasajero.
+Apellido (VARCHAR): Apellido del pasajero.
+DNI (VARCHAR): Documento Nacional de Identidad del pasajero que sea único.
+Correo (VARCHAR): Correo electrónico del pasajero que sea único.
+Teléfono (VARCHAR): Número de teléfono del pasajero.
+Estado(BOOLEAN): Indica si la entidad está activa o dada de baja.
+
+Pasajeros
+----------
+ID_Pasajero : (INT, PK)
+Nombre: (VARCHAR)
+Apellido : (VARCHAR)
+DNI: (VARCHAR)
+Correo: (VARCHAR)
+Teléfono: (VARCHAR)
+Estado: (TinyInt)
+
+
+
+2. Tabla: Pasajes (Pasaje)
+Esta tabla registra la información de los pasajes vendidos.
+ID_Pasaje (INT, PK): Identificador único del pasaje.
+ID_Pasajero (INT, FK): Identificador del pasajero que compró el pasaje.
+ID_Colectivo (INT, FK): Identificador del colectivo asignado.
+ID_Ruta (INT, FK): Identificador de la ruta correspondiente.
+Fecha_Viaje (DATE): Fecha del viaje.
+Hora_Viaje (TIME): Hora del viaje.
+Asiento (INT): Número de asiento asignado.
+Precio (DECIMAL): Precio del pasaje.
+
+Pasajes
+--------
+ID_Pasaje (INT, PK)
+ID_Pasajero (INT, FK)
+ID_Colectivo (INT, FK)
+ID_Ruta (INT, FK)
+Fecha_Viaje (DATE)
+Hora_Viaje (TIME)
+Asiento (INT)
+Precio (DECIMAL)
+
+
+3. Tabla: Colectivos (Colectivo)
+Esta tabla contiene información sobre los colectivos utilizados por la empresa.
+ID_Colectivo (INT, PK): Identificador único del colectivo.
+Matrícula (VARCHAR): Matrícula del colectivo.
+Marca (VARCHAR): Marca del colectivo.
+Modelo (VARCHAR): Modelo del colectivo.
+Capacidad (INT): Capacidad total de pasajeros del colectivo.
+Estado(BOOLEAN): Indica si la entidad está activa o dada de baja
+
+Colectivos
+----------
+ID_Colectivo (INT, PK)
+Matrícula (VARCHAR)
+Marca (VARCHAR)
+Modelo (VARCHAR)
+Capacidad (INT)
+Estado(TinyInt)
+
+4. Tabla: Rutas (Ruta)
+Esta tabla almacena información sobre las rutas de los viajes.
+ID_Ruta (INT, PK): Identificador único de la ruta.
+Origen (VARCHAR): Ciudad o lugar de origen.
+Destino (VARCHAR): Ciudad o lugar de destino.
+Duración_Estimada (TIME): Duración estimada del viaje.
+Estado(BOOLEAN): Indica si la entidad está activa o dada de baja.
+
+Rutas
+------
+ID_Ruta (INT, PK)
+Origen (VARCHAR)
+Destino (VARCHAR)
+Duración_Estimada (TIME)
+Estado(BOOLEAN)
+
+5. Tabla: Horarios (Horario)
+Esta tabla define los horarios disponibles para las rutas.
+ID_Horario (INT, PK): Identificador único del horario.
+ID_Ruta (INT, FK): Identificador de la ruta correspondiente.
+Hora_Salida (TIME): Hora de salida del colectivo.
+Hora_Llegada (TIME): Hora estimada de llegada.
+Estado(BOOLEAN): Indica si la entidad está activa o dada de baja.
+
+Horarios
+---------
+ID_Horario (INT, PK)
+ID_Ruta (INT, FK)
+Hora_Salida (TIME)
+Hora_Llegada (TIME)
+Estado(TINYINT)
