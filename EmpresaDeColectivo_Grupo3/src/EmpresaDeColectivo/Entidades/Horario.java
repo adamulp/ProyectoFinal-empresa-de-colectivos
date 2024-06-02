@@ -66,6 +66,25 @@ public class Horario {
     public void setEstado(boolean estado) {
         this.estado = estado;
     }
+
+    @Override
+    public String toString() {
+        if(horaSalida == null && horaLlegada == null){
+            return "Indeterminado";
+        }
+        if(horaSalida != null){
+            if(horaLlegada == null){
+                return horaSalida + "";
+            }
+        }
+        if(horaLlegada != null){
+            if(horaSalida == null){
+                return horaLlegada + "";
+            }
+        }
+        return horaSalida + " a " + horaLlegada;
+
+    }
     
     
     
