@@ -67,6 +67,11 @@ public class Ruta {
     public void setEstado(boolean estado) {
         this.estado = estado;
     }
+
+    @Override
+    public String toString() {
+        return origen + " a " + destino;
+    }
     
     
     
