@@ -11,6 +11,8 @@ classDiagram
         +Colectivo(String matricula, String marca, String modelo, int capacidad, boolean estado)
     }
 
+    <br>
+
     class Horario {
         -int idHorario
         -int idRuta
@@ -21,6 +23,8 @@ classDiagram
         +Horario(int idRuta, LocalTime horaSalida, LocalTime horaLlegada, boolean estado)
         +Horario(int idRuta, LocalTime horaSalida, LocalTime horaLlegada)
     }
+
+    <br>
 
     class Pasaje {
         -int idPasaje
@@ -35,6 +39,8 @@ classDiagram
         +Pasaje(int idPasajero, int idColectivo, int idRuta, LocalDate fechaViaje, LocalTime horaViaje, int asiento, double precio)
     }
 
+    <br>
+
     class Pasajero {
         -int idPasajero
         -String nombre
@@ -47,6 +53,8 @@ classDiagram
         +Pasajero(String nombre, String apellido, String dni, String correo, String telefono)
     }
 
+    <br>
+
     class Ruta {
         -int idRuta
         -String origen
@@ -57,4 +65,5 @@ classDiagram
         +Ruta(String origen, String destino, Duration duracionEstimada, boolean estado)
         +Ruta(String origen, String destino, Duration duracionEstimada)
     }
+
 ```
