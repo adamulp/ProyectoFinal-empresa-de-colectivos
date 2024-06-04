@@ -12,20 +12,22 @@ import javax.swing.table.DefaultTableModel;
  * @author adam
  */
 public class Horarios extends javax.swing.JInternalFrame {
-    private DefaultTableModel modelo = new DefaultTableModel(){
+
+    private DefaultTableModel modelo = new DefaultTableModel() {
         @Override
-            public boolean isCellEditable(int row, int column) {
-                // Bloquear ediciones dentro de la tabla
-                return false;
-            }
+        public boolean isCellEditable(int row, int column) {
+            // Bloquear ediciones dentro de la tabla
+            return false;
+        }
     };
+
     /**
      * Creates new form Horarios
      */
     public Horarios() {
         initComponents();
         ArrayList<String> columnas = new ArrayList<>();
-        
+
         columnas.add("idHorario");
         columnas.add("idRuta");
         columnas.add("horaSalida");
@@ -233,33 +235,32 @@ public class Horarios extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtSalidaMinutosActionPerformed
 
-    
     //Boton agregar fila
     private void btnAgregarFilaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarFilaActionPerformed
         agregarFila();
-        
+
     }//GEN-LAST:event_btnAgregarFilaActionPerformed
 
     //Boton quitar fila
     private void btnQuitarFilaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuitarFilaActionPerformed
         quitarFila();
-        
+
     }//GEN-LAST:event_btnQuitarFilaActionPerformed
 
-    
     //Boton modificar fila
     private void btnModificarFilaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarFilaActionPerformed
         modificarFila();
-        
+
     }//GEN-LAST:event_btnModificarFilaActionPerformed
     private void armarJTable(String[] columnas) {
-        for(String columna: columnas){
+        for (String columna : columnas) {
             modelo.addColumn(columna);
         }
         jtTabla.setModel(modelo);
         jtTabla.setCellSelectionEnabled(false);
         jtTabla.setRowSelectionAllowed(true);
     }
+
     private void limpiarCampos() {
 //        txt.setText("");
 //        combo.setSelectedIndex(-1);
@@ -270,10 +271,12 @@ public class Horarios extends javax.swing.JInternalFrame {
         txtSalidaHora.setText("");
         txtSalidaMinutos.setText("");
     }
-    private void cargarCampos(){
-        
+
+    private void cargarCampos() {
+
     }
-    private void agregarFila(){
+
+    private void agregarFila() {
         String horaSalida = txtSalidaHora.getText() + " " + txtSalidaMinutos.getText();
         String horaLlegada = txtLlegadaHora.getText() + " " + txtLlegadaMinutos.getText();
         modelo.addRow(new Object[]{
@@ -282,16 +285,38 @@ public class Horarios extends javax.swing.JInternalFrame {
             horaSalida,
             horaLlegada,
             checkboxEstado.isSelected()
-    });
+        });
         limpiarCampos();
     }
+
+    private void quitarFila() {
+        int[] filas = jtTabla.getSelectedRows();
+        if (filas.length > 0) {
+            for (int i = filas.length - 1; i >= 0; i--) {
+                Integer idFila = getIdTabla(i);
+                if (idFila != null) {
+                    modelo.removeRow(filas[i]);
+                }
+            }
+        }
     
-    private void quitarFila(){
-        
     }
+
     
-    private void modificarFila(){
-        
+
+    private void modificarFila() {
+
+    }
+
+    private Integer getIdTabla(int fila) {
+        Object val = jtTabla.getValueAt(fila, 0);
+        if (val == null) {
+            return null;
+        }
+        if (val instanceof Integer) {
+            return (Integer) val;
+        }
+        return Integer.valueOf((String) val);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
