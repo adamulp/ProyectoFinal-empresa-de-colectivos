@@ -53,11 +53,11 @@ public class Colectivos extends javax.swing.JInternalFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jtMatricula = new javax.swing.JTextField();
-        jtCapacidad = new javax.swing.JTextField();
-        jtIdColectivo = new javax.swing.JTextField();
-        jtModelo = new javax.swing.JTextField();
-        jtMarca = new javax.swing.JTextField();
+        txtMatricula = new javax.swing.JTextField();
+        txtCapacidad = new javax.swing.JTextField();
+        txtIdColectivo = new javax.swing.JTextField();
+        txtModelo = new javax.swing.JTextField();
+        txtMarca = new javax.swing.JTextField();
         checkboxEstado = new javax.swing.JCheckBox();
 
         setClosable(true);
@@ -106,9 +106,9 @@ public class Colectivos extends javax.swing.JInternalFrame {
 
         jLabel5.setText("capacidad");
 
-        jtIdColectivo.addActionListener(new java.awt.event.ActionListener() {
+        txtIdColectivo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jtIdColectivoActionPerformed(evt);
+                txtIdColectivoActionPerformed(evt);
             }
         });
 
@@ -131,25 +131,25 @@ public class Colectivos extends javax.swing.JInternalFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jtMatricula, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(txtMatricula, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jtIdColectivo, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(txtIdColectivo, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel4)
                             .addComponent(jLabel3))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jtModelo)
-                            .addComponent(jtMarca, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtModelo)
+                            .addComponent(txtMarca, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(49, 49, 49)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel5)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jtCapacidad, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(txtCapacidad, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(checkboxEstado))
                         .addGap(25, 25, 25)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -168,19 +168,20 @@ public class Colectivos extends javax.swing.JInternalFrame {
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel1)
                         .addComponent(jLabel5)
-                        .addComponent(jtCapacidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jtIdColectivo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtCapacidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtIdColectivo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel4)
-                            .addComponent(jtModelo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtModelo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel3)
-                            .addComponent(jtMarca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(jLabel2)
-                                .addComponent(jtMatricula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(txtMatricula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel3)
+                                .addComponent(txtMarca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnAgregarFila, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -211,9 +212,9 @@ public class Colectivos extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_checkboxEstadoActionPerformed
 
-    private void jtIdColectivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtIdColectivoActionPerformed
+    private void txtIdColectivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIdColectivoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jtIdColectivoActionPerformed
+    }//GEN-LAST:event_txtIdColectivoActionPerformed
 
     private void armarJTable(String[] columnas) {
         for(String columna: columnas){
@@ -226,21 +227,56 @@ public class Colectivos extends javax.swing.JInternalFrame {
     private void limpiarCampos() {
 //        txt.setText("");
 //        combo.setSelectedIndex(-1);
+        txtCapacidad.setText("");
+        txtIdColectivo.setText("");
+        txtMarca.setText("");
+        txtMatricula.setText("");
+        txtModelo.setText("");
     }
     private void cargarCampos(){
         
     }
     
-    private void agregarFila(){
-        
+    private void agregarFila() {
+        modelo.addRow(new Object[]{
+            txtCapacidad.getText(),
+            txtIdColectivo.getText(),
+            txtMarca.getText(),
+            txtMatricula.getText(),
+            txtModelo.getText(),
+            checkboxEstado.isSelected()
+        });
+        limpiarCampos();
     }
+
+    private void quitarFila() {
+        int[] filas = jtTabla.getSelectedRows();
+        if (filas.length > 0) {
+            for (int i = filas.length - 1; i >= 0; i--) {
+                Integer idFila = getIdTabla(i);
+                if (idFila != null) {
+                    modelo.removeRow(filas[i]);
+                }
+            }
+        }
     
-    private void quitarFila(){
-        
     }
+
     
-    private void modificarFila(){
-        
+
+    private void modificarFila() {
+
+    }
+
+    private Integer getIdTabla(int fila) {
+        Object val = jtTabla.getValueAt(fila, 0);
+        if (val == null) {
+            return null;
+        }
+        if (val instanceof Integer) {
+            return (Integer) val;
+        }
+        return Integer.valueOf((String) val);
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregarFila;
@@ -253,11 +289,11 @@ public class Colectivos extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jtCapacidad;
-    private javax.swing.JTextField jtIdColectivo;
-    private javax.swing.JTextField jtMarca;
-    private javax.swing.JTextField jtMatricula;
-    private javax.swing.JTextField jtModelo;
     private javax.swing.JTable jtTabla;
+    private javax.swing.JTextField txtCapacidad;
+    private javax.swing.JTextField txtIdColectivo;
+    private javax.swing.JTextField txtMarca;
+    private javax.swing.JTextField txtMatricula;
+    private javax.swing.JTextField txtModelo;
     // End of variables declaration//GEN-END:variables
 }

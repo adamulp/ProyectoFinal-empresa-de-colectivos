@@ -69,7 +69,7 @@
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Component id="txtOrigen" min="-2" pref="193" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" pref="55" max="-2" attributes="0"/>
-                                  <Component id="jcheckboxEstado" min="-2" max="-2" attributes="0"/>
+                                  <Component id="checkboxEstado" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
                                   <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
@@ -107,7 +107,7 @@
                       <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="txtDestino" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jcheckboxEstado" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="checkboxEstado" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="49" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
@@ -166,7 +166,7 @@
             <Property name="text" type="java.lang.String" value="Duraci&#xf3;n Estimada"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JCheckBox" name="jcheckboxEstado">
+        <Component class="javax.swing.JCheckBox" name="checkboxEstado">
           <Properties>
             <Property name="text" type="java.lang.String" value="Estado"/>
           </Properties>
@@ -175,16 +175,25 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="agregarFila"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAgregarFilaActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnQuitarFila">
           <Properties>
             <Property name="text" type="java.lang.String" value="quitarFila"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnQuitarFilaActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnModificarFila">
           <Properties>
             <Property name="text" type="java.lang.String" value="modificarFila"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnModificarFilaActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="txtRuta">
           <Events>

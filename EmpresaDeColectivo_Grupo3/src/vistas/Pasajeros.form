@@ -51,14 +51,14 @@
                                   <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Group type="102" alignment="0" attributes="0">
-                                          <Component id="jtIdPasajero" min="-2" pref="150" max="-2" attributes="0"/>
+                                          <Component id="textIdPasajero" min="-2" pref="150" max="-2" attributes="0"/>
                                           <EmptySpace min="-2" pref="52" max="-2" attributes="0"/>
                                           <Component id="jlDni" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                       <Group type="102" alignment="0" attributes="0">
                                           <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="jtApellido" min="-2" pref="150" max="-2" attributes="0"/>
-                                              <Component id="jtNombre" min="-2" pref="150" max="-2" attributes="0"/>
+                                              <Component id="txtApellido" min="-2" pref="150" max="-2" attributes="0"/>
+                                              <Component id="txtNombre" min="-2" pref="150" max="-2" attributes="0"/>
                                           </Group>
                                           <EmptySpace min="-2" pref="52" max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="0" attributes="0">
@@ -69,32 +69,19 @@
                                   </Group>
                                   <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="102" attributes="0">
-                                          <Component id="jtTelefono" min="-2" pref="150" max="-2" attributes="0"/>
-                                          <EmptySpace min="1" max="32767" attributes="0"/>
-                                      </Group>
-                                      <Group type="102" attributes="0">
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="jtCorreo" min="-2" pref="210" max="-2" attributes="0"/>
-                                              <Component id="jtDni" min="-2" pref="150" max="-2" attributes="0"/>
-                                          </Group>
-                                          <EmptySpace max="32767" attributes="0"/>
-                                      </Group>
+                                      <Component id="txtTelefono" min="-2" pref="150" max="-2" attributes="0"/>
+                                      <Component id="txtCorreo" min="-2" pref="210" max="-2" attributes="0"/>
+                                      <Component id="txtDni" min="-2" pref="150" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="jlIdPasajero" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="32767" attributes="0"/>
-                              </Group>
+                              <Component id="jlIdPasajero" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
-                          <Component id="jcEstado" min="-2" max="-2" attributes="0"/>
+                          <Component id="checkboxEstado" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="jbQuitarFila" alignment="1" max="32767" attributes="0"/>
-                                  <Component id="jbAgregarFila" alignment="1" pref="120" max="32767" attributes="0"/>
-                              </Group>
+                              <Component id="jbQuitarFila" alignment="1" max="32767" attributes="0"/>
+                              <Component id="jbAgregarFila" alignment="1" pref="120" max="32767" attributes="0"/>
                               <Component id="jbModificarFila" pref="120" max="32767" attributes="0"/>
                           </Group>
                       </Group>
@@ -112,25 +99,25 @@
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jlIdPasajero" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jlDni" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jtIdPasajero" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jtDni" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="textIdPasajero" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtDni" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jbAgregarFila" alignment="3" min="-2" pref="36" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jlNombre" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jlCorreo" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jtNombre" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jtCorreo" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtNombre" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtCorreo" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jbQuitarFila" alignment="3" min="-2" pref="36" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jlApellido" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jlTelefono" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jtApellido" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jtTelefono" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jcEstado" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtApellido" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtTelefono" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="checkboxEstado" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jbModificarFila" alignment="3" min="-2" pref="36" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace pref="104" max="32767" attributes="0"/>
@@ -169,6 +156,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="modificarFila"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbModificarFilaActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jlCorreo">
           <Properties>
@@ -180,7 +170,7 @@
             <Property name="text" type="java.lang.String" value="apellido:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JCheckBox" name="jcEstado">
+        <Component class="javax.swing.JCheckBox" name="checkboxEstado">
           <Properties>
             <Property name="text" type="java.lang.String" value="estado"/>
           </Properties>
@@ -207,26 +197,29 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="quitarFila"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbQuitarFilaActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jlTelefono">
           <Properties>
             <Property name="text" type="java.lang.String" value="telefono:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="jtIdPasajero">
+        <Component class="javax.swing.JTextField" name="textIdPasajero">
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jtIdPasajeroActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="textIdPasajeroActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JTextField" name="jtNombre">
+        <Component class="javax.swing.JTextField" name="txtNombre">
         </Component>
-        <Component class="javax.swing.JTextField" name="jtApellido">
+        <Component class="javax.swing.JTextField" name="txtApellido">
         </Component>
-        <Component class="javax.swing.JTextField" name="jtDni">
+        <Component class="javax.swing.JTextField" name="txtDni">
         </Component>
-        <Component class="javax.swing.JTextField" name="jtCorreo">
+        <Component class="javax.swing.JTextField" name="txtCorreo">
         </Component>
-        <Component class="javax.swing.JTextField" name="jtTelefono">
+        <Component class="javax.swing.JTextField" name="txtTelefono">
         </Component>
       </SubComponents>
     </Container>

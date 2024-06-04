@@ -52,7 +52,7 @@ public class Rutas extends javax.swing.JInternalFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jcheckboxEstado = new javax.swing.JCheckBox();
+        checkboxEstado = new javax.swing.JCheckBox();
         btnAgregarFila = new javax.swing.JButton();
         btnQuitarFila = new javax.swing.JButton();
         btnModificarFila = new javax.swing.JButton();
@@ -86,13 +86,28 @@ public class Rutas extends javax.swing.JInternalFrame {
 
         jLabel4.setText("Duración Estimada");
 
-        jcheckboxEstado.setText("Estado");
+        checkboxEstado.setText("Estado");
 
         btnAgregarFila.setText("agregarFila");
+        btnAgregarFila.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarFilaActionPerformed(evt);
+            }
+        });
 
         btnQuitarFila.setText("quitarFila");
+        btnQuitarFila.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnQuitarFilaActionPerformed(evt);
+            }
+        });
 
         btnModificarFila.setText("modificarFila");
+        btnModificarFila.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModificarFilaActionPerformed(evt);
+            }
+        });
 
         txtRuta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -129,7 +144,7 @@ public class Rutas extends javax.swing.JInternalFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(txtOrigen, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(55, 55, 55)
-                                .addComponent(jcheckboxEstado)
+                                .addComponent(checkboxEstado)
                                 .addGap(31, 31, 31)
                                 .addComponent(jLabel3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -160,7 +175,7 @@ public class Rutas extends javax.swing.JInternalFrame {
                     .addComponent(jLabel2)
                     .addComponent(txtDestino, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3)
-                    .addComponent(jcheckboxEstado))
+                    .addComponent(checkboxEstado))
                 .addGap(49, 49, 49)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAgregarFila)
@@ -195,6 +210,18 @@ public class Rutas extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtRutaActionPerformed
 
+    private void btnAgregarFilaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarFilaActionPerformed
+        agregarFila();
+    }//GEN-LAST:event_btnAgregarFilaActionPerformed
+
+    private void btnQuitarFilaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuitarFilaActionPerformed
+        quitarFila();
+    }//GEN-LAST:event_btnQuitarFilaActionPerformed
+
+    private void btnModificarFilaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarFilaActionPerformed
+        modificarFila();
+    }//GEN-LAST:event_btnModificarFilaActionPerformed
+
     private void armarJTable(String[] columnas) {
         for(String columna: columnas){
             modelo.addColumn(columna);
@@ -206,14 +233,62 @@ public class Rutas extends javax.swing.JInternalFrame {
     private void limpiarCampos() {
 //        txt.setText("");
 //        combo.setSelectedIndex(-1);
+        txtDestino.setText("");
+        txtDuracionHora.setText("");
+        txtDuracionMin.setText("");
+        txtOrigen.setText("");
+        txtRuta.setText("");
+        checkboxEstado.setSelected(true);
     }
     private void cargarCampos(){
         
+    }
+    private void agregarFila() {
+        String duracion = txtDuracionHora.getText() + ":" + txtDuracionMin.getText();
+        modelo.addRow(new Object[]{
+            txtDestino.getText(),
+            duracion,
+            txtOrigen.getText(),
+            txtRuta.getText(),
+            checkboxEstado.isSelected()
+        });
+        limpiarCampos();
+    }
+
+    private void quitarFila() {
+        int[] filas = jtTabla.getSelectedRows();
+        if (filas.length > 0) {
+            for (int i = filas.length - 1; i >= 0; i--) {
+                Integer idFila = getIdTabla(i);
+                if (idFila != null) {
+                    modelo.removeRow(filas[i]);
+                }
+            }
+        }
+    
+    }
+
+    
+
+    private void modificarFila() {
+
+    }
+
+    private Integer getIdTabla(int fila) {
+        Object val = jtTabla.getValueAt(fila, 0);
+        if (val == null) {
+            return null;
+        }
+        if (val instanceof Integer) {
+            return (Integer) val;
+        }
+        return Integer.valueOf((String) val);
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregarFila;
     private javax.swing.JButton btnModificarFila;
     private javax.swing.JButton btnQuitarFila;
+    private javax.swing.JCheckBox checkboxEstado;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -221,7 +296,6 @@ public class Rutas extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JCheckBox jcheckboxEstado;
     private javax.swing.JTable jtTabla;
     private javax.swing.JTextField txtDestino;
     private javax.swing.JTextField txtDuracionHora;

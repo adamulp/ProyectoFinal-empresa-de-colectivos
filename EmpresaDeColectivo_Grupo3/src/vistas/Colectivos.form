@@ -30,12 +30,12 @@
                           <Group type="102" alignment="1" attributes="0">
                               <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="jtMatricula" min="-2" pref="122" max="-2" attributes="0"/>
+                              <Component id="txtMatricula" min="-2" pref="122" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="1" attributes="0">
                               <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="jtIdColectivo" min="-2" pref="122" max="-2" attributes="0"/>
+                              <Component id="txtIdColectivo" min="-2" pref="122" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -45,15 +45,15 @@
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="jtModelo" max="32767" attributes="0"/>
-                          <Component id="jtMarca" min="-2" pref="96" max="-2" attributes="0"/>
+                          <Component id="txtModelo" max="32767" attributes="0"/>
+                          <Component id="txtMarca" min="-2" pref="96" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="49" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
                           <Group type="102" alignment="1" attributes="0">
                               <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="jtCapacidad" min="-2" pref="48" max="-2" attributes="0"/>
+                              <Component id="txtCapacidad" min="-2" pref="48" max="-2" attributes="0"/>
                           </Group>
                           <Component id="checkboxEstado" min="-2" max="-2" attributes="0"/>
                       </Group>
@@ -79,21 +79,23 @@
                   <Group type="103" alignment="0" groupAlignment="3" attributes="0">
                       <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jtCapacidad" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jtIdColectivo" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtCapacidad" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtIdColectivo" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jtModelo" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtModelo" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jtMarca" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Group type="103" alignment="3" groupAlignment="3" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="103" alignment="0" groupAlignment="3" attributes="0">
                               <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jtMatricula" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtMatricula" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtMarca" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -184,18 +186,18 @@
         <Property name="text" type="java.lang.String" value="capacidad"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="jtMatricula">
+    <Component class="javax.swing.JTextField" name="txtMatricula">
     </Component>
-    <Component class="javax.swing.JTextField" name="jtCapacidad">
+    <Component class="javax.swing.JTextField" name="txtCapacidad">
     </Component>
-    <Component class="javax.swing.JTextField" name="jtIdColectivo">
+    <Component class="javax.swing.JTextField" name="txtIdColectivo">
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jtIdColectivoActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtIdColectivoActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JTextField" name="jtModelo">
+    <Component class="javax.swing.JTextField" name="txtModelo">
     </Component>
-    <Component class="javax.swing.JTextField" name="jtMarca">
+    <Component class="javax.swing.JTextField" name="txtMarca">
     </Component>
     <Component class="javax.swing.JCheckBox" name="checkboxEstado">
       <Properties>
