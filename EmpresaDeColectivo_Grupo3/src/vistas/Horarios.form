@@ -33,8 +33,8 @@
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="jtIdRuta" pref="41" max="32767" attributes="0"/>
-                          <Component id="jtIdHorario" max="32767" attributes="0"/>
+                          <Component id="txtIdRuta" pref="41" max="32767" attributes="0"/>
+                          <Component id="txtIdHorario" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
                       <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
@@ -42,11 +42,11 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jLabel3" alignment="0" min="-2" pref="73" max="-2" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
-                              <Component id="jTHora" min="-2" pref="29" max="-2" attributes="0"/>
+                              <Component id="txtSalidaHora" min="-2" pref="29" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jTMinutos" min="-2" pref="29" max="-2" attributes="0"/>
+                              <Component id="txtSalidaMinutos" min="-2" pref="29" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
@@ -58,13 +58,9 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jLabel16" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jTMInutos" min="-2" pref="29" max="-2" attributes="0"/>
-                              <EmptySpace min="18" max="32767" attributes="0"/>
+                              <Component id="txtLlegadaMinutos" min="-2" pref="29" max="-2" attributes="0"/>
                           </Group>
-                          <Group type="102" attributes="0">
-                              <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="32767" attributes="0"/>
-                          </Group>
+                          <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
                       <Component id="checkboxEstado" min="-2" max="-2" attributes="0"/>
@@ -91,7 +87,7 @@
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="btnAgregarFila" alignment="3" min="-2" pref="36" max="-2" attributes="0"/>
                           <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jtIdHorario" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtIdHorario" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
@@ -107,15 +103,15 @@
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="btnQuitarFila" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
                       <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jtIdRuta" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtIdRuta" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jTHora" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtSalidaHora" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jTMinutos" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtSalidaMinutos" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jtHora" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel16" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jTMInutos" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtLlegadaMinutos" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Component id="checkboxEstado" alignment="0" min="-2" max="-2" attributes="0"/>
               </Group>
@@ -177,14 +173,14 @@
         <Property name="text" type="java.lang.String" value="Id horario"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="jtIdHorario">
+    <Component class="javax.swing.JTextField" name="txtIdHorario">
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel2">
       <Properties>
         <Property name="text" type="java.lang.String" value="Id ruta"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="jtIdRuta">
+    <Component class="javax.swing.JTextField" name="txtIdRuta">
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel3">
       <Properties>
@@ -196,11 +192,11 @@
         <Property name="text" type="java.lang.String" value="Hora llegada"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="jTHora">
+    <Component class="javax.swing.JTextField" name="txtSalidaHora">
     </Component>
-    <Component class="javax.swing.JTextField" name="jTMinutos">
+    <Component class="javax.swing.JTextField" name="txtSalidaMinutos">
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTMinutosActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtSalidaMinutosActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JCheckBox" name="checkboxEstado">
@@ -233,7 +229,7 @@
         <Property name="text" type="java.lang.String" value=":"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="jTMInutos">
+    <Component class="javax.swing.JTextField" name="txtLlegadaMinutos">
     </Component>
   </SubComponents>
 </Form>
