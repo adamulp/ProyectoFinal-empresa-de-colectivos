@@ -1,20 +1,37 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JInternalFrame.java to edit this template
- */
 package vistas;
+
+import java.awt.List;
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author adam
  */
 public class Colectivos extends javax.swing.JInternalFrame {
-
+    private DefaultTableModel modelo = new DefaultTableModel(){
+        @Override
+            public boolean isCellEditable(int row, int column) {
+                // Bloquear ediciones dentro de la tabla
+                return false;
+            }
+    };
     /**
      * Creates new form Colectivos
      */
     public Colectivos() {
         initComponents();
+        ArrayList<String> columnas = new ArrayList<>();
+        
+        
+        columnas.add("idCollectivo");
+        columnas.add("matricula");
+        columnas.add("marca");
+        columnas.add("modelo");
+        columnas.add("capacidad");
+        columnas.add("estado");
+
+        armarJTable(columnas.toArray(String[]::new));
     }
 
     /**
@@ -26,23 +43,61 @@ public class Colectivos extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jtTabla = new javax.swing.JTable();
+
         setClosable(true);
+
+        jtTabla.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(jtTabla);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 885, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(73, 73, 73)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 714, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(98, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 404, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(47, 47, 47)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 266, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(126, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-
+    private void armarJTable(String[] columnas) {
+        for(String columna: columnas){
+            modelo.addColumn(columna);
+        }
+        jtTabla.setModel(modelo);
+        jtTabla.setCellSelectionEnabled(false);
+        jtTabla.setRowSelectionAllowed(true);
+    }
+    private void limpiarCampos() {
+//        txt.setText("");
+//        combo.setSelectedIndex(-1);
+    }
+    private void cargarCampos(){
+        
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jtTabla;
     // End of variables declaration//GEN-END:variables
 }
