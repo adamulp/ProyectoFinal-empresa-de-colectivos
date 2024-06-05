@@ -5,6 +5,7 @@
 package vistas;
 
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -119,19 +120,60 @@ private DefaultTableModel modelo = new DefaultTableModel(){
 
         jLabel6.setText("asiento");
 
+        txtPasaje.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtPasajeKeyTyped(evt);
+            }
+        });
+
         txtColectivo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtColectivoActionPerformed(evt);
             }
         });
+        txtColectivo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtColectivoKeyTyped(evt);
+            }
+        });
+
+        txtIdRuta.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtIdRutaKeyTyped(evt);
+            }
+        });
 
         jLabel7.setText("precio");
+
+        txtPasajero.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtPasajeroKeyTyped(evt);
+            }
+        });
+
+        txtPrecio.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtPrecioKeyTyped(evt);
+            }
+        });
 
         jLabel8.setText("fecha viaje");
 
         jLabel9.setText("hora viaje");
 
+        txtHorarioViajeHoras.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtHorarioViajeHorasKeyTyped(evt);
+            }
+        });
+
         jLabel12.setText(":");
+
+        txtHorarioViajeMinutos.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtHorarioViajeMinutosKeyTyped(evt);
+            }
+        });
 
         txtFechaViaje.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -259,12 +301,61 @@ private DefaultTableModel modelo = new DefaultTableModel(){
     }//GEN-LAST:event_jbtnAgregarActionPerformed
 
     private void jbtnQuitarFilaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnQuitarFilaActionPerformed
-        quitarFila();
+        quitarFilasSeleccionadas();
     }//GEN-LAST:event_jbtnQuitarFilaActionPerformed
 
     private void jbtnModificarFilaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnModificarFilaActionPerformed
         modificarFila();
     }//GEN-LAST:event_jbtnModificarFilaActionPerformed
+
+    private void txtPasajeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPasajeKeyTyped
+        char caracter = evt.getKeyChar();
+        if (!Character.isDigit(caracter)) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtPasajeKeyTyped
+
+    private void txtPasajeroKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPasajeroKeyTyped
+        char caracter = evt.getKeyChar();
+        if (!Character.isDigit(caracter)) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtPasajeroKeyTyped
+
+    private void txtColectivoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtColectivoKeyTyped
+        char caracter = evt.getKeyChar();
+        if (!Character.isDigit(caracter)) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtColectivoKeyTyped
+
+    private void txtIdRutaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIdRutaKeyTyped
+        char caracter = evt.getKeyChar();
+        if (!Character.isDigit(caracter)) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtIdRutaKeyTyped
+
+    private void txtHorarioViajeHorasKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtHorarioViajeHorasKeyTyped
+        char caracter = evt.getKeyChar();
+        if (!Character.isDigit(caracter)) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtHorarioViajeHorasKeyTyped
+
+    private void txtHorarioViajeMinutosKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtHorarioViajeMinutosKeyTyped
+        char caracter = evt.getKeyChar();
+        if (!Character.isDigit(caracter)) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtHorarioViajeMinutosKeyTyped
+
+    private void txtPrecioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPrecioKeyTyped
+        char caracter = evt.getKeyChar();
+        if (!Character.isDigit(caracter)) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtPrecioKeyTyped
 
     private void armarJTable(String[] columnas) {
         for(String columna: columnas){
@@ -293,31 +384,55 @@ private DefaultTableModel modelo = new DefaultTableModel(){
     private void agregarFila() {
         String horaViaje = txtHorarioViajeHoras.getText() + ":"
                          + txtHorarioViajeMinutos.getText();
-        modelo.addRow(new Object[]{
-            txtPasaje.getText(),
-            txtPasajero.getText(),
-            txtColectivo.getText(),
-            txtIdRuta.getText(),
-            txtFechaViaje.getText(),
-            horaViaje,
-            txtAsiento.getText(),
-            txtPrecio.getText()
-        });
-        limpiarCampos();
+        if(validarCamposEntrada()){
+            modelo.addRow(new Object[]{
+                txtPasaje.getText(),
+                txtPasajero.getText(),
+                txtColectivo.getText(),
+                txtIdRuta.getText(),
+                txtFechaViaje.getText(),
+                horaViaje,
+                txtAsiento.getText(),
+                txtPrecio.getText()
+            });
+            limpiarCampos();
+        }else{
+            JOptionPane.showMessageDialog(null,
+                "No se puede agregar la fila porque tiene "
+                        + "datos ínvalidos.");
+        }
 
     }
 
-    private void quitarFila() {
-        int[] filas = jtTabla.getSelectedRows();
-        if (filas.length > 0) {
-            for (int i = filas.length - 1; i >= 0; i--) {
-                Integer idFila = getIdTabla(i);
-                if (idFila != null) {
-                    modelo.removeRow(filas[i]);
-                }
-            }
-        }
     
+    private void quitarFilasSeleccionadas(){
+// ----------------------- Pendiente --------------------
+//        Integer[] idFilas = getIdsDeLaJTabla();
+//        for(Integer idFila: idFilas){
+            // borrar fila de los datos persistentes
+            // Pendiente para hacer: Accesso a Datos::ColectivosData.java
+            // ColectivosDatos.borrarColectivo(idFila)
+//        }    
+// ----------------------- Pendiente --------------------
+        int[] filasSeleccionadas = jtTabla.getSelectedRows();
+        int filas = modelo.getRowCount();
+        for(int i=filasSeleccionadas.length-1; i >= 0; i--){
+            modelo.removeRow(filasSeleccionadas[i]);
+        }
+        jtTabla.repaint();
+// ----------------------- Pendiente --------------------
+//        limpiarJTabla();
+  // ----------------------- Pendiente --------------------      
+        
+    }
+    
+    private void limpiarJTabla(){
+        int filas = modelo.getRowCount() - 1;
+        for (int i = filas; i >= 0; i--) {
+            modelo.removeRow(i);
+        }
+        jtTabla.repaint();
+        
     }
 
     
@@ -325,17 +440,64 @@ private DefaultTableModel modelo = new DefaultTableModel(){
     private void modificarFila() {
 
     }
-
-    private Integer getIdTabla(int fila) {
-        Object val = jtTabla.getValueAt(fila, 0);
-        if (val == null) {
+// ----------------------- Pendiente --------------------
+//    private Integer getIdTabla(int fila) {
+//        Object val = jtTabla.getValueAt(fila, 0);
+//
+//        if (val == null) {
+//            return null;
+//        }
+//        
+//        StringBuilder cadenaIdFila = new StringBuilder();
+//            cadenaIdFila.append(val);
+//
+//        return Integer.valueOf(
+//                    cadenaIdFila.toString());
+//    }
+    
+//        private Integer getIdsJTabla(int fila) {
+//        Object val = jtTabla.getValueAt(fila, 0);
+//        if (val == null) {
+//            return null;
+//        }
+//        if (val instanceof Integer) {
+//            return (Integer) val;
+//        }
+//        return Integer.valueOf((String) val);
+//    }
+// ----------------------- Pendiente --------------------
+    
+        private Integer[] getIdsDeLaJTabla(){
+        int numFilas = modelo.getRowCount();
+        if(numFilas < 1){
             return null;
         }
-        if (val instanceof Integer) {
-            return (Integer) val;
+        int[] filasSeleccionadas = jtTabla.getSelectedRows();
+        System.out.println("filasSelccionadas.length=" + filasSeleccionadas.length);
+        Integer[] idFilas = new Integer[filasSeleccionadas.length];
+
+        for (int i = 0; i < filasSeleccionadas.length; i++) {
+            Object val = modelo.getValueAt(filasSeleccionadas[i], 0);
+            Integer idFila = null;
+            StringBuilder cadenaIdFila = new StringBuilder();
+            cadenaIdFila.append(val);
+            idFilas[i] = Integer.valueOf(
+                    cadenaIdFila.toString());
         }
-        return Integer.valueOf((String) val);
+
+        return idFilas;
     }
+        
+    private boolean validarCamposEntrada(){
+        if(txtPasaje.getText().isBlank()){
+            JOptionPane.showMessageDialog(null, 
+                    "Error: el id de la fila no puede estar vacía.");
+            return false;
+        }
+        return true;
+    }
+
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel12;

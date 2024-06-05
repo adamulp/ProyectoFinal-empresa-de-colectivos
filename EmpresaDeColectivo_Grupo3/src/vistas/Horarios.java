@@ -5,6 +5,7 @@
 package vistas;
 
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -106,15 +107,43 @@ public class Horarios extends javax.swing.JInternalFrame {
 
         jLabel1.setText("Id horario");
 
+        txtIdHorario.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtIdHorarioKeyTyped(evt);
+            }
+        });
+
         jLabel2.setText("Id ruta");
+
+        txtIdRuta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtIdRutaActionPerformed(evt);
+            }
+        });
+        txtIdRuta.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtIdRutaKeyTyped(evt);
+            }
+        });
 
         jLabel3.setText("Hora salida");
 
         jLabel4.setText("Hora llegada");
 
+        txtSalidaHora.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtSalidaHoraKeyTyped(evt);
+            }
+        });
+
         txtSalidaMinutos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtSalidaMinutosActionPerformed(evt);
+            }
+        });
+        txtSalidaMinutos.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtSalidaMinutosKeyTyped(evt);
             }
         });
 
@@ -131,7 +160,19 @@ public class Horarios extends javax.swing.JInternalFrame {
 
         jLabel7.setText("hs");
 
+        txtLlegadaHora.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtLlegadaHoraKeyTyped(evt);
+            }
+        });
+
         jLabel16.setText(":");
+
+        txtLlegadaMinutos.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtLlegadaMinutosKeyTyped(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -243,7 +284,7 @@ public class Horarios extends javax.swing.JInternalFrame {
 
     //Boton quitar fila
     private void btnQuitarFilaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuitarFilaActionPerformed
-        quitarFila();
+        quitarFilasSeleccionadas();
 
     }//GEN-LAST:event_btnQuitarFilaActionPerformed
 
@@ -252,6 +293,52 @@ public class Horarios extends javax.swing.JInternalFrame {
         modificarFila();
 
     }//GEN-LAST:event_btnModificarFilaActionPerformed
+
+    private void txtIdRutaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIdRutaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtIdRutaActionPerformed
+
+    private void txtIdHorarioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIdHorarioKeyTyped
+        char caracter = evt.getKeyChar();
+        if (!Character.isDigit(caracter)) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtIdHorarioKeyTyped
+
+    private void txtIdRutaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIdRutaKeyTyped
+        char caracter = evt.getKeyChar();
+        if (!Character.isDigit(caracter)) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtIdRutaKeyTyped
+
+    private void txtSalidaHoraKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSalidaHoraKeyTyped
+        char caracter = evt.getKeyChar();
+        if (!Character.isDigit(caracter)) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtSalidaHoraKeyTyped
+
+    private void txtSalidaMinutosKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSalidaMinutosKeyTyped
+        char caracter = evt.getKeyChar();
+        if (!Character.isDigit(caracter)) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtSalidaMinutosKeyTyped
+
+    private void txtLlegadaHoraKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtLlegadaHoraKeyTyped
+        char caracter = evt.getKeyChar();
+        if (!Character.isDigit(caracter)) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtLlegadaHoraKeyTyped
+
+    private void txtLlegadaMinutosKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtLlegadaMinutosKeyTyped
+        char caracter = evt.getKeyChar();
+        if (!Character.isDigit(caracter)) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtLlegadaMinutosKeyTyped
     private void armarJTable(String[] columnas) {
         for (String columna : columnas) {
             modelo.addColumn(columna);
@@ -279,27 +366,50 @@ public class Horarios extends javax.swing.JInternalFrame {
     private void agregarFila() {
         String horaSalida = txtSalidaHora.getText() + " " + txtSalidaMinutos.getText();
         String horaLlegada = txtLlegadaHora.getText() + " " + txtLlegadaMinutos.getText();
-        modelo.addRow(new Object[]{
+        if(validarCamposEntrada()){
+            modelo.addRow(new Object[]{
             txtIdHorario.getText(),
             txtIdRuta.getText(),
             horaSalida,
             horaLlegada,
             checkboxEstado.isSelected()
         });
-        limpiarCampos();
-    }
-
-    private void quitarFila() {
-        int[] filas = jtTabla.getSelectedRows();
-        if (filas.length > 0) {
-            for (int i = filas.length - 1; i >= 0; i--) {
-                Integer idFila = getIdTabla(i);
-                if (idFila != null) {
-                    modelo.removeRow(filas[i]);
-                }
-            }
+            limpiarCampos();
+        }        else{
+            JOptionPane.showMessageDialog(null,
+                "No se puede agregar la fila porque tiene "
+                        + "datos ínvalidos.");
         }
+     }
+
+    private void quitarFilasSeleccionadas(){
+// ----------------------- Pendiente --------------------
+//        Integer[] idFilas = getIdsDeLaJTabla();
+//        for(Integer idFila: idFilas){
+            // borrar fila de los datos persistentes
+            // Pendiente para hacer: Accesso a Datos::ColectivosData.java
+            // ColectivosDatos.borrarColectivo(idFila)
+//        }    
+// ----------------------- Pendiente --------------------
+        int[] filasSeleccionadas = jtTabla.getSelectedRows();
+        int filas = modelo.getRowCount();
+        for(int i=filasSeleccionadas.length-1; i >= 0; i--){
+            modelo.removeRow(filasSeleccionadas[i]);
+        }
+        jtTabla.repaint();
+// ----------------------- Pendiente --------------------
+//        limpiarJTabla();
+  // ----------------------- Pendiente --------------------      
+        
+    }
     
+    private void limpiarJTabla(){
+        int filas = modelo.getRowCount() - 1;
+        for (int i = filas; i >= 0; i--) {
+            modelo.removeRow(i);
+        }
+        jtTabla.repaint();
+        
     }
 
     
@@ -307,16 +417,69 @@ public class Horarios extends javax.swing.JInternalFrame {
     private void modificarFila() {
 
     }
-
-    private Integer getIdTabla(int fila) {
-        Object val = jtTabla.getValueAt(fila, 0);
-        if (val == null) {
+// ----------------------- Pendiente --------------------
+//    private Integer getIdTabla(int fila) {
+//        Object val = jtTabla.getValueAt(fila, 0);
+//
+//        if (val == null) {
+//            return null;
+//        }
+//        
+//        StringBuilder cadenaIdFila = new StringBuilder();
+//            cadenaIdFila.append(val);
+//
+//        return Integer.valueOf(
+//                    cadenaIdFila.toString());
+//    }
+    
+//        private Integer getIdsJTabla(int fila) {
+//        Object val = jtTabla.getValueAt(fila, 0);
+//        if (val == null) {
+//            return null;
+//        }
+//        if (val instanceof Integer) {
+//            return (Integer) val;
+//        }
+//        return Integer.valueOf((String) val);
+//    }
+// ----------------------- Pendiente --------------------
+    
+        private Integer[] getIdsDeLaJTabla(){
+        int numFilas = modelo.getRowCount();
+        if(numFilas < 1){
             return null;
         }
-        if (val instanceof Integer) {
-            return (Integer) val;
+        int[] filasSeleccionadas = jtTabla.getSelectedRows();
+        System.out.println("filasSelccionadas.length=" + filasSeleccionadas.length);
+        Integer[] idFilas = new Integer[filasSeleccionadas.length];
+
+        for (int i = 0; i < filasSeleccionadas.length; i++) {
+            Object val = modelo.getValueAt(filasSeleccionadas[i], 0);
+            Integer idFila = null;
+            StringBuilder cadenaIdFila = new StringBuilder();
+            cadenaIdFila.append(val);
+            idFilas[i] = Integer.valueOf(
+                    cadenaIdFila.toString());
         }
-        return Integer.valueOf((String) val);
+
+        return idFilas;
+    }
+        
+    private boolean validarCamposEntrada(){
+//        Boolean retorno = null;
+        boolean retorno = true;
+        if(txtIdHorario.getText().isBlank()){
+            JOptionPane.showMessageDialog(null, 
+                    "Error: el id del horario no puede estar vacía.");
+            retorno = false;
+        }
+        if(txtIdRuta.getText().isBlank()){
+            JOptionPane.showMessageDialog(null, 
+                    "Error: el id de la ruta no puede estar vacía.");
+            retorno = false;
+        }
+        
+        return retorno;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -2,6 +2,7 @@ package vistas;
 
 import java.awt.List;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -111,6 +112,11 @@ public class Colectivos extends javax.swing.JInternalFrame {
                 txtIdColectivoActionPerformed(evt);
             }
         });
+        txtIdColectivo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtIdColectivoKeyTyped(evt);
+            }
+        });
 
         checkboxEstado.setText("estado");
         checkboxEstado.addActionListener(new java.awt.event.ActionListener() {
@@ -201,7 +207,7 @@ public class Colectivos extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnAgregarFilaActionPerformed
 
     private void btnQuitarFilaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuitarFilaActionPerformed
-        quitarFila();
+        quitarFilasSeleccionadas();
     }//GEN-LAST:event_btnQuitarFilaActionPerformed
 
     private void btnModificarFilaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarFilaActionPerformed
@@ -215,6 +221,13 @@ public class Colectivos extends javax.swing.JInternalFrame {
     private void txtIdColectivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIdColectivoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtIdColectivoActionPerformed
+
+    private void txtIdColectivoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIdColectivoKeyTyped
+        char caracter = evt.getKeyChar();
+        if (!Character.isDigit(caracter)) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtIdColectivoKeyTyped
 
     private void armarJTable(String[] columnas) {
         for(String columna: columnas){
@@ -238,28 +251,54 @@ public class Colectivos extends javax.swing.JInternalFrame {
     }
     
     private void agregarFila() {
-        modelo.addRow(new Object[]{
-            txtCapacidad.getText(),
-            txtIdColectivo.getText(),
-            txtMarca.getText(),
-            txtMatricula.getText(),
-            txtModelo.getText(),
-            checkboxEstado.isSelected()
-        });
-        limpiarCampos();
-    }
-
-    private void quitarFila() {
-        int[] filas = jtTabla.getSelectedRows();
-        if (filas.length > 0) {
-            for (int i = filas.length - 1; i >= 0; i--) {
-                Integer idFila = getIdTabla(i);
-                if (idFila != null) {
-                    modelo.removeRow(filas[i]);
-                }
-            }
+        if(validarCamposEntrada()){
+            modelo.addRow(new Object[]{
+                txtCapacidad.getText(),
+                txtIdColectivo.getText(),
+                txtMarca.getText(),
+                txtMatricula.getText(),
+                txtModelo.getText(),
+                checkboxEstado.isSelected()
+            });
+            limpiarCampos();
         }
+        else{
+            JOptionPane.showMessageDialog(null,
+                "No se puede agregar la fila porque tiene "
+                        + "datos ínvalidos.");
+        }
+
+}
+
     
+    private void quitarFilasSeleccionadas(){
+// ----------------------- Pendiente --------------------
+//        Integer[] idFilas = getIdsDeLaJTabla();
+//        for(Integer idFila: idFilas){
+            // borrar fila de los datos persistentes
+            // Pendiente para hacer: Accesso a Datos::ColectivosData.java
+            // ColectivosDatos.borrarColectivo(idFila)
+//        }    
+// ----------------------- Pendiente --------------------
+        int[] filasSeleccionadas = jtTabla.getSelectedRows();
+        int filas = modelo.getRowCount();
+        for(int i=filasSeleccionadas.length-1; i >= 0; i--){
+            modelo.removeRow(filasSeleccionadas[i]);
+        }
+        jtTabla.repaint();
+// ----------------------- Pendiente --------------------
+//        limpiarJTabla();
+  // ----------------------- Pendiente --------------------      
+        
+    }
+    
+    private void limpiarJTabla(){
+        int filas = modelo.getRowCount() - 1;
+        for (int i = filas; i >= 0; i--) {
+            modelo.removeRow(i);
+        }
+        jtTabla.repaint();
+        
     }
 
     
@@ -267,17 +306,67 @@ public class Colectivos extends javax.swing.JInternalFrame {
     private void modificarFila() {
 
     }
-
-    private Integer getIdTabla(int fila) {
-        Object val = jtTabla.getValueAt(fila, 0);
-        if (val == null) {
+// ----------------------- Pendiente --------------------
+//    private Integer getIdTabla(int fila) {
+//        Object val = jtTabla.getValueAt(fila, 0);
+//
+//        if (val == null) {
+//            return null;
+//        }
+//        
+//        StringBuilder cadenaIdFila = new StringBuilder();
+//            cadenaIdFila.append(val);
+//
+//        return Integer.valueOf(
+//                    cadenaIdFila.toString());
+//    }
+    
+//        private Integer getIdsJTabla(int fila) {
+//        Object val = jtTabla.getValueAt(fila, 0);
+//        if (val == null) {
+//            return null;
+//        }
+//        if (val instanceof Integer) {
+//            return (Integer) val;
+//        }
+//        return Integer.valueOf((String) val);
+//    }
+// ----------------------- Pendiente --------------------
+    
+        private Integer[] getIdsDeLaJTabla(){
+        int numFilas = modelo.getRowCount();
+        if(numFilas < 1){
             return null;
         }
-        if (val instanceof Integer) {
-            return (Integer) val;
+        int[] filasSeleccionadas = jtTabla.getSelectedRows();
+        System.out.println("filasSelccionadas.length=" + filasSeleccionadas.length);
+        Integer[] idFilas = new Integer[filasSeleccionadas.length];
+
+        for (int i = 0; i < filasSeleccionadas.length; i++) {
+            Object val = modelo.getValueAt(filasSeleccionadas[i], 0);
+            Integer idFila = null;
+            StringBuilder cadenaIdFila = new StringBuilder();
+            cadenaIdFila.append(val);
+            idFilas[i] = Integer.valueOf(
+                    cadenaIdFila.toString());
         }
-        return Integer.valueOf((String) val);
+
+        return idFilas;
     }
+        
+    private boolean validarCamposEntrada(){
+        if(txtIdColectivo.getText().isBlank()){
+            JOptionPane.showMessageDialog(null, 
+                    "Error: el id de la fila no puede estar vacía.");
+            return false;
+        }
+        return true;
+    }
+
+
+    
+    
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregarFila;
     private javax.swing.JButton btnModificarFila;

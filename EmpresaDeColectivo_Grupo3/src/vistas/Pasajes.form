@@ -224,13 +224,20 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtPasaje">
+      <Events>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtPasajeKeyTyped"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="txtColectivo">
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtColectivoActionPerformed"/>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtColectivoKeyTyped"/>
       </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="txtIdRuta">
+      <Events>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtIdRutaKeyTyped"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel7">
       <Properties>
@@ -240,8 +247,14 @@
     <Component class="javax.swing.JTextField" name="txtAsiento">
     </Component>
     <Component class="javax.swing.JTextField" name="txtPasajero">
+      <Events>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtPasajeroKeyTyped"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="txtPrecio">
+      <Events>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtPrecioKeyTyped"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel8">
       <Properties>
@@ -254,6 +267,9 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtHorarioViajeHoras">
+      <Events>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtHorarioViajeHorasKeyTyped"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel12">
       <Properties>
@@ -261,6 +277,9 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtHorarioViajeMinutos">
+      <Events>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtHorarioViajeMinutosKeyTyped"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="txtFechaViaje">
       <Events>
