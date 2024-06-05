@@ -32,10 +32,11 @@ public class MainWindow extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         Entidades = new javax.swing.JMenu();
         jmColectivos = new javax.swing.JMenuItem();
-        jmHorarios = new javax.swing.JMenuItem();
-        jmPasajes = new javax.swing.JMenuItem();
         jmPasajeros = new javax.swing.JMenuItem();
         jmRutas = new javax.swing.JMenuItem();
+        jMenu1 = new javax.swing.JMenu();
+        jmPasajes = new javax.swing.JMenuItem();
+        jmHorarios = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -50,7 +51,7 @@ public class MainWindow extends javax.swing.JFrame {
             .addGap(0, 707, Short.MAX_VALUE)
         );
 
-        Entidades.setText("Entidades");
+        Entidades.setText("Datos");
 
         jmColectivos.setText("Colectivos");
         jmColectivos.addActionListener(new java.awt.event.ActionListener() {
@@ -59,22 +60,6 @@ public class MainWindow extends javax.swing.JFrame {
             }
         });
         Entidades.add(jmColectivos);
-
-        jmHorarios.setText("Horarios");
-        jmHorarios.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jmHorariosActionPerformed(evt);
-            }
-        });
-        Entidades.add(jmHorarios);
-
-        jmPasajes.setText("Pasajes");
-        jmPasajes.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jmPasajesActionPerformed(evt);
-            }
-        });
-        Entidades.add(jmPasajes);
 
         jmPasajeros.setText("Pasajeros");
         jmPasajeros.addActionListener(new java.awt.event.ActionListener() {
@@ -93,6 +78,26 @@ public class MainWindow extends javax.swing.JFrame {
         Entidades.add(jmRutas);
 
         jMenuBar1.add(Entidades);
+
+        jMenu1.setText("Relaciones");
+
+        jmPasajes.setText("Pasajes");
+        jmPasajes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmPasajesActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jmPasajes);
+
+        jmHorarios.setText("Horarios");
+        jmHorarios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmHorariosActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jmHorarios);
+
+        jMenuBar1.add(jMenu1);
 
         setJMenuBar(jMenuBar1);
 
@@ -180,6 +185,7 @@ public class MainWindow extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu Entidades;
     private javax.swing.JDesktopPane escritorio;
+    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jmColectivos;
     private javax.swing.JMenuItem jmHorarios;
