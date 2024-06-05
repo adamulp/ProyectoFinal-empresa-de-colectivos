@@ -299,14 +299,24 @@ public class Rutas extends javax.swing.JInternalFrame {
 
     private void btnAgregarFilaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarFilaActionPerformed
         agregarFila();
+        checkboxEstado.setEnabled(true);
+        btnNuevo.setEnabled(false);
     }//GEN-LAST:event_btnAgregarFilaActionPerformed
 
     private void btnQuitarFilaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuitarFilaActionPerformed
         quitarFilasSeleccionadas();
+        limpiarCampos();
+        btnAgregarFila.setEnabled(true);
+        btnModificarFila.setEnabled(false);
+        btnQuitarFila.setEnabled(false);
+        jtTabla.clearSelection();
     }//GEN-LAST:event_btnQuitarFilaActionPerformed
 
     private void btnModificarFilaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarFilaActionPerformed
         modificarFila();
+        limpiarCampos();
+        btnAgregarFila.setEnabled(true);
+        btnQuitarFila.setEnabled(false);
     }//GEN-LAST:event_btnModificarFilaActionPerformed
 
     private void txtRutaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtRutaKeyTyped
@@ -333,6 +343,12 @@ public class Rutas extends javax.swing.JInternalFrame {
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
         limpiarCampos();
         checkboxEstado.setSelected(true);
+        btnNuevo.setEnabled(false);
+        btnAgregarFila.setEnabled(true);
+        btnModificarFila.setEnabled(false);
+        btnQuitarFila.setEnabled(false);
+        jtTabla.clearSelection();
+        
     }//GEN-LAST:event_btnNuevoActionPerformed
 
     private void armarJTable(String[] columnas) {
@@ -342,34 +358,62 @@ public class Rutas extends javax.swing.JInternalFrame {
         jtTabla.setModel(modelo);
         jtTabla.setCellSelectionEnabled(false);
         jtTabla.setRowSelectionAllowed(true);
+        checkboxEstado.setSelected(true);
+        btnQuitarFila.setEnabled(false);
+        btnNuevo.setEnabled(false);
+        btnModificarFila.setEnabled(false);
         
         jtTabla.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent event) {
-                // Ignore extra messages
                 if (event.getValueIsAdjusting()) {
                     return;
                 }
 
-                // Get selected row
                 int filaSeleccionada = jtTabla.getSelectedRow();
+                int numFilas = jtTabla.getSelectedRowCount();
+                System.out.println("rowcount=" + numFilas);
+                
                 if (filaSeleccionada != -1) {
-                    String duracion = (String) jtTabla.getValueAt(filaSeleccionada, 3);
-                    String[] duracionHHMM = duracion.split(":");
-                    Boolean estado = (Boolean) jtTabla.getValueAt(filaSeleccionada, 4);
-                    if(estado != null){
-                        checkboxEstado.setSelected(estado);
+                    if(numFilas == 1){
+                        btnModificarFila.setEnabled(true);
+                        btnNuevo.setEnabled(true);
+                        btnQuitarFila.setEnabled(true);
+                        btnAgregarFila.setEnabled(false);
+                        Boolean estado = (Boolean) jtTabla.getValueAt(filaSeleccionada, 4);
+                        if(estado != null){
+                            checkboxEstado.setSelected(estado);
+                        }
+                        
+
+                        txtRuta.setText(jtTabla.getValueAt(filaSeleccionada, 0).toString());
+                        txtOrigen.setText(jtTabla.getValueAt(filaSeleccionada, 1).toString());
+                        txtDestino.setText(jtTabla.getValueAt(filaSeleccionada, 2).toString());
+                        
+                        String duracion = (String) jtTabla.getValueAt(filaSeleccionada, 3);
+                        if(duracion != null){
+                            String[] duracionHHMM = duracion.split(":");
+                            txtDuracionHora.setText(duracionHHMM[0]);
+                            txtDuracionMin.setText(duracionHHMM[1]);
+                        }
+                        
                     }
-                    
-                    txtRuta.setText(jtTabla.getValueAt(filaSeleccionada, 0).toString());
-                    txtOrigen.setText(jtTabla.getValueAt(filaSeleccionada, 1).toString());
-                    txtDestino.setText(jtTabla.getValueAt(filaSeleccionada, 2).toString());
-                    txtDuracionHora.setText(duracionHHMM[0]);
-                    txtDuracionMin.setText(duracionHHMM[1]);
-                    
+                }
+                if(numFilas == 0){
+                    btnModificarFila.setEnabled(false);
+                    btnQuitarFila.setEnabled(false);
+                    btnAgregarFila.setEnabled(true);
+                    checkboxEstado.setEnabled(true);
+                }
+                if(numFilas > 1){
+                    btnModificarFila.setEnabled(false);
+                    btnQuitarFila.setEnabled(true);
+                    btnAgregarFila.setEnabled(false);
+                    checkboxEstado.setEnabled(false);
                 }
             }
         });
+        
     }
 
     private void limpiarCampos() {
@@ -380,7 +424,7 @@ public class Rutas extends javax.swing.JInternalFrame {
         txtDuracionMin.setText("");
         txtOrigen.setText("");
         txtRuta.setText("");
-        checkboxEstado.setSelected(false);
+//        checkboxEstado.setSelected(false);
     }
     private void cargarCampos(){
         
@@ -437,7 +481,8 @@ public class Rutas extends javax.swing.JInternalFrame {
     
 
     private void modificarFila() {
-
+        quitarFilasSeleccionadas();
+        agregarFila();
     }
 // ----------------------- Pendiente --------------------
 //    private Integer getIdTabla(int fila) {
