@@ -6,6 +6,8 @@ package vistas;
 
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -53,6 +55,7 @@ public class Rutas extends javax.swing.JInternalFrame {
         btnAgregarFila = new javax.swing.JButton();
         btnQuitarFila = new javax.swing.JButton();
         btnModificarFila = new javax.swing.JButton();
+        btnNuevo = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         txtRuta = new javax.swing.JTextField();
@@ -104,14 +107,23 @@ public class Rutas extends javax.swing.JInternalFrame {
             }
         });
 
+        btnNuevo.setText("nuevo");
+        btnNuevo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNuevoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(21, 21, 21)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnNuevo)
+                .addGap(18, 18, 18)
                 .addComponent(btnAgregarFila, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                .addGap(31, 31, 31)
                 .addComponent(btnQuitarFila, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnModificarFila, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -124,7 +136,8 @@ public class Rutas extends javax.swing.JInternalFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnModificarFila)
                     .addComponent(btnQuitarFila)
-                    .addComponent(btnAgregarFila))
+                    .addComponent(btnAgregarFila)
+                    .addComponent(btnNuevo))
                 .addContainerGap(15, Short.MAX_VALUE))
         );
 
@@ -231,14 +244,14 @@ public class Rutas extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(32, 32, 32)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 807, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createSequentialGroup()
                             .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 86, Short.MAX_VALUE)
                             .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 33, Short.MAX_VALUE))
+                .addGap(31, 31, 31))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -317,6 +330,10 @@ public class Rutas extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_txtDuracionMinKeyTyped
 
+    private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
+        limpiarCampos();
+    }//GEN-LAST:event_btnNuevoActionPerformed
+
     private void armarJTable(String[] columnas) {
         for(String columna: columnas){
             modelo.addColumn(columna);
@@ -324,7 +341,29 @@ public class Rutas extends javax.swing.JInternalFrame {
         jtTabla.setModel(modelo);
         jtTabla.setCellSelectionEnabled(false);
         jtTabla.setRowSelectionAllowed(true);
+        
+        jtTabla.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent event) {
+                // Ignore extra messages
+                if (event.getValueIsAdjusting()) {
+                    return;
+                }
+
+                // Get selected row
+                int selectedRow = jtTabla.getSelectedRow();
+                if (selectedRow != -1) {
+                    // Update text fields with the values from the selected row
+                    txtDestino.setText(jtTabla.getValueAt(selectedRow, 0).toString());
+                    txtDuracionHora.setText(jtTabla.getValueAt(selectedRow, 1).toString());
+                    txtDuracionMin.setText(jtTabla.getValueAt(selectedRow, 2).toString());
+                    txtOrigen.setText(jtTabla.getValueAt(selectedRow, 3).toString());
+                    txtRuta.setText(jtTabla.getValueAt(selectedRow, 4).toString());
+                }
+            }
+        });
     }
+
     private void limpiarCampos() {
 //        txt.setText("");
 //        combo.setSelectedIndex(-1);
@@ -453,6 +492,7 @@ public class Rutas extends javax.swing.JInternalFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregarFila;
     private javax.swing.JButton btnModificarFila;
+    private javax.swing.JButton btnNuevo;
     private javax.swing.JButton btnQuitarFila;
     private javax.swing.JCheckBox checkboxEstado;
     private javax.swing.JLabel jLabel1;
