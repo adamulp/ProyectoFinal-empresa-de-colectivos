@@ -332,6 +332,7 @@ public class Rutas extends javax.swing.JInternalFrame {
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
         limpiarCampos();
+        checkboxEstado.setSelected(true);
     }//GEN-LAST:event_btnNuevoActionPerformed
 
     private void armarJTable(String[] columnas) {
@@ -351,14 +352,21 @@ public class Rutas extends javax.swing.JInternalFrame {
                 }
 
                 // Get selected row
-                int selectedRow = jtTabla.getSelectedRow();
-                if (selectedRow != -1) {
-                    // Update text fields with the values from the selected row
-                    txtDestino.setText(jtTabla.getValueAt(selectedRow, 0).toString());
-                    txtDuracionHora.setText(jtTabla.getValueAt(selectedRow, 1).toString());
-                    txtDuracionMin.setText(jtTabla.getValueAt(selectedRow, 2).toString());
-                    txtOrigen.setText(jtTabla.getValueAt(selectedRow, 3).toString());
-                    txtRuta.setText(jtTabla.getValueAt(selectedRow, 4).toString());
+                int filaSeleccionada = jtTabla.getSelectedRow();
+                if (filaSeleccionada != -1) {
+                    String duracion = (String) jtTabla.getValueAt(filaSeleccionada, 3);
+                    String[] duracionHHMM = duracion.split(":");
+                    Boolean estado = (Boolean) jtTabla.getValueAt(filaSeleccionada, 4);
+                    if(estado != null){
+                        checkboxEstado.setSelected(estado);
+                    }
+                    
+                    txtRuta.setText(jtTabla.getValueAt(filaSeleccionada, 0).toString());
+                    txtOrigen.setText(jtTabla.getValueAt(filaSeleccionada, 1).toString());
+                    txtDestino.setText(jtTabla.getValueAt(filaSeleccionada, 2).toString());
+                    txtDuracionHora.setText(duracionHHMM[0]);
+                    txtDuracionMin.setText(duracionHHMM[1]);
+                    
                 }
             }
         });
@@ -372,7 +380,7 @@ public class Rutas extends javax.swing.JInternalFrame {
         txtDuracionMin.setText("");
         txtOrigen.setText("");
         txtRuta.setText("");
-        checkboxEstado.setSelected(true);
+        checkboxEstado.setSelected(false);
     }
     private void cargarCampos(){
         
@@ -381,10 +389,10 @@ public class Rutas extends javax.swing.JInternalFrame {
         String duracion = txtDuracionHora.getText() + ":" + txtDuracionMin.getText();
         if(validarCamposEntrada()){
             modelo.addRow(new Object[]{
+                txtRuta.getText(),
+                txtOrigen.getText(),
                 txtDestino.getText(),
                 duracion,
-                txtOrigen.getText(),
-                txtRuta.getText(),
                 checkboxEstado.isSelected()
             });
             limpiarCampos();
