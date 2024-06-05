@@ -391,10 +391,14 @@ public class Rutas extends javax.swing.JInternalFrame {
                         txtDestino.setText(jtTabla.getValueAt(filaSeleccionada, 2).toString());
                         
                         String duracion = (String) jtTabla.getValueAt(filaSeleccionada, 3);
-                        if(duracion != null){
+                        if(duracion.length() == 2){
                             String[] duracionHHMM = duracion.split(":");
-                            txtDuracionHora.setText(duracionHHMM[0]);
+                            if(!duracionHHMM[0].isEmpty()){
+                                txtDuracionHora.setText(duracionHHMM[0]);
+                            }
+                            if(!duracionHHMM[1].isEmpty()){
                             txtDuracionMin.setText(duracionHHMM[1]);
+                            }
                         }
                         
                     }
