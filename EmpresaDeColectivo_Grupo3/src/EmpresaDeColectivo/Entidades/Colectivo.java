@@ -43,7 +43,7 @@ public class Colectivo {
         return capacidad;
     }
 
-    public boolean isEstado() {
+    public boolean estaActivo() {
         return estado;
     }
 
