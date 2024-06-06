@@ -17,15 +17,15 @@ classDiagram
 classDiagram
     class Pasaje {
         -int idPasaje
-        -int idPasajero
-        -int idColectivo
-        -int idRuta
+        -Pasajero pasajero
+        -Colectivo colectio
+        -Ruta ruta
         -LocalDate fechaViaje
         -LocalTime horaViaje
         -int asiento
         -double precio
         +Pasaje()
-        +Pasaje(int idPasajero, int idColectivo, int idRuta, LocalDate fechaViaje, LocalTime horaViaje, int asiento, double precio)
+        +Pasaje(Pasajero pasajero, Colectivo colectivo, Ruta ruta, LocalDate fechaViaje, LocalTime horaViaje, int asiento, double precio)
     }
 ```
 
