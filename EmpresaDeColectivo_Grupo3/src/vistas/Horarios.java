@@ -6,6 +6,8 @@ package vistas;
 
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -72,6 +74,7 @@ public class Horarios extends javax.swing.JInternalFrame {
         btnAgregarFila = new javax.swing.JButton();
         btnQuitarFila = new javax.swing.JButton();
         btnModificarFila = new javax.swing.JButton();
+        btnNuevo = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
 
         setClosable(true);
@@ -268,6 +271,13 @@ public class Horarios extends javax.swing.JInternalFrame {
             }
         });
 
+        btnNuevo.setText("Nueva fila");
+        btnNuevo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNuevoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -275,6 +285,7 @@ public class Horarios extends javax.swing.JInternalFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(24, 24, 24)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnModificarFila, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnQuitarFila, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnAgregarFila, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -289,7 +300,8 @@ public class Horarios extends javax.swing.JInternalFrame {
                 .addComponent(btnQuitarFila, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnModificarFila, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnNuevo))
         );
 
         jLabel8.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
@@ -333,7 +345,7 @@ public class Horarios extends javax.swing.JInternalFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(88, Short.MAX_VALUE))
+                .addContainerGap(63, Short.MAX_VALUE))
         );
 
         pack();
@@ -350,18 +362,29 @@ public class Horarios extends javax.swing.JInternalFrame {
     //Boton agregar fila
     private void btnAgregarFilaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarFilaActionPerformed
         agregarFila();
+        checkboxEstado.setEnabled(true);
+        btnNuevo.setEnabled(false);
 
     }//GEN-LAST:event_btnAgregarFilaActionPerformed
 
     //Boton quitar fila
     private void btnQuitarFilaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuitarFilaActionPerformed
         quitarFilasSeleccionadas();
+        limpiarCampos();
+        btnNuevo.setEnabled(false);
+        btnAgregarFila.setEnabled(true);
+        btnModificarFila.setEnabled(false);
+        btnQuitarFila.setEnabled(false);
+        jtTabla.clearSelection();
 
     }//GEN-LAST:event_btnQuitarFilaActionPerformed
 
     //Boton modificar fila
     private void btnModificarFilaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarFilaActionPerformed
         modificarFila();
+        limpiarCampos();
+        btnAgregarFila.setEnabled(true);
+        btnQuitarFila.setEnabled(false);
 
     }//GEN-LAST:event_btnModificarFilaActionPerformed
 
@@ -410,6 +433,16 @@ public class Horarios extends javax.swing.JInternalFrame {
             evt.consume();
         }
     }//GEN-LAST:event_txtLlegadaMinutosKeyTyped
+
+    private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
+        limpiarCampos();
+        checkboxEstado.setSelected(true);
+        btnNuevo.setEnabled(false);
+        btnAgregarFila.setEnabled(true);
+        btnModificarFila.setEnabled(false);
+        btnQuitarFila.setEnabled(false);
+        jtTabla.clearSelection();
+    }//GEN-LAST:event_btnNuevoActionPerformed
     private void armarJTable(String[] columnas) {
         for (String columna : columnas) {
             modelo.addColumn(columna);
@@ -417,6 +450,74 @@ public class Horarios extends javax.swing.JInternalFrame {
         jtTabla.setModel(modelo);
         jtTabla.setCellSelectionEnabled(false);
         jtTabla.setRowSelectionAllowed(true);
+        
+        checkboxEstado.setSelected(true);
+        btnQuitarFila.setEnabled(false);
+        btnNuevo.setEnabled(false);
+        btnModificarFila.setEnabled(false);
+        /*
+        columnas.add("idHorario");
+        columnas.add("idRuta");
+        columnas.add("horaSalida");
+        columnas.add("horaLlegada");
+        columnas.add("capacidad");
+        columnas.add("estado");
+        */
+        
+        jtTabla.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent event) {
+                if (event.getValueIsAdjusting()) {
+                    return;
+                }
+
+                int filaSeleccionada = jtTabla.getSelectedRow();
+                int numFilas = jtTabla.getSelectedRowCount();
+                System.out.println("rowcount=" + numFilas);
+                
+                if (filaSeleccionada != -1) {
+                    if(numFilas == 1){
+                        btnModificarFila.setEnabled(true);
+                        btnNuevo.setEnabled(true);
+                        btnQuitarFila.setEnabled(true);
+                        btnAgregarFila.setEnabled(false);
+                        Boolean estado = (Boolean) jtTabla.getValueAt(filaSeleccionada, 4);
+                        if(estado != null){
+                            checkboxEstado.setSelected(estado);
+                        }
+                        
+
+                        txtIdHorario.setText(jtTabla.getValueAt(filaSeleccionada, 0).toString());
+                        txtIdRuta.setText(jtTabla.getValueAt(filaSeleccionada, 1).toString());
+//                        txt.setText(jtTabla.getValueAt(filaSeleccionada, 2).toString());
+//                        
+//                        String duracion = (String) jtTabla.getValueAt(filaSeleccionada, 3);
+//                        if(duracion.length() == 2){
+//                            String[] duracionHHMM = duracion.split(":");
+//                            if(!duracionHHMM[0].isEmpty()){
+//                                txtDuracionHora.setText(duracionHHMM[0]);
+//                            }
+//                            if(!duracionHHMM[1].isEmpty()){
+//                            txtDuracionMin.setText(duracionHHMM[1]);
+//                            }
+//                        }
+                        
+                    }
+                }
+                if(numFilas == 0){
+                    btnModificarFila.setEnabled(false);
+                    btnQuitarFila.setEnabled(false);
+                    btnAgregarFila.setEnabled(true);
+                    checkboxEstado.setEnabled(true);
+                }
+                if(numFilas > 1){
+                    btnModificarFila.setEnabled(false);
+                    btnQuitarFila.setEnabled(true);
+                    btnAgregarFila.setEnabled(false);
+                    checkboxEstado.setEnabled(false);
+                }
+            }
+        });
     }
 
     private void limpiarCampos() {
@@ -486,7 +587,8 @@ public class Horarios extends javax.swing.JInternalFrame {
     
 
     private void modificarFila() {
-
+        quitarFilasSeleccionadas();
+        agregarFila();
     }
 // ----------------------- Pendiente --------------------
 //    private Integer getIdTabla(int fila) {
@@ -556,6 +658,7 @@ public class Horarios extends javax.swing.JInternalFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregarFila;
     private javax.swing.JButton btnModificarFila;
+    private javax.swing.JButton btnNuevo;
     private javax.swing.JButton btnQuitarFila;
     private javax.swing.JCheckBox checkboxEstado;
     private javax.swing.JComboBox<String> jComboBox1;
