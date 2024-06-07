@@ -106,5 +106,46 @@ public class RutaData {
         return ruta;
     }
     
+    public List<Ruta> listarRutasxOrigen(){
+        List<Ruta> rutas = null;
+        
+        return rutas;
+    }
+    
+    public List<Ruta> listarRutasxDestino(){
+        List<Ruta> rutas = null;
+        
+        return rutas;
+    }
+    
+    public List<Ruta> listarRutas(String Origen, String Destino){
+        List<Ruta> rutas = null;
+        
+        return rutas;
+    }
+    
+    public List<Ruta> listarRutasxDuracionMin(){
+        List<Ruta> rutas = null;
+        
+        return rutas;
+    }
+    
+    public List<Ruta> listarRutasxDuracionMax(){
+        List<Ruta> rutas = null;
+        
+        return rutas;
+    }
+    
+    public List<Ruta> listarRutasxDuracion(Duration min, Duration max){
+        List<Ruta> rutas = null;
+        
+        return rutas;
+    }
+    
+    public List<Ruta> listarRutasxDuracion(Duration duracion){
+        List<Ruta> rutas = null;
+        
+        return rutas;
+    }
     
 }
