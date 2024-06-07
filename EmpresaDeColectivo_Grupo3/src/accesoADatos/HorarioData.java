@@ -24,7 +24,7 @@ public class HorarioData {
     }
 
     public void guardarHorario(Horario Horario) {
-        String sql = "INSERT INTO Horario (HoraSalida, HoraLlegada," // insertar un nuevo registro en la tabla Horario.
+        String sql = "INSERT INTO horarios (HoraSalida, HoraLlegada," // insertar un nuevo registro en la tabla Horario.
                 + " Estado) "
                 + "VALUES (?, ?, ?)";
         try {
@@ -37,7 +37,7 @@ public class HorarioData {
 
             ResultSet rs = ps.getGeneratedKeys();  //Recuperamos la clave generada automáticamente para el nuevo registro y la asigna al objeto Horario.
             if (rs.next()) {
-                Horario.setIdHorario(rs.getInt(1));
+                Horario.setIdHorario(rs.getInt(1));// Deberia agregar idRuta? 
                 JOptionPane.showMessageDialog(null,
                         "Horario añadido con exito.");
             }
@@ -53,7 +53,7 @@ public class HorarioData {
     public Horario buscarHorario(int idHorario, int idRuta){
         Horario horario= null;
         String sql = "SELECT "
-                + "HoraSalida, HoraLlegada, estado FROM Horario"
+                + "HoraSalida, HoraLlegada, estado FROM horarios"
                 + "WHERE idHorario= ? AND idRuta = ? AND estado = 1";
 
         PreparedStatement ps = null;
@@ -83,7 +83,7 @@ public class HorarioData {
     }
     
     public void modificarHorario(Horario horario) {
-        String sql = "UPDATE Horario SET ID_Horario = ? , ID_Ruta = ?, Hora_Salida = ?, "
+        String sql = "UPDATE horarios SET ID_Horario = ? , ID_Ruta = ?, Hora_Salida = ?, "
                 + "Hora_Llegada = ?, Estado = ?  WHERE ID_Horario = ?";
         PreparedStatement ps = null;
         try {
@@ -109,7 +109,7 @@ public class HorarioData {
     public List<Horario> listarHorarios() {
         List<Horario> horarios = new ArrayList<>();
         try {
-            String sql = "SELECT * FROM horario WHERE estado = 1 ";
+            String sql = "SELECT * FROM horarios WHERE estado = 1 ";
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
 
