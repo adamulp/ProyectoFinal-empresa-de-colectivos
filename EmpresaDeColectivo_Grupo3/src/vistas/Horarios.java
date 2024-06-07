@@ -38,6 +38,7 @@ public class Horarios extends javax.swing.JInternalFrame {
         columnas.add("capacidad");
         columnas.add("estado");
 
+
         armarJTable(columnas.toArray(String[]::new));
     }
 
