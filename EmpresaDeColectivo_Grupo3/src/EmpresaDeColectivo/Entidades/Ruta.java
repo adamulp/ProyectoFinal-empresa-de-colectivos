@@ -44,7 +44,7 @@ public class Ruta {
         return duracionEstimada;
     }
 
-    public boolean isEstado() {
+    public boolean estaActivo() {
         return estado;
     }
 
@@ -63,6 +63,7 @@ public class Ruta {
     public void setDuracionEstimada(Duration duracionEstimada) {
         this.duracionEstimada = duracionEstimada;
     }
+    
 
     public void setEstado(boolean estado) {
         this.estado = estado;
