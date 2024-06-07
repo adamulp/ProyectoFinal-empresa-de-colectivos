@@ -9,6 +9,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
 import java.sql.Time;
+import java.util.ArrayList;
+import java.util.List;
 /**
  *
  * @author adam, enzo, alexis, nicolas
@@ -71,6 +73,7 @@ public class HorarioData {
                 
             } else {
                 JOptionPane.showMessageDialog(null, "No existe el Horario");
+                rs.close();
                 ps.close();
             }
         } catch (SQLException ex) {
@@ -99,6 +102,50 @@ public class HorarioData {
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Horario " + ex.getMessage());
+        }
+    }
+    //QUEDARIA AGREGAR ELIMINAR HORARIO Y LISTAR LOS HORARIOS.
+    
+    public List<Horario> listarHorarios() {
+        List<Horario> horarios = new ArrayList<>();
+        try {
+            String sql = "SELECT * FROM horario WHERE estado = 1 ";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Horario horario = new Horario();
+                horario = new Horario();
+                horario.setIdHorario(rs.getInt("idHorario"));
+                horario.setHoraSalida(rs.getTime("HoraSalida").toLocalTime());
+                horario.setHoraLlegada(rs.getTime("HoraLlegada").toLocalTime());
+                horario.setEstado(rs.getBoolean("Estado"));
+                horarios.add(horario);
+            }
+
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, " Error al acceder a la tabla Horario " + ex.getMessage());
+        }
+        return horarios;
+    }
+    
+     public void eliminarHorario(int id) {
+        try {
+            String sql = "UPDATE horario SET estado = 0 WHERE idHorario = ? ";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, id);
+
+            int fila = ps.executeUpdate();
+
+            if (fila == 1) {
+                JOptionPane.showMessageDialog(null, " Se eliminó el horario.");
+            }
+
+            ps.close();
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, " Error al acceder a la tabla Horario");
         }
     }
 }
