@@ -36,8 +36,8 @@ public class RutaData {
     }
 
     public void guardarRuta(Ruta ruta) {
-        String sql = " INSERT INTO Rutas (ID_Ruta, Origin, Destino, "
-                + " Duracion_Estimada, Estado "
+        String sql = " INSERT INTO Rutas (ID_Ruta, Origen, Destino, "
+                + " Duracion_Estimada, Estado) "
                 + "VALUES (?, ?, ?, ?, ?)";
         try {
             PreparedStatement ps = con.prepareStatement(sql,
@@ -78,7 +78,7 @@ public class RutaData {
         Ruta ruta = null;
         String sql = " SELECT "
                 + "Origen, Destino, Duracion_Estimada, Estado FROM Rutas "
-                + "WHERE idRuta = ? AND estado = 1";
+                + "WHERE ID_Ruta = ? AND estado = 1";
         PreparedStatement ps = null;
         try {
             ps = con.prepareStatement(sql);
@@ -90,7 +90,7 @@ public class RutaData {
                 ruta.setOrigen(rs.getString("Origen"));
                 ruta.setDestino(rs.getString("Destino"));
 
-                Time sqlTime = null;
+               Time sqlTime = rs.getTime("Duracion_Estimada");
                 Duration duracionEstimada = duracion(sqlTime);
                 if (sqlTime != null) {
                     duracionEstimada = duracion(sqlTime);
@@ -450,48 +450,40 @@ public class RutaData {
         return rutas;
     }
 
-    public List<Ruta> listarRutasxDuracion(Duration duracion) {
-      List<Ruta> rutas = new ArrayList<>();
+   public List<Ruta> listarRutasxDuracion(Duration duracion) {
+    List<Ruta> rutas = new ArrayList<>();
 
-        String sql = " SELECT "
-                + " ID_Ruta, Origen, Destino, Duracion_Estimada, Estado "
-                + " FROM Rutas "
-                + " WHERE Duracion_Estimada == ? "
-                + " AND Estado = 1";
-        PreparedStatement ps;
-        try {
-            ps = con.prepareStatement(sql);
-            Time sqlTime = mariaDbTime(duracion);
-            ps.setTime(1, sqlTime);
-            ps.setBoolean(1, true);
-            ResultSet rs = ps.executeQuery();
+    String sql = "SELECT ID_Ruta, Origen, Destino, Duracion_Estimada, Estado "
+                + "FROM Rutas "
+                + "WHERE Duracion_Estimada = ? AND Estado = 1";
+    try (PreparedStatement ps = con.prepareStatement(sql)) {
+        Time sqlTime = mariaDbTime(duracion);
+        ps.setTime(1, sqlTime);
+        ResultSet rs = ps.executeQuery();
 
-            while (rs.next()) {
-                Ruta ruta = new Ruta();
-                ruta.setIdRuta(rs.getInt("ID_Ruta"));
-                ruta.setOrigen(rs.getString("Origen"));
-                ruta.setDestino(rs.getString("Destino"));
-                
-                sqlTime = rs.getTime("Duracion_Estimada");
-                Duration duracionEstimada = null;
-                if (sqlTime != null) {
-                    duracionEstimada = duracion(sqlTime);
-                }
-                ruta.setDuracionEstimada(duracionEstimada);
-                ruta.setEstado(rs.getBoolean("Estado"));
+        while (rs.next()) {
+            Ruta ruta = new Ruta();
+            ruta.setIdRuta(rs.getInt("ID_Ruta"));
+            ruta.setOrigen(rs.getString("Origen"));
+            ruta.setDestino(rs.getString("Destino"));
 
-                rutas.add(ruta);
+            sqlTime = rs.getTime("Duracion_Estimada");
+            Duration duracionEstimada = null;
+            if (sqlTime != null) {
+                duracionEstimada = duracion(sqlTime);
             }
-            rs.close();
-            ps.close();
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null,
-                "Error al acceder la bd desde "
-                + "listarRutasxDuracionMin(Duration duracion)"
-                + " " + ex.getMessage());
-        }
+            ruta.setDuracionEstimada(duracionEstimada);
+            ruta.setEstado(rs.getBoolean("Estado"));
 
-        return rutas;
+            rutas.add(ruta);
+        }
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(null,
+                "Error al acceder la base de datos desde listarRutasxDuracion: " + ex.getMessage());
+    }
+
+    return rutas;
+
     }
 
 }
