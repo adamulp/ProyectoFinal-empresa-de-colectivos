@@ -361,7 +361,6 @@ public class Colectivos extends javax.swing.JInternalFrame {
     private void agregarFila() {
         if (validarCamposEntrada()) {
             modelo.addRow(new Object[]{
-                txtIdColectivo.getText(),
                 txtMatricula.getText(),
                 txtMarca.getText(),
                 txtModelo.getText(),
