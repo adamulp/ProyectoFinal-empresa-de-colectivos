@@ -36,6 +36,7 @@ public class MainWindow extends javax.swing.JFrame {
         jmRutas = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
         jmPasajes = new javax.swing.JMenuItem();
+        jmHorariosDeRutas = new javax.swing.JMenuItem();
         jmHorarios = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -44,11 +45,11 @@ public class MainWindow extends javax.swing.JFrame {
         escritorio.setLayout(escritorioLayout);
         escritorioLayout.setHorizontalGroup(
             escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 955, Short.MAX_VALUE)
+            .addGap(0, 1548, Short.MAX_VALUE)
         );
         escritorioLayout.setVerticalGroup(
             escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 707, Short.MAX_VALUE)
+            .addGap(0, 898, Short.MAX_VALUE)
         );
 
         Entidades.setText("Datos");
@@ -80,6 +81,11 @@ public class MainWindow extends javax.swing.JFrame {
         jMenuBar1.add(Entidades);
 
         jMenu1.setText("Relaciones");
+        jMenu1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenu1ActionPerformed(evt);
+            }
+        });
 
         jmPasajes.setText("Pasajes");
         jmPasajes.addActionListener(new java.awt.event.ActionListener() {
@@ -88,6 +94,14 @@ public class MainWindow extends javax.swing.JFrame {
             }
         });
         jMenu1.add(jmPasajes);
+
+        jmHorariosDeRutas.setText("Horarios de rutas");
+        jmHorariosDeRutas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmHorariosDeRutasActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jmHorariosDeRutas);
 
         jmHorarios.setText("Horarios");
         jmHorarios.addActionListener(new java.awt.event.ActionListener() {
@@ -109,7 +123,9 @@ public class MainWindow extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(escritorio, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(escritorio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
@@ -139,6 +155,15 @@ public class MainWindow extends javax.swing.JFrame {
         Rutas rutas = new Rutas();
         dibujarVentana(rutas);
     }//GEN-LAST:event_jmRutasActionPerformed
+
+    private void jMenu1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenu1ActionPerformed
+
+    private void jmHorariosDeRutasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmHorariosDeRutasActionPerformed
+        HorariosDeRutas horariosDeRutas = new HorariosDeRutas();
+        dibujarVentana(horariosDeRutas);
+    }//GEN-LAST:event_jmHorariosDeRutasActionPerformed
 
     /**
      * @param args the command line arguments
@@ -189,6 +214,7 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jmColectivos;
     private javax.swing.JMenuItem jmHorarios;
+    private javax.swing.JMenuItem jmHorariosDeRutas;
     private javax.swing.JMenuItem jmPasajeros;
     private javax.swing.JMenuItem jmPasajes;
     private javax.swing.JMenuItem jmRutas;

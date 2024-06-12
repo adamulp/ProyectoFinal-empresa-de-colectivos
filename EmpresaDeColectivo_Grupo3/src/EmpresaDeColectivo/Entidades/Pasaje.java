@@ -19,6 +19,11 @@ public class Pasaje {
 
     public Pasaje() {
     }
+    
+    public Pasaje(int idPasajero, int idColectivo, int idRuta, LocalDate fechaViaje, LocalTime horaViaje, int asiento, double precio) {
+        this.idPasajero = idPasajero;
+        this.idColectivo = idColectivo;
+        this.idRuta = idRuta;
 
     public Pasaje(int idPasaje, Pasajero pasajero, Colectivo colectivo, Ruta ruta, LocalDate fechaViaje, LocalTime horaViaje, int asiento, double precio) {
         this.idPasaje = idPasaje;
@@ -30,9 +35,7 @@ public class Pasaje {
         this.asiento = asiento;
         this.precio = precio;
     }
-
-    
-    
+  
     public int getIdPasaje() {
         return idPasaje;
     }
