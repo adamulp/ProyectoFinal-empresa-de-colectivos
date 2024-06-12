@@ -312,6 +312,78 @@ public class RutaData {
 
         return rutas;
     }
+    
+    public List<String> listarOrigenesPorDestinos(String destino, Boolean activo){
+        List<String> origenes = new ArrayList<>();
+
+        String sql = " SELECT DISTINCT Origen "
+                + " FROM Rutas "
+                + " WHERE Destino = ?";
+        if(activo != null){
+            if(activo){
+                sql += " AND Estado = 1";
+            }else if(!activo){
+                sql += " AND Estado = 0";
+            }
+        }
+        PreparedStatement ps;
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setString(2, destino);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                String origen = rs.getString("Origen");
+                origenes.add(origen);
+            }
+            rs.close();
+            ps.close();
+        }
+        catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null,
+                    "Error al acceder la bd desde "
+                  + "listarOrigenesPorDestinos(String destino, Boolean activo)"
+                  + " " + ex.getMessage());
+        }
+
+        return origenes;
+    }
+    
+    public List<String> listarDestinosPorOrigen(String origen, Boolean activo){
+        List<String> destinos = new ArrayList<>();
+
+        String sql = " SELECT DISTINCT Destino "
+                + " FROM Rutas "
+                + " WHERE Origen = ?";
+        if(activo != null){
+            if(activo){
+                sql += " AND Estado = 1";
+            }else if(!activo){
+                sql += " AND Estado = 0";
+            }
+        }
+        PreparedStatement ps;
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setString(2, origen);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                String destino = rs.getString("Destino");
+                destinos.add(destino);
+            }
+            rs.close();
+            ps.close();
+        }
+        catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null,
+                    "Error al acceder la bd desde "
+                  + "listarDestinosPorOrigen(String origen, Boolean activo)"
+                  + " " + ex.getMessage());
+        }
+
+        return destinos;
+    }
 
     public List<Ruta> listarRutas(String origen, String destino) {
         List<Ruta> rutas = new ArrayList<>();
