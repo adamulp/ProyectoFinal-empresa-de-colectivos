@@ -4,6 +4,11 @@
  */
 package vistas;
 
+import EmpresaDeColectivo.Entidades.Colectivo;
+import EmpresaDeColectivo.Entidades.Horario;
+import EmpresaDeColectivo.Entidades.Pasaje;
+import EmpresaDeColectivo.Entidades.Pasajero;
+import accesoADatos.PasajeData;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
@@ -1432,20 +1437,46 @@ private DefaultTableModel modelo = new DefaultTableModel(){
         columnas.add("HoraViaje");
         columnas.add("Asiento");
         columnas.add("Precio");
-*/
-                        txtIdPasaje.setText(jtTabla.getValueAt(filaSeleccionada, 0).toString());
-                        textIdPasajero.setText(jtTabla.getValueAt(filaSeleccionada, 1).toString());
+*/                      Integer idPasaje = (Integer)jtTabla.getValueAt(filaSeleccionada, 0);
+                        txtIdPasaje.setText(idPasaje.toString());
+                        
+                        Pasaje pasajeSeleccionada = null;
+                        if(idPasaje != null){
+                            pasajeSeleccionada = buscarPasajeBD(idPasaje);
+                        }
+                        
+                        Integer idPasajero = (Integer)jtTabla.getValueAt(filaSeleccionada, 1);
+                        textIdPasajero.setText(idPasajero.toString());
+                        
+                        Pasajero pasajero = null;
+                        if(idPasajero != null){
+                           pasajero = pasajeSeleccionada.getPasajero();
+                        }
+                        
                         // To Do: get datos del pasajero desde Pasajero.getters
+                        
 //                        txtNombre.setText(jtTabla.getValueAt(filaSeleccionada, 0).toString());
 //                        txtApellido.setText(jtTabla.getValueAt(filaSeleccionada, 0).toString());
 //                        txtTelefono.setText(jtTabla.getValueAt(filaSeleccionada, 0).toString());
 //                        txtDni.setText(jtTabla.getValueAt(filaSeleccionada, 0).toString());
 //                        txtCorreo.setText(jtTabla.getValueAt(filaSeleccionada, 0).toString());
 //                        checkboxPasajerosActivos.setSelected(false);
-
-                        txtIdColectivo.setText(jtTabla.getValueAt(filaSeleccionada, 2).toString());
+                        Integer idColectivo = (Integer)jtTabla.getValueAt(filaSeleccionada, 2);   
+                        txtIdColectivo.setText(idColectivo.toString());
                         
-                        txtIdHorario.setText(jtTabla.getValueAt(filaSeleccionada, 3).toString());
+                        Colectivo colectivo = null;
+                        if(idColectivo != null){
+                            colectivo = pasajeSeleccionada.getColectivo();
+                        }
+                        
+                        Integer idHorario = (Integer)jtTabla.getValueAt(filaSeleccionada, 3);
+                        txtIdHorario.setText(idHorario.toString());
+                        
+                        Horario horario = null;
+                        if(idHorario != null){
+//                            horario = pasajeSeleccionada.getRuta().get
+                        }
+                        
                         String horarioSalida = jtTabla.getValueAt(filaSeleccionada, 4).toString();
                         String horarioLlegada = jtTabla.getValueAt(filaSeleccionada, 5).toString();
                         txtIdRuta.setText(jtTabla.getValueAt(filaSeleccionada, 6).toString());
@@ -1462,14 +1493,15 @@ private DefaultTableModel modelo = new DefaultTableModel(){
                         
                         // To Do: Split string duracion, get duracion desde Ruta.getDuracion()
                         String duracionHora, duracionMin;
-                        txtDuracionHora.setText(duracionHora);
-                        txtDuracionMin.setText(duracionMin);
+//                        txtDuracionHora.setText(duracionHora);
+//                        txtDuracionMin.setText(duracionMin);
                         
                         // To Do: Get marca, matricula, modelo desde Colectivo.getters()
-                        String marca, matricula, modelo;
-                        txtMarca.setText(marca);
-                        txtMatricula.setText(matricula);
-                        txtModelo.setText(modelo);
+//                        colectivol
+//                        String marca, matricula, modelo;
+//                        txtMarca.setText(marca);
+//                        txtMatricula.setText(matricula);
+//                        txtModelo.setText(modelo);
                         
                         
                         
@@ -1503,6 +1535,13 @@ private DefaultTableModel modelo = new DefaultTableModel(){
             }
         });
     }
+ 
+    private Pasaje buscarPasajeBD(int idPasaje){
+        PasajeData pasajeData = new PasajeData();
+        return pasajeData.buscarPasaje(idPasaje);
+    }
+    
+
     private void setDefaultCheckBoxes(){
         checkBoxRutasActivas.setSelected(true);
         checkboxHorarioActivo.setSelected(true);
