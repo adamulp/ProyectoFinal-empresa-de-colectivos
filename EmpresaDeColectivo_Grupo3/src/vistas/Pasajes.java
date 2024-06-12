@@ -151,14 +151,20 @@ private DefaultTableModel modelo = new DefaultTableModel(){
         jButton1 = new javax.swing.JButton();
         jPanel8 = new javax.swing.JPanel();
         jPanel17 = new javax.swing.JPanel();
+        txtSalidaHora = new javax.swing.JTextField();
+        txtSalidaMinutos = new javax.swing.JTextField();
         jLabel24 = new javax.swing.JLabel();
-        comboHoraSalida = new javax.swing.JComboBox<>();
+        jLabel25 = new javax.swing.JLabel();
+        jLabel26 = new javax.swing.JLabel();
+        jPanel19 = new javax.swing.JPanel();
+        txtLlegadaHora = new javax.swing.JTextField();
+        txtLlegadaMinutos = new javax.swing.JTextField();
+        jLabel27 = new javax.swing.JLabel();
+        jLabel28 = new javax.swing.JLabel();
+        jLabel29 = new javax.swing.JLabel();
         jLabel30 = new javax.swing.JLabel();
         txtIdHorario = new javax.swing.JTextField();
-        checkboxHorariosActivos = new javax.swing.JCheckBox();
-        jPanel34 = new javax.swing.JPanel();
-        jLabel31 = new javax.swing.JLabel();
-        comboHoraLlegada = new javax.swing.JComboBox<>();
+        checkboxHorarioActivo = new javax.swing.JCheckBox();
 
         setClosable(true);
 
@@ -1056,68 +1062,120 @@ private DefaultTableModel modelo = new DefaultTableModel(){
                 .addContainerGap())
         );
 
+        txtSalidaHora.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtSalidaHoraActionPerformed(evt);
+            }
+        });
+
+        txtSalidaMinutos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtSalidaMinutosActionPerformed(evt);
+            }
+        });
+
         jLabel24.setText("Hora salida");
 
-        comboHoraSalida.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jLabel25.setText(":");
+
+        jLabel26.setText("hs");
 
         javax.swing.GroupLayout jPanel17Layout = new javax.swing.GroupLayout(jPanel17);
         jPanel17.setLayout(jPanel17Layout);
         jPanel17Layout.setHorizontalGroup(
             jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel17Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(comboHoraSalida, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-            .addGroup(jPanel17Layout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addComponent(jLabel24)
-                .addContainerGap(63, Short.MAX_VALUE))
+                .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel17Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel26)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                        .addComponent(txtSalidaHora, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel25)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtSalidaMinutos, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel17Layout.createSequentialGroup()
+                        .addGap(16, 16, 16)
+                        .addComponent(jLabel24)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
         jPanel17Layout.setVerticalGroup(
             jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel17Layout.createSequentialGroup()
-                .addContainerGap(18, Short.MAX_VALUE)
+                .addContainerGap(20, Short.MAX_VALUE)
                 .addComponent(jLabel24)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(comboHoraSalida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtSalidaHora, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtSalidaMinutos, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel25)
+                    .addComponent(jLabel26))
+                .addContainerGap())
+        );
+
+        txtLlegadaHora.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtLlegadaHoraActionPerformed(evt);
+            }
+        });
+
+        txtLlegadaMinutos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtLlegadaMinutosActionPerformed(evt);
+            }
+        });
+
+        jLabel27.setText("Hora llegada");
+
+        jLabel28.setText(":");
+
+        jLabel29.setText("hs");
+
+        javax.swing.GroupLayout jPanel19Layout = new javax.swing.GroupLayout(jPanel19);
+        jPanel19.setLayout(jPanel19Layout);
+        jPanel19Layout.setHorizontalGroup(
+            jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel19Layout.createSequentialGroup()
+                .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel19Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel29)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(txtLlegadaHora, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel28)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtLlegadaMinutos, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel19Layout.createSequentialGroup()
+                        .addGap(16, 16, 16)
+                        .addComponent(jLabel27)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap(17, Short.MAX_VALUE))
+        );
+        jPanel19Layout.setVerticalGroup(
+            jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel19Layout.createSequentialGroup()
+                .addContainerGap(8, Short.MAX_VALUE)
+                .addComponent(jLabel27)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtLlegadaHora, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtLlegadaMinutos, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel28)
+                    .addComponent(jLabel29))
                 .addContainerGap())
         );
 
         jLabel30.setText("idHorario");
 
-        checkboxHorariosActivos.setText("Horarios Activos");
-        checkboxHorariosActivos.addActionListener(new java.awt.event.ActionListener() {
+        checkboxHorarioActivo.setText("Horario Activo");
+        checkboxHorarioActivo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                checkboxHorariosActivosActionPerformed(evt);
+                checkboxHorarioActivoActionPerformed(evt);
             }
         });
-
-        jLabel31.setText("Hora llegada");
-
-        comboHoraLlegada.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        javax.swing.GroupLayout jPanel34Layout = new javax.swing.GroupLayout(jPanel34);
-        jPanel34.setLayout(jPanel34Layout);
-        jPanel34Layout.setHorizontalGroup(
-            jPanel34Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel34Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(comboHoraLlegada, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-            .addGroup(jPanel34Layout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addComponent(jLabel31)
-                .addContainerGap(51, Short.MAX_VALUE))
-        );
-        jPanel34Layout.setVerticalGroup(
-            jPanel34Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel34Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel31)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(comboHoraLlegada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
@@ -1126,32 +1184,29 @@ private DefaultTableModel modelo = new DefaultTableModel(){
             .addGroup(jPanel8Layout.createSequentialGroup()
                 .addGap(23, 23, 23)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addComponent(txtIdHorario, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)
-                        .addComponent(jLabel30, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(jPanel17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel30, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(checkboxHorariosActivos)
-                    .addComponent(jPanel34, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(21, Short.MAX_VALUE))
+                    .addComponent(checkboxHorarioActivo)
+                    .addComponent(jPanel19, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(36, Short.MAX_VALUE))
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
+                .addGap(27, 27, 27)
+                .addComponent(jLabel30)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtIdHorario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(checkboxHorarioActivo))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel8Layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jPanel34, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel8Layout.createSequentialGroup()
-                        .addGap(27, 27, 27)
-                        .addComponent(jLabel30)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtIdHorario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(checkboxHorariosActivos))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
-                        .addComponent(jPanel17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jPanel17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel19, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(27, 27, 27))
         );
 
@@ -1172,7 +1227,7 @@ private DefaultTableModel modelo = new DefaultTableModel(){
             jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel12Layout.createSequentialGroup()
                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 24, Short.MAX_VALUE))
+                .addGap(0, 12, Short.MAX_VALUE))
             .addGroup(jPanel12Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1309,9 +1364,25 @@ private DefaultTableModel modelo = new DefaultTableModel(){
         // TODO add your handling code here:
     }//GEN-LAST:event_btnNuevoActionPerformed
 
-    private void checkboxHorariosActivosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkboxHorariosActivosActionPerformed
+    private void txtSalidaHoraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSalidaHoraActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_checkboxHorariosActivosActionPerformed
+    }//GEN-LAST:event_txtSalidaHoraActionPerformed
+
+    private void txtSalidaMinutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSalidaMinutosActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtSalidaMinutosActionPerformed
+
+    private void txtLlegadaHoraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtLlegadaHoraActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtLlegadaHoraActionPerformed
+
+    private void txtLlegadaMinutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtLlegadaMinutosActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtLlegadaMinutosActionPerformed
+
+    private void checkboxHorarioActivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkboxHorarioActivoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_checkboxHorarioActivoActionPerformed
 
     private void armarJTable(String[] columnas) {
         for(String columna: columnas){
@@ -1403,7 +1474,7 @@ private DefaultTableModel modelo = new DefaultTableModel(){
                         
                         Horario horario = null;
                         if(idHorario != null){
-                            
+//                            horario = pasajeSeleccionada.getRuta().get
                         }
                         
                         String horarioSalida = jtTabla.getValueAt(filaSeleccionada, 4).toString();
@@ -1422,15 +1493,15 @@ private DefaultTableModel modelo = new DefaultTableModel(){
                         
                         // To Do: Split string duracion, get duracion desde Ruta.getDuracion()
                         String duracionHora, duracionMin;
-                        txtDuracionHora.setText(duracionHora);
-                        txtDuracionMin.setText(duracionMin);
+//                        txtDuracionHora.setText(duracionHora);
+//                        txtDuracionMin.setText(duracionMin);
                         
                         // To Do: Get marca, matricula, modelo desde Colectivo.getters()
-                        colectivol
-                        String marca, matricula, modelo;
-                        txtMarca.setText(marca);
-                        txtMatricula.setText(matricula);
-                        txtModelo.setText(modelo);
+//                        colectivol
+//                        String marca, matricula, modelo;
+//                        txtMarca.setText(marca);
+//                        txtMatricula.setText(matricula);
+//                        txtModelo.setText(modelo);
                         
                         
                         
@@ -1469,9 +1540,11 @@ private DefaultTableModel modelo = new DefaultTableModel(){
         PasajeData pasajeData = new PasajeData();
         return pasajeData.buscarPasaje(idPasaje);
     }
+    
+
     private void setDefaultCheckBoxes(){
         checkBoxRutasActivas.setSelected(true);
-        checkboxHorariosActivos.setSelected(true);
+        checkboxHorarioActivo.setSelected(true);
         checkboxPasajerosActivos.setSelected(false);
         checkboxColectivosActivos.setSelected(true);
     }
@@ -1615,11 +1688,9 @@ private DefaultTableModel modelo = new DefaultTableModel(){
     private javax.swing.JButton btnQuitarFila;
     private javax.swing.JCheckBox checkBoxRutasActivas;
     private javax.swing.JCheckBox checkboxColectivosActivos;
-    private javax.swing.JCheckBox checkboxHorariosActivos;
+    private javax.swing.JCheckBox checkboxHorarioActivo;
     private javax.swing.JCheckBox checkboxPasajerosActivos;
     private javax.swing.JComboBox<String> comboDestino;
-    private javax.swing.JComboBox<String> comboHoraLlegada;
-    private javax.swing.JComboBox<String> comboHoraSalida;
     private javax.swing.JComboBox<String> comboOrigen;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
@@ -1641,9 +1712,13 @@ private DefaultTableModel modelo = new DefaultTableModel(){
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
+    private javax.swing.JLabel jLabel25;
+    private javax.swing.JLabel jLabel26;
+    private javax.swing.JLabel jLabel27;
+    private javax.swing.JLabel jLabel28;
+    private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel30;
-    private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -1660,6 +1735,7 @@ private DefaultTableModel modelo = new DefaultTableModel(){
     private javax.swing.JPanel jPanel16;
     private javax.swing.JPanel jPanel17;
     private javax.swing.JPanel jPanel18;
+    private javax.swing.JPanel jPanel19;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel20;
     private javax.swing.JPanel jPanel21;
@@ -1676,7 +1752,6 @@ private DefaultTableModel modelo = new DefaultTableModel(){
     private javax.swing.JPanel jPanel31;
     private javax.swing.JPanel jPanel32;
     private javax.swing.JPanel jPanel33;
-    private javax.swing.JPanel jPanel34;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
@@ -1700,11 +1775,15 @@ private DefaultTableModel modelo = new DefaultTableModel(){
     private javax.swing.JTextField txtIdHorario;
     private javax.swing.JTextField txtIdPasaje;
     private javax.swing.JTextField txtIdRuta;
+    private javax.swing.JTextField txtLlegadaHora;
+    private javax.swing.JTextField txtLlegadaMinutos;
     private javax.swing.JTextField txtMarca;
     private javax.swing.JTextField txtMatricula;
     private javax.swing.JTextField txtModelo;
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtPrecio;
+    private javax.swing.JTextField txtSalidaHora;
+    private javax.swing.JTextField txtSalidaMinutos;
     private javax.swing.JTextField txtTelefono;
     // End of variables declaration//GEN-END:variables
 }
