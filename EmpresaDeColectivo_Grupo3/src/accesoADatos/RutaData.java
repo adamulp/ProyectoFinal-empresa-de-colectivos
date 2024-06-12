@@ -187,6 +187,8 @@ public class RutaData {
         return fila == 1;
         
     }
+    
+    
 
     public List<Ruta> listarRutasxOrigen(String origen) {
         List<Ruta> rutas = new ArrayList<>();
@@ -265,6 +267,47 @@ public class RutaData {
                         "Error al acceder la bd desde "
                         + "listarRutasxOrigen(String origen)"
                         + " " + ex.getMessage());
+        }
+
+        return rutas;
+    }
+
+    public List<Ruta> listarRutas(){
+        List<Ruta> rutas = new ArrayList<>();
+
+        String sql = " SELECT "
+                + " ID_Ruta, Origen, Destino, Duracion_Estimada, Estado "
+                + " FROM Rutas "
+                + " WHERE Estado = 1";
+        PreparedStatement ps;
+        try {
+            ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Ruta ruta = new Ruta();
+                ruta.setIdRuta(rs.getInt("ID_Ruta"));
+                ruta.setOrigen(rs.getString("Origen"));
+                ruta.setDestino(rs.getString("Destino"));
+
+                Time sqlTime = rs.getTime("Duracion_Estimada");
+                Duration duracionEstimada = null;
+                if (sqlTime != null) {
+                    duracionEstimada = duracion(sqlTime);
+                }
+                ruta.setDuracionEstimada(duracionEstimada);
+                ruta.setEstado(rs.getBoolean("Estado"));
+
+                rutas.add(ruta);
+            }
+            rs.close();
+            ps.close();
+        }
+        catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null,
+                    "Error al acceder la bd desde "
+                  + "listarRutasxOrigen(String origen)"
+                  + " " + ex.getMessage());
         }
 
         return rutas;
