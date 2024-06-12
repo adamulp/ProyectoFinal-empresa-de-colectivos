@@ -453,6 +453,7 @@ public class Horarios extends javax.swing.JInternalFrame {
         jtTabla.setRowSelectionAllowed(true);
         
         checkboxEstado.setSelected(true);
+        
         btnQuitarFila.setEnabled(false);
         btnNuevo.setEnabled(false);
         btnModificarFila.setEnabled(false);
