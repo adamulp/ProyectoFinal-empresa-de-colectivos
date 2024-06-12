@@ -14,7 +14,7 @@ import java.util.List;
  *
  * @author Hollmann
  */
-public class main {
+public class Main {
 
     public static void main(String[] args) {
         /*
