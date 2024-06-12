@@ -1,6 +1,9 @@
 package accesoADatos;
 
+import EmpresaDeColectivo.Entidades.Colectivo;
 import EmpresaDeColectivo.Entidades.Pasaje;
+import EmpresaDeColectivo.Entidades.Pasajero;
+import EmpresaDeColectivo.Entidades.Ruta;
 import java.sql.Connection;
 import java.sql.*;
 import java.time.LocalTime;
@@ -47,9 +50,16 @@ public class PasajeData {
      
    public Pasaje buscarPasaje(int idPasaje) {
     Pasaje pasaje = null;
-    String sql = "SELECT idPasajero, idColectivo, idRuta, fechaViaje, horaViaje, asiento, precio "
+    String sql = "SELECT ID_Pasajero, ID_Colectivo, ID_Ruta, Fecha_Viaje, Hora_Viaje, Asiento, Precio "
             + "FROM pasajes "
             + "WHERE idPasaje = ?";
+    PasajeroData pasajeroData = new PasajeroData();
+    ColectivoData colectivoData = new ColectivoData();
+    RutaData rutaData = new RutaData();
+    
+    Pasajero pasajero = null;
+    Ruta ruta = null;
+    Colectivo colectivo = null;
     
 
     try {
@@ -58,9 +68,16 @@ public class PasajeData {
         ResultSet rs = ps.executeQuery();
 
         if (rs.next()) {
-           pasaje.setIdPasajero(idPasaje);
-           pasaje.setIdColectivo(rs.getInt("idColectivo"));
-           pasaje.setIdRuta(rs.getInt("idRuta"));
+           pasaje.setIdPasaje(idPasaje);
+           
+           pasajero = pasajeroData.buscarPasajero(rs.getInt("ID_Pasajero"));
+           colectivo = colectivoData.buscarColectivo(rs.getInt("ID_Colectivo"));
+           ruta = rutaData.buscarRuta(rs.getInt("ID_Ruta"));
+           
+           pasaje.setPasajero(pasajero);
+           pasaje.setColectivo(colectivo);
+           pasaje.setRuta(ruta);
+           
            pasaje.setFechaViaje(rs.getDate("fechaViaje").toLocalDate());
            pasaje.setHoraViaje(rs.getTime("horaViaje").toLocalTime());
            pasaje.setAsiento(rs.getInt("asiento"));
@@ -82,6 +99,10 @@ public class PasajeData {
    
    
    public List<Pasaje> listarPasajes() {
+        PasajeroData pasajeroData = new PasajeroData();
+        ColectivoData colectivoData = new ColectivoData();
+        RutaData rutaData = new RutaData();
+         
         List<Pasaje> pasajes = new ArrayList<>();
         try {
             String sql = "SELECT * FROM pasajes ";
@@ -89,11 +110,18 @@ public class PasajeData {
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
+                Pasajero pasajero = pasajeroData.buscarPasajero(rs.getInt("ID_Pasajero"));
+                Ruta ruta = rutaData.buscarRuta(rs.getInt("ID_Ruta"));
+                Colectivo colectivo = colectivoData.buscarColectivo(rs.getInt("ID_Colectivo"));
+
+                
                 Pasaje pasaje = new Pasaje();
                 pasaje.setIdPasaje(rs.getInt("idPasaje"));
-                pasaje.setIdPasajero(rs.getInt("idPasajero"));
-                pasaje.setIdColectivo(rs.getInt("idColectivo"));
-                pasaje.setIdRuta(rs.getInt("idRuta"));
+                
+                pasaje.setPasajero(pasajero);
+                pasaje.setRuta(ruta);
+                pasaje.setColectivo(colectivo);
+                
                 pasaje.setFechaViaje(rs.getDate("fechaViaje").toLocalDate());
                 pasaje.setHoraViaje(rs.getTime("horaViaje").toLocalTime());
                 pasaje.setAsiento(rs.getInt("asiento"));
