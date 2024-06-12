@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
 import java.sql.Time;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 /**
@@ -82,7 +83,101 @@ public class HorarioData {
         return horario;
     }
     
+    public List<Horario> listarHorariosDeSalida (LocalTime horaLlegada, Boolean activo){
+        List<Horario> horarios = new ArrayList<>();
+        String sql = "SELECT * FROM Horarios "
+                    + " WHERE Hora_Salida = ?";
+            if(activo != null){
+                if(activo){
+                    sql += "AND Estado = 1 ";
+                }else{
+                    sql += "AND Estado = 0 ";
+                }
+            }
+        PreparedStatement ps;
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setTime(1, Time.valueOf(horaLlegada));
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Horario horario = new Horario();
+                horario.setHoraLlegada(horaLlegada);
+                
+                horario.setIdHorario(rs.getInt("ID_Horario"));
+                
+                int idRuta = rs.getInt("ID_Ruta");
+                RutaData rutaData = new RutaData();
+                Ruta ruta = rutaData.buscarRuta(idRuta);
+                horario.setRuta(ruta);
+                
+                
+                horario.setHoraSalida(rs.getTime("Hora_Salida").toLocalTime());
+                horario.setEstado(rs.getBoolean("Estado"));
+                horarios.add(horario);
+            }
+
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, " Error al acceder a la tabla Horario " + ex.getMessage());
+        }
+        return horarios;
+    }
+    public List<Horario> listarHorariosDeSalida (LocalTime horaLlegada){
+        return listarHorariosDeSalida(horaLlegada, true);
+    }
+    public List<Horario> listarHorariosDeSalida (Horario horario){
+     
+        return listarHorariosDeSalida(horario.getHoraSalida(), true);
+    }
     
+    public List<Horario> listarHorariosDeLlegada (LocalTime horaSalida, Boolean activo){
+        List<Horario> horarios = new ArrayList<>();
+        String sql = "SELECT * FROM Horarios "
+                    + " WHERE Hora_Salida = ?";
+            if(activo != null){
+                if(activo){
+                    sql += "AND Estado = 1 ";
+                }else{
+                    sql += "AND Estado = 0 ";
+                }
+            }
+        PreparedStatement ps;
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setTime(1, Time.valueOf(horaSalida));
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Horario horario = new Horario();
+                horario.setHoraSalida(horaSalida);
+                
+                horario.setIdHorario(rs.getInt("ID_Horario"));
+                
+                int idRuta = rs.getInt("ID_Ruta");
+                RutaData rutaData = new RutaData();
+                Ruta ruta = rutaData.buscarRuta(idRuta);
+                horario.setRuta(ruta);
+                
+                
+                horario.setHoraLlegada(rs.getTime("Hora_Llegada").toLocalTime());
+                horario.setEstado(rs.getBoolean("Estado"));
+                horarios.add(horario);
+            }
+
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, " Error al acceder a la tabla Horario " + ex.getMessage());
+        }
+        return horarios;
+    }
+    public List<Horario> listarHorariosDeLlegada (LocalTime horaSalida){
+        return listarHorariosDeLlegada(horaSalida, true);
+    }
+    public List<Horario> listarHorariosDeLlegada (Horario horario){
+     
+        return listarHorariosDeLlegada(horario.getHoraSalida(), true);
+    }
     
     public List<Horario> listarHorariosPorRuta(int idRuta, Boolean activo){
         List<Horario> horarios = new ArrayList<>();
