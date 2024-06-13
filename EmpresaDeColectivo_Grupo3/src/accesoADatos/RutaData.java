@@ -707,4 +707,75 @@ public class RutaData {
 
     }
 
+   public List<String> listarOrigenesUnicos(Boolean activo){
+        List<String> origenes = new ArrayList<>();
+
+        String sql = " SELECT DISTINCT Origen "
+                + " FROM Rutas ";
+        if(activo != null){
+          
+            if(activo){
+                sql += " WHERE Estado = 1";
+            }else if(!activo){
+                sql += " WHERE Estado = 0";
+            }
+        }
+        PreparedStatement ps;
+        try {
+            ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                String origen = rs.getString("Origen");
+                origenes.add(origen);
+            }
+            rs.close();
+            ps.close();
+        }
+        catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null,
+                    "Error al acceder la bd desde "
+                  + "listarOrigenesUnicos(Boolean activo)"
+                  + " " + ex.getMessage());
+        }
+
+        return origenes;
+    }
+    
+    public List<String> listarDestinosUnicos(Boolean activo){
+        List<String> destinos = new ArrayList<>();
+
+        String sql = " SELECT DISTINCT Destino "
+                + " FROM Rutas ";
+        if(activo != null){
+            if(activo){
+                sql += " WHERE Estado = 1";
+            }else if(!activo){
+                sql += " WHERE Estado = 0";
+            }
+        }
+        PreparedStatement ps;
+        try {
+            ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                String destino = rs.getString("Destino");
+                destinos.add(destino);
+            }
+            rs.close();
+            ps.close();
+        }
+        catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null,
+                    "Error al acceder la bd desde "
+                  + "listarDestinosPorOrigen(String origen, Boolean activo)"
+                  + " " + ex.getMessage());
+        }
+
+        return destinos;
+    }
+   
 }
+
+
