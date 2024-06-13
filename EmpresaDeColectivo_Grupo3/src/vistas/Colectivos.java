@@ -2,7 +2,9 @@ package vistas;
 
 import EmpresaDeColectivo.Entidades.Colectivo;
 import accesoADatos.ColectivoData;
-import java.awt.List;
+
+import java.util.List;
+import java.time.Duration;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -20,7 +22,7 @@ public class Colectivos extends javax.swing.JInternalFrame {
             return false;
         }
     };
-    
+
     private ColectivoData colectivodata;
 
     /**
@@ -29,7 +31,7 @@ public class Colectivos extends javax.swing.JInternalFrame {
     public Colectivos() {
         initComponents();
         colectivodata = new ColectivoData();
-        
+
         ArrayList<String> columnas = new ArrayList<>();
 
         columnas.add("IDCollectivo");
@@ -41,9 +43,10 @@ public class Colectivos extends javax.swing.JInternalFrame {
 
         armarJTable(columnas.toArray(String[]::new));
         
-        btnQuitarFila.setEnabled(false);
-        btnModificarFila.setEnabled(false);
-        btnNuevo.setEnabled(false);
+        
+        cargarDatosATabla();
+        
+
     }
 
     /**
@@ -57,11 +60,7 @@ public class Colectivos extends javax.swing.JInternalFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         jtTabla = new javax.swing.JTable();
-        jPanel1 = new javax.swing.JPanel();
-        btnAgregarFila = new javax.swing.JButton();
-        btnQuitarFila = new javax.swing.JButton();
-        btnModificarFila = new javax.swing.JButton();
-        btnNuevo = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         txtIdColectivo = new javax.swing.JTextField();
@@ -74,80 +73,40 @@ public class Colectivos extends javax.swing.JInternalFrame {
         jLabel5 = new javax.swing.JLabel();
         txtMatricula = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
+        btnAgregarFila = new javax.swing.JButton();
+        btnNuevo = new javax.swing.JButton();
+        btnModificarFila = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel7 = new javax.swing.JLabel();
+        btnQuitarFila = new javax.swing.JButton();
+        jLabel8 = new javax.swing.JLabel();
+        txtEliminarId = new javax.swing.JTextField();
+        btnLlenar = new javax.swing.JButton();
+        btnActualizar = new javax.swing.JButton();
 
         setClosable(true);
 
         jtTabla.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "ID", "Modelo", "Marca", "Matricula", "Capacidad"
+                "ID", "Modelo", "Marca", "Matricula", "Capacidad", "Estado"
             }
         ));
         jScrollPane1.setViewportView(jtTabla);
 
-        btnAgregarFila.setText("Agregar");
-        btnAgregarFila.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAgregarFilaActionPerformed(evt);
-            }
-        });
+        jLabel6.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
+        jLabel6.setText("Colectivos");
 
-        btnQuitarFila.setText("Eliminar");
-        btnQuitarFila.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnQuitarFilaActionPerformed(evt);
-            }
-        });
-
-        btnModificarFila.setText("Modificar");
-        btnModificarFila.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnModificarFilaActionPerformed(evt);
-            }
-        });
-
-        btnNuevo.setText("Nuevo");
-        btnNuevo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnNuevoActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(16, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnAgregarFila, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnQuitarFila, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnModificarFila, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnNuevo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(10, Short.MAX_VALUE)
-                .addComponent(btnAgregarFila, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnQuitarFila, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(12, 12, 12)
-                .addComponent(btnModificarFila, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10))
-        );
+        jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
 
         jLabel1.setText("idColectivo");
 
+        txtIdColectivo.setEditable(false);
         txtIdColectivo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtIdColectivoActionPerformed(evt);
@@ -174,103 +133,197 @@ public class Colectivos extends javax.swing.JInternalFrame {
 
         jLabel2.setText("matricula");
 
+        btnAgregarFila.setText("Agregar");
+        btnAgregarFila.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarFilaActionPerformed(evt);
+            }
+        });
+
+        btnNuevo.setText("Nuevo");
+        btnNuevo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNuevoActionPerformed(evt);
+            }
+        });
+
+        btnModificarFila.setText("Modificar");
+        btnModificarFila.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModificarFilaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtMatricula, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtIdColectivo, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(22, 22, 22)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(47, 47, 47)
+                        .addComponent(btnAgregarFila, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(62, 62, 62)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel5)
+                            .addComponent(btnNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(txtCapacidad, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(77, 77, 77)
+                                .addComponent(checkboxEstado))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(27, 27, 27)
+                                .addComponent(btnModificarFila, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(txtMatricula, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addGap(18, 18, 18)
+                                .addComponent(txtIdColectivo, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(51, 51, 51)
                         .addComponent(jLabel4)
                         .addGap(18, 18, 18)
-                        .addComponent(txtModelo, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(30, 30, 30)
-                        .addComponent(jLabel5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtCapacidad, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(106, 106, 106)
-                        .addComponent(checkboxEstado))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtModelo, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(45, 45, 45)
                         .addComponent(jLabel3)
                         .addGap(18, 18, 18)
-                        .addComponent(txtMarca, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(txtMarca, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(56, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(36, 36, 36)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel1)
-                        .addComponent(txtIdColectivo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel4)
-                            .addComponent(txtModelo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3)
-                            .addComponent(txtMarca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel2)
-                            .addComponent(txtMatricula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel5)
-                            .addComponent(txtCapacidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(52, 52, 52)
-                        .addComponent(checkboxEstado)))
-                .addContainerGap(35, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(txtIdColectivo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4)
+                    .addComponent(txtModelo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3)
+                    .addComponent(txtMarca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(23, 23, 23)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(txtMatricula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5)
+                    .addComponent(txtCapacidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(checkboxEstado))
+                .addGap(29, 29, 29)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnAgregarFila, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnModificarFila, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
 
-        jLabel6.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
-        jLabel6.setText("Colectivos");
+        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+
+        jLabel7.setText("Eliminar Colectivo por ID");
+
+        btnQuitarFila.setText("Eliminar");
+        btnQuitarFila.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnQuitarFilaActionPerformed(evt);
+            }
+        });
+
+        jLabel8.setText("ID de Colectivo:");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(54, 54, 54)
+                        .addComponent(jLabel8)
+                        .addGap(31, 31, 31)
+                        .addComponent(txtEliminarId, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(106, 106, 106)
+                        .addComponent(jLabel7))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(106, 106, 106)
+                        .addComponent(btnQuitarFila, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(44, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addComponent(jLabel7)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8)
+                    .addComponent(txtEliminarId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(29, 29, 29)
+                .addComponent(btnQuitarFila, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(15, 15, 15))
+        );
+
+        btnLlenar.setText("Llenar Campos");
+        btnLlenar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLlenarActionPerformed(evt);
+            }
+        });
+
+        btnActualizar.setText("Actualizar Tabla");
+        btnActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActualizarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(27, 27, 27))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel6)
+                        .addGap(508, 508, 508))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 41, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1071, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(350, 350, 350)
-                        .addComponent(jLabel6))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addContainerGap()
-                            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(18, 18, 18)
-                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addGap(29, 29, 29)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 714, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(41, Short.MAX_VALUE))
+                        .addGap(6, 6, 6)
+                        .addComponent(btnLlenar)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnActualizar)))
+                .addGap(26, 26, 26))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(41, 41, 41)
                 .addComponent(jLabel6)
-                .addGap(37, 37, 37)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 266, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnLlenar)
+                    .addComponent(btnActualizar))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(32, Short.MAX_VALUE))
         );
 
         pack();
@@ -278,39 +331,36 @@ public class Colectivos extends javax.swing.JInternalFrame {
 
 
     private void btnAgregarFilaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarFilaActionPerformed
-      try {
-          String matricula = txtMatricula.getText();
-          String marca = txtMarca.getText();
-          String modelo = txtModelo.getText();
-          int capacidad = Integer.parseInt(txtCapacidad.getText());
-          boolean estado = checkboxEstado.isSelected();
-          
-          Colectivo colectivo = new Colectivo();
-          colectivo.setMatricula(matricula);
-          colectivo.setMarca(marca);
-          colectivo.setModelo(modelo);
-          colectivo.setCapacidad(capacidad);
-          colectivo.setEstado(estado);
-          
-          colectivodata.guardarColectivo(colectivo);
-          
-      }catch (NumberFormatException ex){
-          JOptionPane.showMessageDialog(null, "No puede tener campos vacíos");
-      }
+        try {
+            String matricula = txtMatricula.getText();
+            String marca = txtMarca.getText();
+            String modelo = txtModelo.getText();
+            int capacidad = Integer.parseInt(txtCapacidad.getText());
+            boolean estado = checkboxEstado.isSelected();
+
+            Colectivo colectivo = new Colectivo();
+            colectivo.setMatricula(matricula);
+            colectivo.setMarca(marca);
+            colectivo.setModelo(modelo);
+            colectivo.setCapacidad(capacidad);
+            colectivo.setEstado(estado);
+
+            colectivodata.guardarColectivo(colectivo);
+            limpiarCampos();
+            cargarDatosATabla();
+            
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(null, "No puede tener campos vacíos");
+        }
     }//GEN-LAST:event_btnAgregarFilaActionPerformed
 
     private void btnQuitarFilaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuitarFilaActionPerformed
-        quitarFilasSeleccionadas();
-        limpiarCampos();
-        btnNuevo.setEnabled(false);
-        btnAgregarFila.setEnabled(true);
-        btnModificarFila.setEnabled(false);
-        btnQuitarFila.setEnabled(false);
-        jtTabla.clearSelection();
+        eliminarColectivo();
+
     }//GEN-LAST:event_btnQuitarFilaActionPerformed
 
     private void btnModificarFilaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarFilaActionPerformed
-        modificarFila();
+
         limpiarCampos();
         btnAgregarFila.setEnabled(true);
         btnQuitarFila.setEnabled(false);
@@ -333,7 +383,24 @@ public class Colectivos extends javax.swing.JInternalFrame {
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
         // TODO add your handling code here:
+        limpiarCampos();
     }//GEN-LAST:event_btnNuevoActionPerformed
+
+    private void btnLlenarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLlenarActionPerformed
+        // TODO add your handling code here:
+        int selectedRow = jtTabla.getSelectedRow();
+        if(selectedRow != -1){
+            llenarCamposConDatosColectivos(selectedRow);
+            
+        }else{
+            JOptionPane.showMessageDialog(null, "Seleccione un colectivo de la tabla para modificar");
+        }
+    }//GEN-LAST:event_btnLlenarActionPerformed
+
+    private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
+        // TODO add your handling code here:
+        cargarDatosATabla();
+    }//GEN-LAST:event_btnActualizarActionPerformed
 
     private void armarJTable(String[] columnas) {
         for (String columna : columnas) {
@@ -345,59 +412,22 @@ public class Colectivos extends javax.swing.JInternalFrame {
     }
 
     private void limpiarCampos() {
-//        txt.setText("");
-//        combo.setSelectedIndex(-1);
         txtCapacidad.setText("");
         txtIdColectivo.setText("");
         txtMarca.setText("");
         txtMatricula.setText("");
         txtModelo.setText("");
+        checkboxEstado.setSelected(false);
     }
 
-    private void cargarCampos() {
+
+    private void eliminarColectivo() {
+        int idColectivo = Integer.parseInt(txtEliminarId.getText());
+        colectivodata.eliminarColectivo(idColectivo);
 
     }
-
-    private void agregarFila() {
-        if (validarCamposEntrada()) {
-            modelo.addRow(new Object[]{
-                txtMatricula.getText(),
-                txtMarca.getText(),
-                txtModelo.getText(),
-                txtCapacidad.getText(),
-                checkboxEstado.isSelected()
-            });
-            limpiarCampos();
-        } else {
-            JOptionPane.showMessageDialog(null,
-                    "No se puede agregar la fila porque tiene "
-                    + "datos ínvalidos.");
-        }
-
-    }
-
-    private void quitarFilasSeleccionadas() {
-// ----------------------- Pendiente --------------------
-//        Integer[] idFilas = getIdsDeLaJTabla();
-//        for(Integer idFila: idFilas){
-        // borrar fila de los datos persistentes
-        // Pendiente para hacer: Accesso a Datos::ColectivosData.java
-        // ColectivosDatos.borrarColectivo(idFila)
-//        }    
-// ----------------------- Pendiente --------------------
-        int[] filasSeleccionadas = jtTabla.getSelectedRows();
-        int filas = modelo.getRowCount();
-        for (int i = filasSeleccionadas.length - 1; i >= 0; i--) {
-            modelo.removeRow(filasSeleccionadas[i]);
-        }
-        jtTabla.repaint();
-// ----------------------- Pendiente --------------------
-//        limpiarJTabla();
-        // ----------------------- Pendiente --------------------      
-
-    }
-
-    private void limpiarJTabla() {
+    
+     private void limpiarJTabla() {
         int filas = modelo.getRowCount() - 1;
         for (int i = filas; i >= 0; i--) {
             modelo.removeRow(i);
@@ -406,68 +436,63 @@ public class Colectivos extends javax.swing.JInternalFrame {
 
     }
 
-    private void modificarFila() {
+    private void llenarCamposConDatosColectivos(int selectedRow) {
+        DefaultTableModel modelo = (DefaultTableModel) jtTabla.getModel();
+        int filaSeleccionada = jtTabla.getSelectedRow();
 
+        if (filaSeleccionada != -1) {
+            int idColectivo = (int) modelo.getValueAt(filaSeleccionada, 0);
+            String matricula = (String) modelo.getValueAt(filaSeleccionada, 1);
+            String marca = (String) modelo.getValueAt(filaSeleccionada, 2);
+            String modeloc = (String) modelo.getValueAt(filaSeleccionada, 3);
+            int capacidad = (int) modelo.getValueAt(filaSeleccionada, 4);
+            String estadoc = (String) modelo.getValueAt(filaSeleccionada, 5);
+            boolean estado = "Activo".equals(estadoc);
+            
+            txtIdColectivo.setText(String.valueOf(idColectivo));
+            txtMatricula.setText(matricula);
+            txtMarca.setText(marca);
+            txtModelo.setText(modeloc);
+            txtCapacidad.setText(String.valueOf(capacidad));
+            checkboxEstado.setSelected(estado);
+            
+
+        }
+        
     }
-// ----------------------- Pendiente --------------------
-//    private Integer getIdTabla(int fila) {
-//        Object val = jtTabla.getValueAt(fila, 0);
-//
-//        if (val == null) {
-//            return null;
-//        }
-//        
-//        StringBuilder cadenaIdFila = new StringBuilder();
-//            cadenaIdFila.append(val);
-//
-//        return Integer.valueOf(
-//                    cadenaIdFila.toString());
-//    }
-
-//        private Integer getIdsJTabla(int fila) {
-//        Object val = jtTabla.getValueAt(fila, 0);
-//        if (val == null) {
-//            return null;
-//        }
-//        if (val instanceof Integer) {
-//            return (Integer) val;
-//        }
-//        return Integer.valueOf((String) val);
-//    }
-// ----------------------- Pendiente --------------------
-    private Integer[] getIdsDeLaJTabla() {
-        int numFilas = modelo.getRowCount();
-        if (numFilas < 1) {
-            return null;
+    
+    private void cargarDatosATabla(){
+        
+        List<Colectivo> colectivos = colectivodata.listarColectivos();
+        
+        limpiarJTabla();
+        
+        DefaultTableModel modeloTabla = (DefaultTableModel)jtTabla.getModel();
+        
+        for (Colectivo colectivo : colectivos) {
+            Object[] fila ={
+                colectivo.getIdColectivo(),
+                colectivo.getMatricula(),
+                colectivo.getMarca(),
+                colectivo.getModelo(),
+                colectivo.getCapacidad(),
+                colectivo.estaActivo()? "Inactivo" : "Activo"
+            };
+            modeloTabla.addRow(fila);
         }
-        int[] filasSeleccionadas = jtTabla.getSelectedRows();
-        System.out.println("filasSelccionadas.length=" + filasSeleccionadas.length);
-        Integer[] idFilas = new Integer[filasSeleccionadas.length];
-
-        for (int i = 0; i < filasSeleccionadas.length; i++) {
-            Object val = modelo.getValueAt(filasSeleccionadas[i], 0);
-            Integer idFila = null;
-            StringBuilder cadenaIdFila = new StringBuilder();
-            cadenaIdFila.append(val);
-            idFilas[i] = Integer.valueOf(
-                    cadenaIdFila.toString());
-        }
-
-        return idFilas;
+        jtTabla.setModel(modeloTabla);
+        
     }
 
-    private boolean validarCamposEntrada() {
-        if (txtIdColectivo.getText().isBlank()) {
-            JOptionPane.showMessageDialog(null,
-                    "Error: el id de la fila no puede estar vacía.");
-            return false;
-        }
-        return true;
-    }
+       
+
+  
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnActualizar;
     private javax.swing.JButton btnAgregarFila;
+    private javax.swing.JButton btnLlenar;
     private javax.swing.JButton btnModificarFila;
     private javax.swing.JButton btnNuevo;
     private javax.swing.JButton btnQuitarFila;
@@ -478,11 +503,14 @@ public class Colectivos extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jtTabla;
     private javax.swing.JTextField txtCapacidad;
+    private javax.swing.JTextField txtEliminarId;
     private javax.swing.JTextField txtIdColectivo;
     private javax.swing.JTextField txtMarca;
     private javax.swing.JTextField txtMatricula;

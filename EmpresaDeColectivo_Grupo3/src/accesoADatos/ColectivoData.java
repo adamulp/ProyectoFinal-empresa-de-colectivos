@@ -118,7 +118,7 @@ public class ColectivoData {
             while (rs.next()) {
                 Colectivo colectivo = new Colectivo();
                 colectivo = new Colectivo();
-                colectivo.setIdColectivo(rs.getInt("idColectivo"));
+                colectivo.setIdColectivo(rs.getInt("ID_Colectivo"));
                 colectivo.setMatricula(rs.getString("Matricula"));
                 colectivo.setMarca(rs.getString("Marca"));
                 colectivo.setModelo(rs.getString("Modelo"));
@@ -159,7 +159,7 @@ public class ColectivoData {
 
     public void eliminarColectivo(int id) {
         try {
-            String sql = "UPDATE colectivos SET estado = 0 WHERE idColectivo = ? ";
+            String sql = "UPDATE colectivos SET estado = 0 WHERE ID_Colectivo = ? ";
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, id);
 
