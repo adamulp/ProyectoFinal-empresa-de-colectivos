@@ -9,9 +9,12 @@ import EmpresaDeColectivo.Entidades.Horario;
 import EmpresaDeColectivo.Entidades.Pasaje;
 import EmpresaDeColectivo.Entidades.Pasajero;
 import EmpresaDeColectivo.Entidades.Ruta;
+import accesoADatos.ColectivoData;
 import accesoADatos.HorarioData;
 import accesoADatos.PasajeData;
+import accesoADatos.RutaData;
 import java.time.Duration;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -1692,6 +1695,32 @@ public class Pasajes extends javax.swing.JInternalFrame {
         }
         return true;
     }
+    
+    private void llenarCombos(){
+        ColectivoData colectivoData = new ColectivoData();
+        List<Colectivo> colectivos = colectivoData.listarColectivos();
+        if(colectivos != null){
+            for (Colectivo colectivo: colectivos){
+                comboColectivos.addItem(colectivo);
+            }
+        }
+        
+        boolean seleccionRutasActivas = checkboxColectivosActivos.isSelected();
+        RutaData rutaData = new RutaData();
+        List<String> origenes = rutaData.listarOrigenesUnicos(
+                seleccionRutasActivas);
+        List<String> destinos = rutaData.listarDestinosUnicos(
+                seleccionRutasActivas);
+        
+        HorarioData horarioData = new HorarioData();
+        boolean seleccionHorariosActivos = checkboxHorariosActivos.isSelected();
+        List<LocalTime> horariosDeSalida = horarioData.listarHorariosDeSalida(
+                seleccionHorariosActivos);
+        List<LocalTime> horariosDeLlegada = horarioData.listarHorariosDeLlegada(
+                seleccionHorariosActivos);
+        
+        
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnActivarColectivo;
@@ -1705,7 +1734,7 @@ public class Pasajes extends javax.swing.JInternalFrame {
     private javax.swing.JCheckBox checkboxColectivosActivos;
     private javax.swing.JCheckBox checkboxHorariosActivos;
     private javax.swing.JCheckBox checkboxPasajerosActivos;
-    private javax.swing.JComboBox<String> comboColectivos;
+    private javax.swing.JComboBox<Colectivo> comboColectivos;
     private javax.swing.JComboBox<String> comboDestino;
     private javax.swing.JComboBox<String> comboHoraLlegada;
     private javax.swing.JComboBox<String> comboHoraSalida;
