@@ -56,8 +56,8 @@ public class ColectivoData {
     public Colectivo buscarColectivo(int idColectivo) {
         Colectivo colectivo = null;
         String sql = "SELECT "
-                + "Matricula, Marca, modelo, capacidad FROM Colectivos "
-                + "WHERE idColectivo = ? AND estado = 1";
+                + "Matricula, Marca, Modelo, Capacidad FROM Colectivos "
+                + "WHERE ID_Colectivo = ? AND Estado = 1";
 
         PreparedStatement ps = null;
         try {
@@ -84,7 +84,7 @@ public class ColectivoData {
     public Colectivo buscarColectivoPorMatricula(int matricula) {
         Colectivo colectivo = null;
         String sql = "SELECT idColectivo, Matricula, Marca, Modelo, Capacidad, Estado  "
-                + "FROM colectivos WHERE matricula=?";
+                + "FROM Colectivos WHERE Matricula=?";
         PreparedStatement ps = null;
         try {
             ps = con.prepareStatement(sql);
@@ -92,7 +92,7 @@ public class ColectivoData {
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 colectivo = new Colectivo();
-                colectivo.setIdColectivo(rs.getInt("idColectivo"));
+                colectivo.setIdColectivo(rs.getInt("ID_Colectivo"));
                 colectivo.setMatricula(rs.getString("Matricula"));
                 colectivo.setMarca(rs.getString("Marca"));
                 colectivo.setModelo(rs.getString("Modelo"));
@@ -111,7 +111,7 @@ public class ColectivoData {
     public List<Colectivo> listarColectivos() {
         List<Colectivo> colectivos = new ArrayList<>();
         try {
-            String sql = "SELECT * FROM colectivos WHERE estado = 1 ";
+            String sql = "SELECT * FROM Colectivos WHERE Estado = 1 ";
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
 
@@ -159,7 +159,7 @@ public class ColectivoData {
 
     public void eliminarColectivo(int id) {
         try {
-            String sql = "UPDATE colectivos SET estado = 0 WHERE ID_Colectivo = ? ";
+            String sql = "UPDATE Colectivos SET Estado = 0 WHERE ID_Colectivo = ? ";
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, id);
 
