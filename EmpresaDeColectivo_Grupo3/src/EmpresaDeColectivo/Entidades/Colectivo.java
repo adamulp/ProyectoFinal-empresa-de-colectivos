@@ -66,6 +66,10 @@ public class Colectivo {
     public void setCapacidad(int capacidad) {
         this.capacidad = capacidad;
     }
+    
+    public void venderPasaje(){
+        this.capacidad--;
+    }
 
     public void setEstado(boolean estado) {
         this.estado = estado;
