@@ -4,7 +4,12 @@
  */
 package vistas;
 
+import EmpresaDeColectivo.Entidades.Ruta;
+import accesoADatos.RutaData;
+import java.time.Duration;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -15,25 +20,25 @@ import javax.swing.table.DefaultTableModel;
  * @author adam
  */
 public class Rutas extends javax.swing.JInternalFrame {
-    private DefaultTableModel modelo = new DefaultTableModel(){
+
+    private DefaultTableModel modelo = new DefaultTableModel() {
         @Override
-            public boolean isCellEditable(int row, int column) {
-                // Bloquear ediciones dentro de la tabla
+         public boolean isCellEditable(int row, int column) {
                 return false;
-            }
+        }
     };
+
     /**
      * Creates new form Rutas
      */
     public Rutas() {
         initComponents();
         ArrayList<String> columnas = new ArrayList<>();
-        
-        
+
         columnas.add("idRuta");
         columnas.add("origen");
         columnas.add("destino");
-        columnas.add("duracionEstimada");
+        columnas.add("duracion estimada");
         columnas.add("estado");
 
         armarJTable(columnas.toArray(String[]::new));
@@ -52,23 +57,24 @@ public class Rutas extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jtTabla = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
-        btnAgregarFila = new javax.swing.JButton();
-        btnQuitarFila = new javax.swing.JButton();
-        btnModificarFila = new javax.swing.JButton();
+        btnModificarRuta = new javax.swing.JButton();
+        btnEliminarRuta = new javax.swing.JButton();
+        btnMostrarRutas = new javax.swing.JButton();
         btnNuevo = new javax.swing.JButton();
+        jBModifi = new javax.swing.JButton();
+        jBIInactivas = new javax.swing.JButton();
+        jLimpiar = new javax.swing.JButton();
+        jBDarAlta = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        txtRuta = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         txtOrigen = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         txtDestino = new javax.swing.JTextField();
-        checkboxEstado = new javax.swing.JCheckBox();
-        jPanel4 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         txtDuracionHora = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         txtDuracionMin = new javax.swing.JTextField();
+        jBLimpiarTabla = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
 
         setClosable(true);
@@ -81,36 +87,66 @@ public class Rutas extends javax.swing.JInternalFrame {
                 {null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "ID Rutas", "Origen", "Destino", "Estado"
             }
         ));
         jScrollPane1.setViewportView(jtTabla);
 
-        btnAgregarFila.setText("agregarFila");
-        btnAgregarFila.addActionListener(new java.awt.event.ActionListener() {
+        btnModificarRuta.setText("Modificar ruta");
+        btnModificarRuta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAgregarFilaActionPerformed(evt);
+                btnModificarRutaActionPerformed(evt);
             }
         });
 
-        btnQuitarFila.setText("quitarFila");
-        btnQuitarFila.addActionListener(new java.awt.event.ActionListener() {
+        btnEliminarRuta.setText("Eliminar ruta");
+        btnEliminarRuta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnQuitarFilaActionPerformed(evt);
+                btnEliminarRutaActionPerformed(evt);
             }
         });
 
-        btnModificarFila.setText("modificarFila");
-        btnModificarFila.addActionListener(new java.awt.event.ActionListener() {
+        btnMostrarRutas.setText("Mostar rutas");
+        btnMostrarRutas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnModificarFilaActionPerformed(evt);
+                btnMostrarRutasActionPerformed(evt);
             }
         });
 
-        btnNuevo.setText("nuevo");
+        btnNuevo.setText("Agregar ruta");
         btnNuevo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnNuevoActionPerformed(evt);
+            }
+        });
+
+        jBModifi.setText("modificar");
+        jBModifi.setEnabled(false);
+        jBModifi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBModifiActionPerformed(evt);
+            }
+        });
+
+        jBIInactivas.setText("Mostrar inactivas");
+        jBIInactivas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBIInactivasActionPerformed(evt);
+            }
+        });
+
+        jLimpiar.setText("Limpiar campos");
+        jLimpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jLimpiarActionPerformed(evt);
+            }
+        });
+
+        jBDarAlta.setText("Dar Alta");
+        jBDarAlta.setEnabled(false);
+        jBDarAlta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBDarAltaActionPerformed(evt);
             }
         });
 
@@ -119,83 +155,49 @@ public class Rutas extends javax.swing.JInternalFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnNuevo)
-                .addGap(18, 18, 18)
-                .addComponent(btnAgregarFila, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31)
-                .addComponent(btnQuitarFila, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnModificarFila, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(22, 22, 22)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(16, 16, 16)
+                        .addComponent(jLimpiar)
+                        .addGap(100, 100, 100)
+                        .addComponent(jBModifi)
+                        .addGap(128, 128, 128)
+                        .addComponent(jBDarAlta)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jBIInactivas)
+                        .addGap(31, 31, 31))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(btnNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(47, 47, 47)
+                        .addComponent(btnModificarRuta, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(48, 48, 48)
+                        .addComponent(btnEliminarRuta, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 69, Short.MAX_VALUE)
+                        .addComponent(btnMostrarRutas, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(15, 15, 15))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnModificarFila)
-                    .addComponent(btnQuitarFila)
-                    .addComponent(btnAgregarFila)
+                    .addComponent(btnMostrarRutas)
+                    .addComponent(btnEliminarRuta)
+                    .addComponent(btnModificarRuta)
                     .addComponent(btnNuevo))
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jBModifi)
+                    .addComponent(jBIInactivas)
+                    .addComponent(jLimpiar)
+                    .addComponent(jBDarAlta))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
-
-        jLabel1.setText("idRuta");
-
-        txtRuta.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtRutaActionPerformed(evt);
-            }
-        });
-        txtRuta.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtRutaKeyTyped(evt);
-            }
-        });
 
         jLabel2.setText("Origen");
 
         jLabel3.setText("Destino");
-
-        checkboxEstado.setText("Estado");
-
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtRuta, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27)
-                .addComponent(jLabel2)
-                .addGap(18, 18, 18)
-                .addComponent(txtOrigen, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(120, 120, 120)
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtDestino, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
-                .addComponent(checkboxEstado)
-                .addContainerGap())
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(txtOrigen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txtDestino, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel3)
-                        .addComponent(checkboxEstado))
-                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(txtRuta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel1)
-                        .addComponent(jLabel2)))
-                .addGap(0, 7, Short.MAX_VALUE))
-        );
 
         jLabel4.setText("Duración Estimada");
 
@@ -213,45 +215,69 @@ public class Rutas extends javax.swing.JInternalFrame {
             }
         });
 
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addGap(0, 16, Short.MAX_VALUE)
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(16, 16, 16)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtOrigen, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtDestino, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(52, 52, 52)
                 .addComponent(jLabel4)
                 .addGap(18, 18, 18)
                 .addComponent(txtDuracionHora, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel5)
-                .addGap(8, 8, 8)
-                .addComponent(txtDuracionMin, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtDuracionMin, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(69, Short.MAX_VALUE))
         );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtOrigen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtDestino, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel2)
                     .addComponent(jLabel4)
                     .addComponent(txtDuracionHora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtDuracionMin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5))
-                .addGap(0, 15, Short.MAX_VALUE))
+                    .addComponent(jLabel5)
+                    .addComponent(txtDuracionMin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
+
+        jBLimpiarTabla.setText("Limpiar tabla");
+        jBLimpiarTabla.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBLimpiarTablaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(32, 32, 32)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 807, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 86, Short.MAX_VALUE)
+                            .addGap(32, 32, 32)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 807, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                            .addContainerGap()
                             .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(360, 360, 360)
+                        .addComponent(jBLimpiarTabla)))
                 .addGap(31, 31, 31))
         );
         jPanel1Layout.setVerticalGroup(
@@ -259,13 +285,13 @@ public class Rutas extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(22, 22, 22)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
+                .addComponent(jBLimpiarTabla)
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(31, Short.MAX_VALUE))
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         jLabel6.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
@@ -294,38 +320,58 @@ public class Rutas extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtRutaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtRutaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtRutaActionPerformed
-
-    private void btnAgregarFilaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarFilaActionPerformed
-        agregarFila();
-        checkboxEstado.setEnabled(true);
-        btnNuevo.setEnabled(false);
-    }//GEN-LAST:event_btnAgregarFilaActionPerformed
-
-    private void btnQuitarFilaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuitarFilaActionPerformed
-        quitarFilasSeleccionadas();
-        limpiarCampos();
-        btnAgregarFila.setEnabled(true);
-        btnModificarFila.setEnabled(false);
-        btnQuitarFila.setEnabled(false);
-        jtTabla.clearSelection();
-    }//GEN-LAST:event_btnQuitarFilaActionPerformed
-
-    private void btnModificarFilaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarFilaActionPerformed
-        modificarFila();
-        limpiarCampos();
-        btnAgregarFila.setEnabled(true);
-        btnQuitarFila.setEnabled(false);
-    }//GEN-LAST:event_btnModificarFilaActionPerformed
-
-    private void txtRutaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtRutaKeyTyped
-        char caracter = evt.getKeyChar();
-        if (!Character.isDigit(caracter)) {
-            evt.consume();
+    private void btnModificarRutaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarRutaActionPerformed
+        int selectedRow = jtTabla.getSelectedRow();
+        if (selectedRow != -1) {
+            llenarCamposConDatosRuta(selectedRow);
+            jBModifi.setEnabled(true);
+        } else {
+            JOptionPane.showMessageDialog(null, "Seleccione un pasajero de la tabla.");
         }
-    }//GEN-LAST:event_txtRutaKeyTyped
+
+    }//GEN-LAST:event_btnModificarRutaActionPerformed
+
+    private void btnEliminarRutaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarRutaActionPerformed
+        RutaData rutaData = new RutaData();
+        int filaSeleccionada = jtTabla.getSelectedRow();
+
+        if (filaSeleccionada == -1) {
+            JOptionPane.showMessageDialog(null, "Seleccione una ruta de la tabla.");
+            return;
+        }
+
+        DefaultTableModel modelo = (DefaultTableModel) jtTabla.getModel();
+        int idRuta = (int) modelo.getValueAt(filaSeleccionada, 0);
+
+        Ruta rutaSeleccionada = rutaData.buscarRuta(idRuta);
+
+        if (rutaSeleccionada == null) {
+            JOptionPane.showMessageDialog(null, "No se pudo obtener la información de la ruta seleccionada.");
+            return;
+        }
+
+        Object[] opciones = {"Confirmar", "Cancelar"};
+        int opcion = JOptionPane.showOptionDialog(null, "¿Está seguro que desea eliminar la ruta seleccionada?",
+                "Confirmar eliminación", JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE, null, opciones, opciones[0]);
+
+        if (opcion != JOptionPane.YES_OPTION) {
+            return;
+        }
+
+        boolean eliminada = rutaData.borrarRuta(rutaSeleccionada);
+
+        if (eliminada) {
+            cargarDatosEnTabla();
+        } else {
+            JOptionPane.showMessageDialog(null, "Error al eliminar la ruta.");
+        }
+    }//GEN-LAST:event_btnEliminarRutaActionPerformed
+
+    private void btnMostrarRutasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMostrarRutasActionPerformed
+        cargarDatosEnTabla();
+
+    }//GEN-LAST:event_btnMostrarRutasActionPerformed
 
     private void txtDuracionHoraKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDuracionHoraKeyTyped
         char caracter = evt.getKeyChar();
@@ -342,233 +388,282 @@ public class Rutas extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txtDuracionMinKeyTyped
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
+        RutaData rutaData = new RutaData();
+        Ruta ruta = new Ruta();
+
+        if (txtOrigen.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Debe ingresar un Origen");
+            return;
+        }
+        if (txtDestino.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Debe ingresar un Destino");
+            return;
+        }
+        if (txtDuracionHora.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Debe ingresar una duracion de viaje en horas");
+            return;
+        }
+        if (txtDuracionMin.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Debe ingresar una duracion de viaje en minutos");
+            return;
+        }
+
+        String origen = txtOrigen.getText();
+        String destino = txtDestino.getText();
+        int duracionHoras = Integer.parseInt(txtDuracionHora.getText());
+        int duracionMinutos = Integer.parseInt(txtDuracionMin.getText());
+
+        Duration duracionEstimada = Duration.ofHours(duracionHoras).plusMinutes(duracionMinutos);
+
+        ruta.setOrigen(origen);
+        ruta.setDestino(destino);
+        ruta.setDuracionEstimada(duracionEstimada);
+        ruta.setEstado(true);
+
+        rutaData.guardarRuta(ruta);
         limpiarCampos();
-        checkboxEstado.setSelected(true);
-        btnNuevo.setEnabled(false);
-        btnAgregarFila.setEnabled(true);
-        btnModificarFila.setEnabled(false);
-        btnQuitarFila.setEnabled(false);
-        jtTabla.clearSelection();
-        
     }//GEN-LAST:event_btnNuevoActionPerformed
 
+    private void jBModifiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBModifiActionPerformed
+        RutaData rutaData = new RutaData();
+        String origen = txtOrigen.getText();
+        String destino = txtDestino.getText();
+        String duracionHoraStr = txtDuracionHora.getText();
+        String duracionMinStr = txtDuracionMin.getText();
+
+        if (origen.isEmpty() || destino.isEmpty() || duracionHoraStr.isEmpty() || duracionMinStr.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Todos los campos son obligatorios.");
+            return;
+        }
+
+        int duracionHoras = Integer.parseInt(duracionHoraStr);
+        int duracionMinutos = Integer.parseInt(duracionMinStr);
+
+        int filaSeleccionada = jtTabla.getSelectedRow();
+        if (filaSeleccionada == -1) {
+            JOptionPane.showMessageDialog(null, "Seleccione una ruta de la tabla.");
+            return;
+        }
+
+        DefaultTableModel modelo = (DefaultTableModel) jtTabla.getModel();
+        int idRuta = (int) modelo.getValueAt(filaSeleccionada, 0);
+        Ruta rutaSeleccionada = rutaData.buscarRuta(idRuta);
+
+        if (rutaSeleccionada == null) {
+            JOptionPane.showMessageDialog(null, "No se pudo obtener la información de la ruta seleccionada.");
+            return;
+        }
+
+        if (origen.equals(rutaSeleccionada.getOrigen())
+                && destino.equals(rutaSeleccionada.getDestino())
+                && duracionHoras == rutaSeleccionada.getDuracionEstimada().toHoursPart()
+                && duracionMinutos == rutaSeleccionada.getDuracionEstimada().toMinutesPart()) {
+
+            JOptionPane.showMessageDialog(null, "No se han realizado cambios.");
+            return;
+        }
+
+        rutaSeleccionada.setOrigen(origen);
+        rutaSeleccionada.setDestino(destino);
+        rutaSeleccionada.setDuracionEstimada(Duration.ofHours(duracionHoras).plusMinutes(duracionMinutos));
+
+        boolean modificada = rutaData.modificarRuta(rutaSeleccionada);
+
+        if (modificada) {
+            JOptionPane.showMessageDialog(null, "Ruta modificada exitosamente.");
+            cargarDatosEnTabla();
+        } else {
+            JOptionPane.showMessageDialog(null, "Error al modificar la ruta.");
+        }
+
+        limpiarCampos();
+        cargarDatosEnTabla();
+        jBModifi.setEnabled(false);
+    }//GEN-LAST:event_jBModifiActionPerformed
+
+    private void jBIInactivasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBIInactivasActionPerformed
+        mostrarRutasInactivas();
+        jBDarAlta.setEnabled(true);
+    }//GEN-LAST:event_jBIInactivasActionPerformed
+
+    private void jLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jLimpiarActionPerformed
+        limpiarCampos();
+    }//GEN-LAST:event_jLimpiarActionPerformed
+
+    private void jBLimpiarTablaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBLimpiarTablaActionPerformed
+        limpiarJTabla();
+        jBDarAlta.setEnabled(true);
+    }//GEN-LAST:event_jBLimpiarTablaActionPerformed
+
+    private void jBDarAltaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBDarAltaActionPerformed
+        int filaSeleccionada = jtTabla.getSelectedRow();
+        if (filaSeleccionada == -1) {
+            JOptionPane.showMessageDialog(null, "Seleccione una ruta de la tabla.");
+            return;
+        }
+
+        DefaultTableModel modelo = (DefaultTableModel) jtTabla.getModel();
+        int idRuta = (int) modelo.getValueAt(filaSeleccionada, 0);
+
+        RutaData rutaData = new RutaData();
+        Ruta rutaSeleccionada = rutaData.buscRutaInactiva(idRuta);
+
+        if (rutaSeleccionada == null) {
+            JOptionPane.showMessageDialog(null, "No se pudo obtener la información de la ruta seleccionada.");
+            return;
+        }
+
+        boolean activada = rutaData.darAltaRuta(rutaSeleccionada);
+
+        if (activada) {
+            cargarDatosEnTabla();
+        } else {
+
+        }
+        limpiarJTabla();
+        jBDarAlta.setEnabled(false);
+    }//GEN-LAST:event_jBDarAltaActionPerformed
+
+    private void mostrarRutasInactivas() {
+        RutaData rutaData = new RutaData();
+        List<Ruta> rutas = rutaData.listarRutasInactivas();
+
+        limpiarJTabla();
+
+        DefaultTableModel modeloTabla = (DefaultTableModel) jtTabla.getModel();
+
+        for (Ruta ruta : rutas) {
+            long horas = ruta.getDuracionEstimada().toHours();
+            long minutos = ruta.getDuracionEstimada().toMinutes() % 60;
+
+            String duracionFormateada = String.format("%02d:%02d", horas, minutos);
+
+            Object[] fila = {
+                ruta.getIdRuta(),
+                ruta.getOrigen(),
+                ruta.getDestino(),
+                duracionFormateada,
+                ruta.estaActivo() ? "Activo" : "Inactivo"
+            };
+            modeloTabla.addRow(fila);
+        }
+
+        jtTabla.setModel(modeloTabla);
+    }
+
     private void armarJTable(String[] columnas) {
-        for(String columna: columnas){
+
+        limpiarJTabla();
+
+        for (String columna : columnas) {
             modelo.addColumn(columna);
         }
+
         jtTabla.setModel(modelo);
         jtTabla.setCellSelectionEnabled(false);
         jtTabla.setRowSelectionAllowed(true);
-        checkboxEstado.setSelected(true);
-        btnQuitarFila.setEnabled(false);
-        btnNuevo.setEnabled(false);
-        btnModificarFila.setEnabled(false);
-        
-        jtTabla.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-            @Override
-            public void valueChanged(ListSelectionEvent event) {
-                if (event.getValueIsAdjusting()) {
-                    return;
-                }
-
-                int filaSeleccionada = jtTabla.getSelectedRow();
-                int numFilas = jtTabla.getSelectedRowCount();
-                System.out.println("rowcount=" + numFilas);
-                
-                if (filaSeleccionada != -1) {
-                    if(numFilas == 1){
-                        btnModificarFila.setEnabled(true);
-                        btnNuevo.setEnabled(true);
-                        btnQuitarFila.setEnabled(true);
-                        btnAgregarFila.setEnabled(false);
-                        Boolean estado = (Boolean) jtTabla.getValueAt(filaSeleccionada, 4);
-                        if(estado != null){
-                            checkboxEstado.setSelected(estado);
-                        }
-                        
-
-                        txtRuta.setText(jtTabla.getValueAt(filaSeleccionada, 0).toString());
-                        txtOrigen.setText(jtTabla.getValueAt(filaSeleccionada, 1).toString());
-                        txtDestino.setText(jtTabla.getValueAt(filaSeleccionada, 2).toString());
-                        
-                        String duracion = (String) jtTabla.getValueAt(filaSeleccionada, 3);
-                        if(duracion.length() == 2){
-                            String[] duracionHHMM = duracion.split(":");
-                            if(!duracionHHMM[0].isEmpty()){
-                                txtDuracionHora.setText(duracionHHMM[0]);
-                            }
-                            if(!duracionHHMM[1].isEmpty()){
-                            txtDuracionMin.setText(duracionHHMM[1]);
-                            }
-                        }
-                        
-                    }
-                }
-                if(numFilas == 0){
-                    btnModificarFila.setEnabled(false);
-                    btnQuitarFila.setEnabled(false);
-                    btnAgregarFila.setEnabled(true);
-                    checkboxEstado.setEnabled(true);
-                }
-                if(numFilas > 1){
-                    btnModificarFila.setEnabled(false);
-                    btnQuitarFila.setEnabled(true);
-                    btnAgregarFila.setEnabled(false);
-                    checkboxEstado.setEnabled(false);
-                }
-            }
-        });
-        
     }
 
     private void limpiarCampos() {
-//        txt.setText("");
-//        combo.setSelectedIndex(-1);
         txtDestino.setText("");
         txtDuracionHora.setText("");
         txtDuracionMin.setText("");
         txtOrigen.setText("");
-        txtRuta.setText("");
-//        checkboxEstado.setSelected(false);
+
     }
-    private void cargarCampos(){
-        
-    }
-    private void agregarFila() {
-        String duracion = txtDuracionHora.getText() + ":" + txtDuracionMin.getText();
-        if(validarCamposEntrada()){
-            modelo.addRow(new Object[]{
-                txtRuta.getText(),
-                txtOrigen.getText(),
-                txtDestino.getText(),
-                duracion,
-                checkboxEstado.isSelected()
-            });
-            limpiarCampos();
-        }else{
-            JOptionPane.showMessageDialog(null,
-                "No se puede agregar la fila porque tiene "
-                        + "datos ínvalidos.");
+
+    private void llenarCamposConDatosRuta(int selectedRow) {
+        DefaultTableModel modelo = (DefaultTableModel) jtTabla.getModel();
+        int filaSeleccionada = jtTabla.getSelectedRow();
+
+        if (filaSeleccionada != -1) {
+            int idRuta = (int) modelo.getValueAt(filaSeleccionada, 0);
+            String origen = (String) modelo.getValueAt(filaSeleccionada, 1);
+            String destino = (String) modelo.getValueAt(filaSeleccionada, 2);
+
+            String duracionEstimadaStr = (String) modelo.getValueAt(filaSeleccionada, 3);
+            String[] duracionEstimadaParts = duracionEstimadaStr.split(":");
+            int horas = Integer.parseInt(duracionEstimadaParts[0]);
+            int minutos = Integer.parseInt(duracionEstimadaParts[1]);
+            Duration duracionEstimada = Duration.ofHours(horas).plusMinutes(minutos);
+
+            String estadoStr = (String) modelo.getValueAt(filaSeleccionada, 4);
+            boolean estado = "Activo".equals(estadoStr);
+
+            txtOrigen.setText(origen);
+            txtDestino.setText(destino);
+            txtDuracionHora.setText(String.valueOf(horas));
+            txtDuracionMin.setText(String.valueOf(minutos));
+
         }
     }
 
-    
-    private void quitarFilasSeleccionadas(){
-// ----------------------- Pendiente --------------------
-//        Integer[] idFilas = getIdsDeLaJTabla();
-//        for(Integer idFila: idFilas){
-            // borrar fila de los datos persistentes
-            // Pendiente para hacer: Accesso a Datos::ColectivosData.java
-            // ColectivosDatos.borrarColectivo(idFila)
-//        }    
-// ----------------------- Pendiente --------------------
-        int[] filasSeleccionadas = jtTabla.getSelectedRows();
-        int filas = modelo.getRowCount();
-        for(int i=filasSeleccionadas.length-1; i >= 0; i--){
-            modelo.removeRow(filasSeleccionadas[i]);
+    private void cargarDatosEnTabla() {
+        RutaData rutaData = new RutaData();
+        List<Ruta> rutas = rutaData.listarRutas();
+
+        limpiarJTabla();
+
+        DefaultTableModel modeloTabla = (DefaultTableModel) jtTabla.getModel();
+
+        for (Ruta ruta : rutas) {
+            long horas = ruta.getDuracionEstimada().toHours();
+            long minutos = ruta.getDuracionEstimada().toMinutes() % 60;
+
+            String duracionFormateada = String.format("%02d:%02d", horas, minutos);
+
+            Object[] fila = {
+                ruta.getIdRuta(),
+                ruta.getOrigen(),
+                ruta.getDestino(),
+                duracionFormateada,
+                ruta.estaActivo() ? "Activo" : "Inactivo"
+            };
+            modeloTabla.addRow(fila);
         }
-        jtTabla.repaint();
-// ----------------------- Pendiente --------------------
-//        limpiarJTabla();
-  // ----------------------- Pendiente --------------------      
-        
+
+        jtTabla.setModel(modeloTabla);
     }
-    
-    private void limpiarJTabla(){
+
+    private void limpiarJTabla() {
         int filas = modelo.getRowCount() - 1;
         for (int i = filas; i >= 0; i--) {
             modelo.removeRow(i);
         }
         jtTabla.repaint();
-        
+
     }
 
-    
 
-    private void modificarFila() {
-        quitarFilasSeleccionadas();
-        agregarFila();
-    }
-// ----------------------- Pendiente --------------------
-//    private Integer getIdTabla(int fila) {
-//        Object val = jtTabla.getValueAt(fila, 0);
-//
-//        if (val == null) {
-//            return null;
-//        }
-//        
-//        StringBuilder cadenaIdFila = new StringBuilder();
-//            cadenaIdFila.append(val);
-//
-//        return Integer.valueOf(
-//                    cadenaIdFila.toString());
-//    }
-    
-//        private Integer getIdsJTabla(int fila) {
-//        Object val = jtTabla.getValueAt(fila, 0);
-//        if (val == null) {
-//            return null;
-//        }
-//        if (val instanceof Integer) {
-//            return (Integer) val;
-//        }
-//        return Integer.valueOf((String) val);
-//    }
-// ----------------------- Pendiente --------------------
-    
-        private Integer[] getIdsDeLaJTabla(){
-        int numFilas = modelo.getRowCount();
-        if(numFilas < 1){
-            return null;
-        }
-        int[] filasSeleccionadas = jtTabla.getSelectedRows();
-        System.out.println("filasSelccionadas.length=" + filasSeleccionadas.length);
-        Integer[] idFilas = new Integer[filasSeleccionadas.length];
-
-        for (int i = 0; i < filasSeleccionadas.length; i++) {
-            Object val = modelo.getValueAt(filasSeleccionadas[i], 0);
-            Integer idFila = null;
-            StringBuilder cadenaIdFila = new StringBuilder();
-            cadenaIdFila.append(val);
-            idFilas[i] = Integer.valueOf(
-                    cadenaIdFila.toString());
-        }
-
-        return idFilas;
-    }
-        
-    private boolean validarCamposEntrada(){
-        if(txtRuta.getText().isBlank()){
-            JOptionPane.showMessageDialog(null, 
-                    "Error: el id de la fila no puede estar vacía.");
-            return false;
-        }
-        return true;
-    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAgregarFila;
-    private javax.swing.JButton btnModificarFila;
+    private javax.swing.JButton btnEliminarRuta;
+    private javax.swing.JButton btnModificarRuta;
+    private javax.swing.JButton btnMostrarRutas;
     private javax.swing.JButton btnNuevo;
-    private javax.swing.JButton btnQuitarFila;
-    private javax.swing.JCheckBox checkboxEstado;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JButton jBDarAlta;
+    private javax.swing.JButton jBIInactivas;
+    private javax.swing.JButton jBLimpiarTabla;
+    private javax.swing.JButton jBModifi;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JButton jLimpiar;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jtTabla;
     private javax.swing.JTextField txtDestino;
     private javax.swing.JTextField txtDuracionHora;
     private javax.swing.JTextField txtDuracionMin;
     private javax.swing.JTextField txtOrigen;
-    private javax.swing.JTextField txtRuta;
     // End of variables declaration//GEN-END:variables
+
+ 
+  
+ 
 }

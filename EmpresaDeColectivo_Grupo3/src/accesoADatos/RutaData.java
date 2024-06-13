@@ -111,52 +111,118 @@ public class RutaData {
         return ruta;
     }
 
-    public Boolean modificarRuta(Ruta ruta) {
-        int success = -1;
-        String sql = "UPDATE Rutas SET "
-                + " Origen = ? , "
-                + " Destino = ?, "
-                + " Duracion_Estimada = ?, "
-                + " Estado = ? "
-                + " WHERE ID_Ruta = ?";
+     public Ruta buscRutaInactiva(int idRuta) {
+        Ruta ruta = null;
+        String sql = " SELECT "
+                + "Origen, Destino, Duracion_Estimada, Estado FROM Rutas "
+                + "WHERE ID_Ruta = ? AND estado = 0";
         PreparedStatement ps = null;
-
         try {
             ps = con.prepareStatement(sql);
-            ps.setString(1, ruta.getOrigen());
-            ps.setString(2, ruta.getDestino());
+            ps.setInt((1), idRuta);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                ruta = new Ruta();
+                ruta.setIdRuta(idRuta);
+                ruta.setOrigen(rs.getString("Origen"));
+                ruta.setDestino(rs.getString("Destino"));
 
-            Duration duracionEstimada = ruta.getDuracionEstimada();
-            Time sqlTime = null;
-            if (duracionEstimada != null) {
-                sqlTime = mariaDbTime(duracionEstimada);
-            }
-            ps.setTime(3, sqlTime);
-            
-            ps.setBoolean(4, ruta.estaActivo());
-            ps.setInt(5, ruta.getIdRuta());
-            success = ps.executeUpdate();
-            if(success == 1){
+               Time sqlTime = rs.getTime("Duracion_Estimada");
+                Duration duracionEstimada = duracion(sqlTime);
+                if (sqlTime != null) {
+                    duracionEstimada = duracion(sqlTime);
+                }
+                ruta.setDuracionEstimada(duracionEstimada);
+                ruta.setEstado(rs.getBoolean("Estado"));
+            } else {
                 JOptionPane.showMessageDialog(null,
-                        "Ruta Modificado Exitosamente.");
-            }else {
-                JOptionPane.showMessageDialog(null, 
-                    "modificarRuta: No se encuentra la ruta "
-                    + " desde modificarRuta(Ruta ruta); "
-                    + "success="+ success);
+                        "No se encuentra la ruta con el id " + idRuta + ", "
+                        + "¿está activo?");
+                rs.close();
+                ps.close();
             }
-
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null,
-                    "Error al acceder a la tabla de Rutas"
-                    + "desde modificarRuta(Ruta ruta)"
-                    + ". Mensaje SQLException: "
-                    + ex.getMessage());
+            Logger.getLogger(RutaData.class.getName()).log(Level.SEVERE, null, ex);
         }
+
+        return ruta;
+    }
+    
+    public Boolean modificarRuta(Ruta ruta) {
+     int success = -1;
+    String sql = "UPDATE Rutas SET "
+            + " Origen = ?, "
+            + " Destino = ?, "
+            + " Duracion_Estimada = ?, "
+            + " Estado = ? "
+            + " WHERE ID_Ruta = ?";
+    PreparedStatement ps = null;
+
+    try {
+        ps = con.prepareStatement(sql);
+        ps.setString(1, ruta.getOrigen());
+        ps.setString(2, ruta.getDestino());
+
+        Duration duracionEstimada = ruta.getDuracionEstimada();
+        Time sqlTime = null;
+        if (duracionEstimada != null) {
+            sqlTime = mariaDbTime(duracionEstimada);
+        }
+        ps.setTime(3, sqlTime);
         
-        return success == 1;
+        ps.setBoolean(4, ruta.estaActivo()); // Asegúrate de setear correctamente el estado
+        ps.setInt(5, ruta.getIdRuta());
+        
+        success = ps.executeUpdate();
+
+        if (success == 1) {
+            JOptionPane.showMessageDialog(null, "Ruta modificada exitosamente.");
+        } else {
+            JOptionPane.showMessageDialog(null, "No se encontró la ruta para modificar.");
+        }
+
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(null, "Error al ejecutar la consulta de actualización: " + ex.getMessage());
+        ex.printStackTrace(); 
+    } finally {
+        try {
+            if (ps != null) {
+                ps.close();
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al cerrar PreparedStatement: " + ex.getMessage());
+        }
+    }
+    
+    return success == 1;
 
     }
+    
+    public boolean darAltaRuta(Ruta ruta) {
+    ruta.setEstado(true); 
+
+    int fila = -1;
+    String sql = "UPDATE Rutas SET Estado = ? WHERE ID_Ruta = ?";
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setBoolean(1, true);
+            ps.setInt(2, ruta.getIdRuta());
+
+            int success = ps.executeUpdate();
+
+            if (success == 1) {
+                JOptionPane.showMessageDialog(null, "Ruta activada correctamente.");
+                return true;
+            } else {
+                JOptionPane.showMessageDialog(null, "Error al activar la ruta.");
+                return false;
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al activar la ruta: " + ex.getMessage());
+            return false;
+        }
+}
+    
+    
     
     public boolean borrarRuta(Ruta ruta){
         ruta.setEstado(false);
@@ -272,13 +338,53 @@ public class RutaData {
         return rutas;
     }
 
-    public List<Ruta> listarRutas(){
+     public List<Ruta> listarRutas(){
         List<Ruta> rutas = new ArrayList<>();
 
         String sql = " SELECT "
                 + " ID_Ruta, Origen, Destino, Duracion_Estimada, Estado "
                 + " FROM Rutas "
                 + " WHERE Estado = 1";
+        PreparedStatement ps;
+        try {
+            ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Ruta ruta = new Ruta();
+                ruta.setIdRuta(rs.getInt("ID_Ruta"));
+                ruta.setOrigen(rs.getString("Origen"));
+                ruta.setDestino(rs.getString("Destino"));
+
+                Time sqlTime = rs.getTime("Duracion_Estimada");
+                Duration duracionEstimada = null;
+                if (sqlTime != null) {
+                    duracionEstimada = duracion(sqlTime);
+                }
+                ruta.setDuracionEstimada(duracionEstimada);
+                ruta.setEstado(rs.getBoolean("Estado"));
+
+                rutas.add(ruta);
+            }
+            rs.close();
+            ps.close();
+        }
+        catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null,
+                    "Error al acceder la bd desde "
+                  + "listarRutasxOrigen(String origen)"
+                  + " " + ex.getMessage());
+        }
+
+        return rutas;
+    }
+    public List<Ruta> listarRutasInactivas(){
+        List<Ruta> rutas = new ArrayList<>();
+
+        String sql = " SELECT "
+                + " ID_Ruta, Origen, Destino, Duracion_Estimada, Estado "
+                + " FROM Rutas "
+                + " WHERE Estado = 0";
         PreparedStatement ps;
         try {
             ps = con.prepareStatement(sql);
