@@ -8,7 +8,9 @@ import EmpresaDeColectivo.Entidades.Colectivo;
 import EmpresaDeColectivo.Entidades.Horario;
 import EmpresaDeColectivo.Entidades.Pasaje;
 import EmpresaDeColectivo.Entidades.Pasajero;
+import EmpresaDeColectivo.Entidades.Ruta;
 import accesoADatos.PasajeData;
+import java.time.Duration;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
@@ -153,12 +155,12 @@ private DefaultTableModel modelo = new DefaultTableModel(){
         jPanel17 = new javax.swing.JPanel();
         jLabel24 = new javax.swing.JLabel();
         comboHoraSalida = new javax.swing.JComboBox<>();
-        jLabel30 = new javax.swing.JLabel();
-        txtIdHorario = new javax.swing.JTextField();
-        checkboxHorariosActivos = new javax.swing.JCheckBox();
         jPanel34 = new javax.swing.JPanel();
         jLabel31 = new javax.swing.JLabel();
         comboHoraLlegada = new javax.swing.JComboBox<>();
+        txtIdHorario = new javax.swing.JTextField();
+        jLabel30 = new javax.swing.JLabel();
+        checkboxHorariosActivos = new javax.swing.JCheckBox();
 
         setClosable(true);
 
@@ -1065,13 +1067,13 @@ private DefaultTableModel modelo = new DefaultTableModel(){
         jPanel17Layout.setHorizontalGroup(
             jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel17Layout.createSequentialGroup()
+                .addGap(16, 16, 16)
+                .addComponent(jLabel24)
+                .addContainerGap(86, Short.MAX_VALUE))
+            .addGroup(jPanel17Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(comboHoraSalida, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
-            .addGroup(jPanel17Layout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addComponent(jLabel24)
-                .addContainerGap(63, Short.MAX_VALUE))
         );
         jPanel17Layout.setVerticalGroup(
             jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1080,7 +1082,34 @@ private DefaultTableModel modelo = new DefaultTableModel(){
                 .addComponent(jLabel24)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(comboHoraSalida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(31, 31, 31))
+        );
+
+        jLabel31.setText("Hora llegada");
+
+        comboHoraLlegada.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        javax.swing.GroupLayout jPanel34Layout = new javax.swing.GroupLayout(jPanel34);
+        jPanel34.setLayout(jPanel34Layout);
+        jPanel34Layout.setHorizontalGroup(
+            jPanel34Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel34Layout.createSequentialGroup()
+                .addGap(16, 16, 16)
+                .addComponent(jLabel31)
+                .addContainerGap(51, Short.MAX_VALUE))
+            .addGroup(jPanel34Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(comboHoraLlegada, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
+        );
+        jPanel34Layout.setVerticalGroup(
+            jPanel34Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel34Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel31)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(comboHoraLlegada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(29, 29, 29))
         );
 
         jLabel30.setText("idHorario");
@@ -1092,67 +1121,42 @@ private DefaultTableModel modelo = new DefaultTableModel(){
             }
         });
 
-        jLabel31.setText("Hora llegada");
-
-        comboHoraLlegada.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        javax.swing.GroupLayout jPanel34Layout = new javax.swing.GroupLayout(jPanel34);
-        jPanel34.setLayout(jPanel34Layout);
-        jPanel34Layout.setHorizontalGroup(
-            jPanel34Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel34Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(comboHoraLlegada, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-            .addGroup(jPanel34Layout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addComponent(jLabel31)
-                .addContainerGap(51, Short.MAX_VALUE))
-        );
-        jPanel34Layout.setVerticalGroup(
-            jPanel34Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel34Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel31)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(comboHoraLlegada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
         jPanel8Layout.setHorizontalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel8Layout.createSequentialGroup()
-                .addGap(23, 23, 23)
+                .addGap(19, 19, 19)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(txtIdHorario, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)
-                        .addComponent(jLabel30, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(jPanel17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(checkboxHorariosActivos)
-                    .addComponent(jPanel34, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(21, Short.MAX_VALUE))
+                    .addGroup(jPanel8Layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addComponent(txtIdHorario, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel30, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(checkboxHorariosActivos))
+                    .addGroup(jPanel8Layout.createSequentialGroup()
+                        .addComponent(jPanel17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel34, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel8Layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jPanel34, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel8Layout.createSequentialGroup()
-                        .addGap(27, 27, 27)
-                        .addComponent(jLabel30)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtIdHorario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(checkboxHorariosActivos))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
-                        .addComponent(jPanel17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(27, 27, 27))
+                    .addComponent(jPanel17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel30)
+                    .addComponent(txtIdHorario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(checkboxHorariosActivos))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
@@ -1164,23 +1168,23 @@ private DefaultTableModel modelo = new DefaultTableModel(){
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(26, Short.MAX_VALUE))
         );
         jPanel12Layout.setVerticalGroup(
             jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel12Layout.createSequentialGroup()
-                .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 24, Short.MAX_VALUE))
-            .addGroup(jPanel12Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel12Layout.createSequentialGroup()
+                        .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jPanel8, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(22, 22, 22))
+                    .addGroup(jPanel12Layout.createSequentialGroup()
                         .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jPanel8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -1312,8 +1316,19 @@ private DefaultTableModel modelo = new DefaultTableModel(){
     private void checkboxHorariosActivosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkboxHorariosActivosActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_checkboxHorariosActivosActionPerformed
-
+    
+    private int indice(String nombreColumna, String[] cabeceras){
+        int i = -1;
+        for(String cabecera: cabeceras){
+            i++;
+            if(cabeceras[i].equals(nombreColumna)){
+                return i;
+            }
+        }
+        return i;
+    }
     private void armarJTable(String[] columnas) {
+        
         for(String columna: columnas){
             modelo.addColumn(columna);
         }
@@ -1350,6 +1365,46 @@ private DefaultTableModel modelo = new DefaultTableModel(){
 //                            checkboxEstado.setSelected(estado);
 //                        }
                         
+                        Integer idPasaje = Integer.valueOf(jtTabla.getValueAt(filaSeleccionada, 0).toString());
+                        txtIdPasaje.setText(idPasaje.toString());
+                        
+                        
+                        Pasaje pasajeSeleccionada = null;
+                        if(idPasaje != null){
+                            pasajeSeleccionada = buscarPasajeBD(idPasaje);
+                        }
+                        
+                        Integer idPasajero = Integer.valueOf(jtTabla.getValueAt(filaSeleccionada, 1).toString());
+                        textIdPasajero.setText(idPasajero.toString());
+                        
+                        Pasajero pasajero = null;
+                        if(idPasajero != null){
+                           pasajero = pasajeSeleccionada.getPasajero();
+                        }
+                        
+                        // To Do: get datos del pasajero desde Pasajero.getters
+                        
+//                        txtNombre.setText(jtTabla.getValueAt(filaSeleccionada, 0).toString());
+//                        txtApellido.setText(jtTabla.getValueAt(filaSeleccionada, 0).toString());
+//                        txtTelefono.setText(jtTabla.getValueAt(filaSeleccionada, 0).toString());
+//                        txtDni.setText(jtTabla.getValueAt(filaSeleccionada, 0).toString());
+//                        txtCorreo.setText(jtTabla.getValueAt(filaSeleccionada, 0).toString());
+//                        checkboxPasajerosActivos.setSelected(false);
+                        Integer idColectivo = Integer.valueOf(jtTabla.getValueAt(filaSeleccionada, 2).toString());
+                        txtIdColectivo.setText(idColectivo.toString());
+                        
+                        Colectivo colectivo = null;
+                        if(idColectivo != null){
+                            colectivo = pasajeSeleccionada.getColectivo();
+                        }
+                        
+                        Integer idHorario = Integer.valueOf(jtTabla.getValueAt(filaSeleccionada, 3).toString());
+                        txtIdHorario.setText(idHorario.toString());
+                        
+                        Horario horario = null;
+                        if(idHorario != null){
+                            
+                        }
 /*
         columnas.add("idPasaje");
         columnas.add("idPasajero");
@@ -1366,68 +1421,71 @@ private DefaultTableModel modelo = new DefaultTableModel(){
         columnas.add("HoraViaje");
         columnas.add("Asiento");
         columnas.add("Precio");
-*/                      Integer idPasaje = (Integer)jtTabla.getValueAt(filaSeleccionada, 0);
-                        txtIdPasaje.setText(idPasaje.toString());
+*/                                       
+                        String horarioSalida = jtTabla.getValueAt(filaSeleccionada,
+                                indice("horaSalida",
+                                             columnas
+                                        )).toString();
+                        String horarioLlegada = jtTabla.getValueAt(filaSeleccionada, // 5
+                                indice("horaLlegada",
+                                            columnas)).toString();
                         
-                        Pasaje pasajeSeleccionada = null;
-                        if(idPasaje != null){
-                            pasajeSeleccionada = buscarPasajeBD(idPasaje);
+                        
+                        Integer idRuta = (Integer)jtTabla.getValueAt(filaSeleccionada,
+                                indice("idRuta",
+                                                columnas)
+                        );   
+                        txtIdRuta.setText(idRuta.toString());
+                        
+                        Ruta ruta = null;
+                        if(idRuta != null){
+                            ruta = pasajeSeleccionada.getRuta();
                         }
                         
-                        Integer idPasajero = (Integer)jtTabla.getValueAt(filaSeleccionada, 1);
-                        textIdPasajero.setText(idPasajero.toString());
+                        String rutaOrigenDestino = jtTabla.getValueAt(filaSeleccionada,
+                                                             indice("Ruta",
+                                                                           columnas)
+                        ).toString(); // 6?
                         
-                        Pasajero pasajero = null;
-                        if(idPasajero != null){
-                           pasajero = pasajeSeleccionada.getPasajero();
-                        }
+                        txtFechaViaje.setText(jtTabla.getValueAt(filaSeleccionada,
+                                indice("fechaViaje",
+                                        columnas)
+                        ).toString());
                         
-                        // To Do: get datos del pasajero desde Pasajero.getters
                         
-//                        txtNombre.setText(jtTabla.getValueAt(filaSeleccionada, 0).toString());
-//                        txtApellido.setText(jtTabla.getValueAt(filaSeleccionada, 0).toString());
-//                        txtTelefono.setText(jtTabla.getValueAt(filaSeleccionada, 0).toString());
-//                        txtDni.setText(jtTabla.getValueAt(filaSeleccionada, 0).toString());
-//                        txtCorreo.setText(jtTabla.getValueAt(filaSeleccionada, 0).toString());
-//                        checkboxPasajerosActivos.setSelected(false);
-                        Integer idColectivo = (Integer)jtTabla.getValueAt(filaSeleccionada, 2);   
-                        txtIdColectivo.setText(idColectivo.toString());
-                        
-                        Colectivo colectivo = null;
-                        if(idColectivo != null){
-                            colectivo = pasajeSeleccionada.getColectivo();
-                        }
-                        
-                        Integer idHorario = (Integer)jtTabla.getValueAt(filaSeleccionada, 3);
-                        txtIdHorario.setText(idHorario.toString());
-                        
-                        Horario horario = null;
-                        if(idHorario != null){
-                            
-                        }
-                        
-                        String horarioSalida = jtTabla.getValueAt(filaSeleccionada, 4).toString();
-                        String horarioLlegada = jtTabla.getValueAt(filaSeleccionada, 5).toString();
-                        txtIdRuta.setText(jtTabla.getValueAt(filaSeleccionada, 6).toString());
-                        String rutaOrigenDestino = jtTabla.getValueAt(filaSeleccionada, 7).toString();
-                        
-                        txtFechaViaje.setText(jtTabla.getValueAt(filaSeleccionada, 8).toString());
-                        String horaViaje = jtTabla.getValueAt(filaSeleccionada, 9).toString();
+                        String horaViaje = jtTabla.getValueAt(filaSeleccionada, //9
+                                indice("HoraViaje",
+                                        columnas)
+                        ).toString();
                         // To Do: Split string horaViaje
 //                        txtHorarioViajeHoras.setText();
 //                        txtHorarioViajeMinutos.setText();
                         
-                        txtAsiento.setText(jtTabla.getValueAt(filaSeleccionada, 10).toString());
-                        txtPrecio.setText(jtTabla.getValueAt(filaSeleccionada, 11).toString());
+                        txtAsiento.setText(jtTabla.getValueAt(filaSeleccionada, 
+                                indice("Asiento",
+                                        columnas)
+                        ).toString());
+                        txtPrecio.setText(jtTabla.getValueAt(filaSeleccionada,
+                                indice("Precio",
+                                        columnas)
+                        ).toString());
                         
-                        // To Do: Split string duracion, get duracion desde Ruta.getDuracion()
-                        String duracionHora, duracionMin;
+                        
+                        // Datos Rutas.duracion
+                        Duration duracionEstimada = ruta.getDuracionEstimada();
+                        long duracionSegundos = duracionEstimada.getSeconds();
+                        long horas = duracionSegundos / 3600;
+                        long minutos = (duracionSegundos % 3600) / 60;
+                        String duracionHora = String.format("%02d", horas);
+                        String duracionMin = String.format("%02d", minutos);
                         txtDuracionHora.setText(duracionHora);
                         txtDuracionMin.setText(duracionMin);
                         
-                        // To Do: Get marca, matricula, modelo desde Colectivo.getters()
-                        colectivol
+                        // Datos Colectivo
                         String marca, matricula, modelo;
+                        marca = colectivo.getMarca();
+                        matricula = colectivo.getMatricula();
+                        modelo = colectivo.getModelo();
                         txtMarca.setText(marca);
                         txtMatricula.setText(matricula);
                         txtModelo.setText(modelo);
