@@ -405,7 +405,6 @@ public class Horarios extends javax.swing.JInternalFrame {
         
         Ruta ruta = (Ruta) jcRuta.getSelectedItem();
         llenarLista(ruta);
-        
     }//GEN-LAST:event_jcRutaActionPerformed
     
     
@@ -488,11 +487,15 @@ public class Horarios extends javax.swing.JInternalFrame {
 
     }
 
+    
+    
     private void agregarFila() {
+        Ruta destino = (Ruta) jcRuta.getSelectedItem();
         String horaSalida = txtSalidaHora.getText() + " " + txtSalidaMinutos.getText();
         String horaLlegada = txtLlegadaHora.getText() + " " + txtLlegadaMinutos.getText();
         if (validarCamposEntrada()) {
             modelo.addRow(new Object[]{
+                destino,
                 horaSalida,
                 horaLlegada,
                 checkboxEstado.isSelected()
