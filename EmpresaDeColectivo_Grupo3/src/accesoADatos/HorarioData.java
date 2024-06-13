@@ -83,62 +83,6 @@ public class HorarioData {
         return horario;
     }
     
-    public List<LocalTime> listarHorariosDeSalida(Boolean activo){
-        List<LocalTime> horarios = new ArrayList<>();
-        String sql = "SELECT DISTINCT Hora_Salida "
-                + "FROM Horarios ";
-            if(activo != null){
-                if(activo){
-                    sql += " WHERE Estado = 1 ";
-                }else{
-                    sql += " WHERE Estado = 0 ";
-                }
-            }
-        PreparedStatement ps;
-        try {
-            ps = con.prepareStatement(sql);
-            ResultSet rs = ps.executeQuery();
-
-            while (rs.next()) {
-                LocalTime horario = rs.getTime("Hora_Salida").toLocalTime();
-                horarios.add(horario);
-            }
-
-            ps.close();
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, " Error al acceder a la tabla Horario " + ex.getMessage());
-        }
-        return horarios;
-    }
-    
-    public List<LocalTime> listarHorariosDeLlegada(Boolean activo){
-        List<LocalTime> horarios = new ArrayList<>();
-        String sql = "SELECT DISTINCT Hora_Llegada "
-                + "FROM Horarios ";
-            if(activo != null){
-                if(activo){
-                    sql += " WHERE Estado = 1 ";
-                }else{
-                    sql += " WHERE Estado = 0 ";
-                }
-            }
-        PreparedStatement ps;
-        try {
-            ps = con.prepareStatement(sql);
-            ResultSet rs = ps.executeQuery();
-
-            while (rs.next()) {
-                LocalTime horario = rs.getTime("Hora_Llegada").toLocalTime();
-                horarios.add(horario);
-            }
-
-            ps.close();
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, " Error al acceder a la tabla Horario " + ex.getMessage());
-        }
-        return horarios;
-    }
-    
     public List<Horario> listarHorariosDeSalida (LocalTime horaLlegada, Boolean activo){
         List<Horario> horarios = new ArrayList<>();
         String sql = "SELECT * FROM Horarios "
