@@ -20,12 +20,9 @@ import javax.swing.table.DefaultTableModel;
  */
 public class Horarios extends javax.swing.JInternalFrame {
 
-    
     private ArrayList<Ruta> listaRuta;
     private RutaData rData;
-    
-    
-    
+
     private DefaultTableModel modelo = new DefaultTableModel() {
         @Override
         public boolean isCellEditable(int row, int column) {
@@ -41,15 +38,13 @@ public class Horarios extends javax.swing.JInternalFrame {
         initComponents();
         rData = new RutaData();
         listaRuta = (ArrayList<Ruta>) rData.listarRutas();
-        
-        
+        llenarCombo();
         ArrayList<String> columnas = new ArrayList<>();
 
         columnas.add("Destino");
         columnas.add("Hora salida");
         columnas.add("Hora llegada");
         columnas.add("Estado");
-
 
         armarJTable(columnas.toArray(String[]::new));
     }
@@ -402,11 +397,18 @@ public class Horarios extends javax.swing.JInternalFrame {
         jtTabla.clearSelection();
     }//GEN-LAST:event_btnNuevoActionPerformed
 
+    
     private void jcRutaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcRutaActionPerformed
-        for (Ruta ruta : listaRuta) {
-            jcRuta.addItem(ruta);
+        if (jcRuta.getSelectedIndex() == -1) {
+            return;
         }
+        
+        Ruta ruta = (Ruta) jcRuta.getSelectedItem();
+        llenarLista(ruta);
+        
     }//GEN-LAST:event_jcRutaActionPerformed
+    
+    
     private void armarJTable(String[] columnas) {
         for (String columna : columnas) {
             modelo.addColumn(columna);
@@ -414,14 +416,13 @@ public class Horarios extends javax.swing.JInternalFrame {
         jtTabla.setModel(modelo);
         jtTabla.setCellSelectionEnabled(false);
         jtTabla.setRowSelectionAllowed(true);
-        
+
         checkboxEstado.setSelected(true);
-        
+
         btnQuitarFila.setEnabled(false);
         btnNuevo.setEnabled(false);
         btnModificarFila.setEnabled(false);
-        
-        
+
         jtTabla.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent event) {
@@ -432,20 +433,18 @@ public class Horarios extends javax.swing.JInternalFrame {
                 int filaSeleccionada = jtTabla.getSelectedRow();
                 int numFilas = jtTabla.getSelectedRowCount();
                 System.out.println("rowcount=" + numFilas);
-                
+
                 if (filaSeleccionada != -1) {
-                    if(numFilas == 1){
+                    if (numFilas == 1) {
                         btnModificarFila.setEnabled(true);
                         btnNuevo.setEnabled(true);
                         btnQuitarFila.setEnabled(true);
                         btnAgregarFila.setEnabled(false);
                         Boolean estado = (Boolean) jtTabla.getValueAt(filaSeleccionada, 4);
-                        if(estado != null){
+                        if (estado != null) {
                             checkboxEstado.setSelected(estado);
                         }
-                        
 
-                        
 //                        txt.setText(jtTabla.getValueAt(filaSeleccionada, 2).toString());
 //                        
 //                        String duracion = (String) jtTabla.getValueAt(filaSeleccionada, 3);
@@ -458,16 +457,15 @@ public class Horarios extends javax.swing.JInternalFrame {
 //                            txtDuracionMin.setText(duracionHHMM[1]);
 //                            }
 //                        }
-                        
                     }
                 }
-                if(numFilas == 0){
+                if (numFilas == 0) {
                     btnModificarFila.setEnabled(false);
                     btnQuitarFila.setEnabled(false);
                     btnAgregarFila.setEnabled(true);
                     checkboxEstado.setEnabled(true);
                 }
-                if(numFilas > 1){
+                if (numFilas > 1) {
                     btnModificarFila.setEnabled(false);
                     btnQuitarFila.setEnabled(true);
                     btnAgregarFila.setEnabled(false);
@@ -493,63 +491,63 @@ public class Horarios extends javax.swing.JInternalFrame {
     private void agregarFila() {
         String horaSalida = txtSalidaHora.getText() + " " + txtSalidaMinutos.getText();
         String horaLlegada = txtLlegadaHora.getText() + " " + txtLlegadaMinutos.getText();
-        if(validarCamposEntrada()){
+        if (validarCamposEntrada()) {
             modelo.addRow(new Object[]{
-            horaSalida,
-            horaLlegada,
-            checkboxEstado.isSelected()
-        });
+                horaSalida,
+                horaLlegada,
+                checkboxEstado.isSelected()
+            });
             limpiarCampos();
-        }        else{
+        } else {
             JOptionPane.showMessageDialog(null,
-                "No se puede agregar la fila porque tiene "
-                        + "datos ínvalidos.");
+                    "No se puede agregar la fila porque tiene "
+                    + "datos ínvalidos.");
         }
-     }
+    }
 
-    private void quitarFilasSeleccionadas(){
+    private void quitarFilasSeleccionadas() {
 // ----------------------- Pendiente --------------------
 //        Integer[] idFilas = getIdsDeLaJTabla();
 //        for(Integer idFila: idFilas){
-            // borrar fila de los datos persistentes
-            // Pendiente para hacer: Accesso a Datos::ColectivosData.java
-            // ColectivosDatos.borrarColectivo(idFila)
+        // borrar fila de los datos persistentes
+        // Pendiente para hacer: Accesso a Datos::ColectivosData.java
+        // ColectivosDatos.borrarColectivo(idFila)
 //        }    
 // ----------------------- Pendiente --------------------
         int[] filasSeleccionadas = jtTabla.getSelectedRows();
         int filas = modelo.getRowCount();
-        for(int i=filasSeleccionadas.length-1; i >= 0; i--){
+        for (int i = filasSeleccionadas.length - 1; i >= 0; i--) {
             modelo.removeRow(filasSeleccionadas[i]);
         }
         jtTabla.repaint();
 // ----------------------- Pendiente --------------------
 //        limpiarJTabla();
-  // ----------------------- Pendiente --------------------      
-        
+        // ----------------------- Pendiente --------------------      
+
     }
-    
-    private void limpiarJTabla(){
+
+    private void limpiarJTabla() {
         int filas = modelo.getRowCount() - 1;
         for (int i = filas; i >= 0; i--) {
             modelo.removeRow(i);
         }
         jtTabla.repaint();
-        
+
     }
 
-//    private void llenarCombo() {
-//        Ruta seleccionado = new Ruta();
-//        seleccionado.setDestino(null);
-//        jcRuta.addItem(seleccionado.getDestino());
-//        jcRuta.setSelectedItem(seleccionado);
-//
-//        RutaData rutaData = new RutaData();
-//        List<Ruta> rutas = rutaData.listarRutas();
-//
-//        for (Ruta ruta : rutas) {
-//            jcRuta.addItem(ruta.toString());
-//        }
-//    }
+    private void llenarCombo() {
+        Ruta seleccionado = new Ruta();
+        seleccionado.setDestino(null);
+        jcRuta.addItem(seleccionado);
+        jcRuta.setSelectedItem(seleccionado);
+
+        RutaData rutaData = new RutaData();
+        List<Ruta> rutas = rutaData.listarRutas();
+
+        for (Ruta ruta : rutas) {
+            jcRuta.addItem(ruta);
+        }
+    }
 
     private void llenarLista(Ruta rutaSeleccionada) {
         if (rutaSeleccionada == null) {
@@ -573,7 +571,7 @@ public class Horarios extends javax.swing.JInternalFrame {
         }
         jtTabla.repaint();
     }
-    
+
     private void borrarLista() {
         int filas = modelo.getRowCount() - 1;
         for (int i = filas; i >= 0; i--) {
@@ -581,8 +579,6 @@ public class Horarios extends javax.swing.JInternalFrame {
         }
         jtTabla.repaint();
     }
-    
-    
 
     private void modificarFila() {
         quitarFilasSeleccionadas();
@@ -602,7 +598,7 @@ public class Horarios extends javax.swing.JInternalFrame {
 //        return Integer.valueOf(
 //                    cadenaIdFila.toString());
 //    }
-    
+
 //        private Integer getIdsJTabla(int fila) {
 //        Object val = jtTabla.getValueAt(fila, 0);
 //        if (val == null) {
@@ -614,10 +610,9 @@ public class Horarios extends javax.swing.JInternalFrame {
 //        return Integer.valueOf((String) val);
 //    }
 // ----------------------- Pendiente --------------------
-    
-        private Integer[] getIdsDeLaJTabla(){
+    private Integer[] getIdsDeLaJTabla() {
         int numFilas = modelo.getRowCount();
-        if(numFilas < 1){
+        if (numFilas < 1) {
             return null;
         }
         int[] filasSeleccionadas = jtTabla.getSelectedRows();
@@ -635,8 +630,8 @@ public class Horarios extends javax.swing.JInternalFrame {
 
         return idFilas;
     }
-        
-    private boolean validarCamposEntrada(){
+
+    private boolean validarCamposEntrada() {
 //        Boolean retorno = null;
         boolean retorno = true;
         if (txtSalidaHora.getText().isBlank()) {
