@@ -9,9 +9,12 @@ import EmpresaDeColectivo.Entidades.Horario;
 import EmpresaDeColectivo.Entidades.Pasaje;
 import EmpresaDeColectivo.Entidades.Pasajero;
 import EmpresaDeColectivo.Entidades.Ruta;
+import accesoADatos.ColectivoData;
 import accesoADatos.HorarioData;
 import accesoADatos.PasajeData;
+import accesoADatos.RutaData;
 import java.time.Duration;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -77,7 +80,7 @@ public class Pasajes extends javax.swing.JInternalFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
         jPanel27 = new javax.swing.JPanel();
-        textIdPasajero = new javax.swing.JTextField();
+        txtIdPasajero = new javax.swing.JTextField();
         txtDni = new javax.swing.JTextField();
         jPanel26 = new javax.swing.JPanel();
         jLabel20 = new javax.swing.JLabel();
@@ -148,11 +151,12 @@ public class Pasajes extends javax.swing.JInternalFrame {
         txtIdColectivo = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         jLabel18 = new javax.swing.JLabel();
-        jTextField7 = new javax.swing.JTextField();
+        txtCapacidad = new javax.swing.JTextField();
         jPanel33 = new javax.swing.JPanel();
-        jButton3 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        btnDesactivarColectivo = new javax.swing.JButton();
+        btnActivarColectivo = new javax.swing.JButton();
+        btnModificarColectivo = new javax.swing.JButton();
+        comboColectivos = new javax.swing.JComboBox<>();
         jPanel8 = new javax.swing.JPanel();
         jPanel17 = new javax.swing.JPanel();
         jLabel24 = new javax.swing.JLabel();
@@ -210,18 +214,15 @@ public class Pasajes extends javax.swing.JInternalFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        textIdPasajero.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                textIdPasajeroKeyTyped(evt);
-            }
-        });
+        txtIdPasajero.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        txtIdPasajero.setEnabled(false);
 
         javax.swing.GroupLayout jPanel27Layout = new javax.swing.GroupLayout(jPanel27);
         jPanel27.setLayout(jPanel27Layout);
         jPanel27Layout.setHorizontalGroup(
             jPanel27Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel27Layout.createSequentialGroup()
-                .addComponent(textIdPasajero, javax.swing.GroupLayout.DEFAULT_SIZE, 84, Short.MAX_VALUE)
+                .addComponent(txtIdPasajero, javax.swing.GroupLayout.DEFAULT_SIZE, 84, Short.MAX_VALUE)
                 .addGap(12, 12, 12)
                 .addComponent(txtDni, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -230,7 +231,7 @@ public class Pasajes extends javax.swing.JInternalFrame {
             .addGroup(jPanel27Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel27Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(textIdPasajero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtIdPasajero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtDni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -532,6 +533,7 @@ public class Pasajes extends javax.swing.JInternalFrame {
 
         jLabel1.setText("idPasaje");
 
+        txtIdPasaje.setEnabled(false);
         txtIdPasaje.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtIdPasajeKeyTyped(evt);
@@ -716,6 +718,7 @@ public class Pasajes extends javax.swing.JInternalFrame {
 
         jLabel5.setText("idRuta");
 
+        txtIdRuta.setEnabled(false);
         txtIdRuta.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtIdRutaKeyTyped(evt);
@@ -904,6 +907,7 @@ public class Pasajes extends javax.swing.JInternalFrame {
 
         jLabel2.setText("id");
 
+        txtIdColectivo.setEnabled(false);
         txtIdColectivo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtIdColectivoActionPerformed(evt);
@@ -951,7 +955,7 @@ public class Pasajes extends javax.swing.JInternalFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addComponent(jPanel29, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(37, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jLabel18.setText("capacidad");
@@ -967,7 +971,7 @@ public class Pasajes extends javax.swing.JInternalFrame {
                         .addComponent(jLabel18))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(32, 32, 32)
-                        .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(txtCapacidad, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(15, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -975,15 +979,15 @@ public class Pasajes extends javax.swing.JInternalFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addComponent(jLabel18)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtCapacidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 12, Short.MAX_VALUE))
         );
 
-        jButton3.setText("Desactivar");
+        btnDesactivarColectivo.setText("Desactivar");
 
-        jButton2.setText("Activar");
+        btnActivarColectivo.setText("Activar");
 
-        jButton1.setText("Modificar");
+        btnModificarColectivo.setText("Modificar");
 
         javax.swing.GroupLayout jPanel33Layout = new javax.swing.GroupLayout(jPanel33);
         jPanel33.setLayout(jPanel33Layout);
@@ -991,11 +995,11 @@ public class Pasajes extends javax.swing.JInternalFrame {
             jPanel33Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel33Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnDesactivarColectivo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnActivarColectivo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnModificarColectivo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel33Layout.setVerticalGroup(
@@ -1003,9 +1007,9 @@ public class Pasajes extends javax.swing.JInternalFrame {
             .addGroup(jPanel33Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel33Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton3)
-                    .addComponent(jButton2)
-                    .addComponent(jButton1))
+                    .addComponent(btnDesactivarColectivo)
+                    .addComponent(btnActivarColectivo)
+                    .addComponent(btnModificarColectivo))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -1054,16 +1058,25 @@ public class Pasajes extends javax.swing.JInternalFrame {
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(checkboxColectivosActivos, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addComponent(checkboxColectivosActivos, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(comboColectivos, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel31, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(checkboxColectivosActivos)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(checkboxColectivosActivos)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(comboColectivos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
                 .addComponent(jPanel31, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -1123,6 +1136,8 @@ public class Pasajes extends javax.swing.JInternalFrame {
                 .addComponent(comboHoraLlegada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(29, 29, 29))
         );
+
+        txtIdHorario.setEnabled(false);
 
         jLabel30.setText("idHorario");
 
@@ -1371,10 +1386,7 @@ public class Pasajes extends javax.swing.JInternalFrame {
                         btnNuevo.setEnabled(true);
                         btnQuitarFila.setEnabled(true);
                         btnAgregar.setEnabled(false);
-                        // Boolean estado = (Boolean) jtTabla.getValueAt(filaSeleccionada, 4);
-                        // if(estado != null){
-                        // checkboxEstado.setSelected(estado);
-                        // }
+
 
                         Object valor = jtTabla.getValueAt(filaSeleccionada, 0);
                         Integer idPasaje = null;
@@ -1411,41 +1423,13 @@ public class Pasajes extends javax.swing.JInternalFrame {
                             }
 
                             txtIdPasaje.setText(idPasaje.toString());
-                            textIdPasajero.setText(idPasajero.toString());
+                            txtIdPasajero.setText(idPasajero.toString());
                             txtIdColectivo.setText(idColectivo.toString());
                             txtIdRuta.setText(idRuta.toString());
 
                         }
 
 
-
-                        // To Do: get datos del pasajero desde Pasajero.getters
-
-                        // txtNombre.setText(jtTabla.getValueAt(filaSeleccionada, 0).toString());
-                        // txtApellido.setText(jtTabla.getValueAt(filaSeleccionada, 0).toString());
-                        // txtTelefono.setText(jtTabla.getValueAt(filaSeleccionada, 0).toString());
-                        // txtDni.setText(jtTabla.getValueAt(filaSeleccionada, 0).toString());
-                        // txtCorreo.setText(jtTabla.getValueAt(filaSeleccionada, 0).toString());
-                        // checkboxPasajerosActivos.setSelected(false);
-
-
-                        /*
-                         * columnas.add("idPasaje");
-                         * columnas.add("idPasajero");
-                         * 
-                         * columnas.add("Pasajero");
-                         * columnas.add("idColectivo");
-                         * columnas.add("idHorario");
-                         * columnas.add("horaSalida");
-                         * columnas.add("horaLlegada");
-                         * 
-                         * columnas.add("idRuta");
-                         * columnas.add("Ruta");
-                         * columnas.add("fechaViaje");
-                         * columnas.add("HoraViaje");
-                         * columnas.add("Asiento");
-                         * columnas.add("Precio");
-                         */
                         String horarioSalida = jtTabla.getValueAt(filaSeleccionada,
                                 indice("horaSalida",
                                         columnas))
@@ -1467,13 +1451,13 @@ public class Pasajes extends javax.swing.JInternalFrame {
                                         columnas))
                                 .toString());
 
-                        String horaViaje = jtTabla.getValueAt(filaSeleccionada, // 9
+                        String[] horaViaje = jtTabla.getValueAt(filaSeleccionada, // 9
                                 indice("HoraViaje",
                                         columnas))
-                                .toString();
+                                .toString().split(":", 2);
                         // To Do: Split string horaViaje
-                        // txtHorarioViajeHoras.setText();
-                        // txtHorarioViajeMinutos.setText();
+                        txtHorarioViajeHoras.setText(horaViaje[0]);
+                        txtHorarioViajeMinutos.setText(horaViaje[1]);
 
                         txtAsiento.setText(jtTabla.getValueAt(filaSeleccionada,
                                 indice("Asiento",
@@ -1547,16 +1531,40 @@ public class Pasajes extends javax.swing.JInternalFrame {
     }
 
     private void limpiarCampos() {
-        // txt.setText("");
-        // combo.setSelectedIndex(-1);
-        txtAsiento.setText("");
+        // Limpiar seccion de Colectivos
         txtIdColectivo.setText("");
+        txtMatricula.setText("");
+        txtMarca.setText("");
+        txtModelo.setText("");
+        txtCapacidad.setText("");
+        comboColectivos.setSelectedIndex(-1);
+        
+        // Limpiar seccion de Rutas
+        txtIdRuta.setText("");
+        txtDuracionHora.setText("");
+        txtDuracionMin.setText("");
+        comboOrigen.setSelectedIndex(-1);
+        comboDestino.setSelectedIndex(-1);
+        
+        // Limpiar seccion de Horarios
+        comboHoraSalida.setSelectedIndex(-1);
+        comboHoraLlegada.setSelectedIndex(-1);
+        txtIdHorario.setText("");
+        
+        // Limpiar seccion del Pasajero
+        txtIdPasajero.setText("");
+        txtDni.setText("");
+        txtCorreo.setText("");
+        txtApellido.setText("");
+        txtNombre.setText("");
+        txtTelefono.setText("");
+        
+        // Limpieza de campos propios del Pasaje
         txtFechaViaje.setText("");
         txtHorarioViajeHoras.setText("");
         txtHorarioViajeMinutos.setText("");
-        txtIdRuta.setText("");
         txtIdPasaje.setText("");
-        textIdPasajero.setText("");
+        txtAsiento.setText("");
         txtPrecio.setText("");
     }
 
@@ -1567,12 +1575,21 @@ public class Pasajes extends javax.swing.JInternalFrame {
     private void agregarFila() {
         String horaViaje = txtHorarioViajeHoras.getText() + ":"
                 + txtHorarioViajeMinutos.getText();
+        String pasajeroApellidoNombre = txtApellido.getText() + ", "
+                + txtNombre.getText();
+        String rutaOrigenDestino = comboOrigen.getSelectedItem().toString()
+                + comboDestino.getSelectedItem().toString();
         if (validarCamposEntrada()) {
             modelo.addRow(new Object[] {
                     txtIdPasaje.getText(),
-                    textIdPasajero.getText(),
+                    txtIdPasajero.getText(),
+                    pasajeroApellidoNombre,
                     txtIdColectivo.getText(),
+                    txtIdHorario.getText(),
+                    comboHoraSalida.getSelectedItem(),
+                    comboHoraLlegada.getSelectedItem(),
                     txtIdRuta.getText(),
+                    rutaOrigenDestino,
                     txtFechaViaje.getText(),
                     horaViaje,
                     txtAsiento.getText(),
@@ -1676,9 +1693,38 @@ public class Pasajes extends javax.swing.JInternalFrame {
         }
         return true;
     }
+    
+    private void llenarCombos(){
+        ColectivoData colectivoData = new ColectivoData();
+        List<Colectivo> colectivos = colectivoData.listarColectivos();
+        if(colectivos != null){
+            for (Colectivo colectivo: colectivos){
+                comboColectivos.addItem(colectivo);
+            }
+        }
+        
+        boolean seleccionRutasActivas = checkboxColectivosActivos.isSelected();
+        RutaData rutaData = new RutaData();
+        List<String> origenes = rutaData.listarOrigenesUnicos(
+                seleccionRutasActivas);
+        List<String> destinos = rutaData.listarDestinosUnicos(
+                seleccionRutasActivas);
+        
+        HorarioData horarioData = new HorarioData();
+        boolean seleccionHorariosActivos = checkboxHorariosActivos.isSelected();
+        List<LocalTime> horariosDeSalida = horarioData.listarHorariosDeSalida(
+                seleccionHorariosActivos);
+        List<LocalTime> horariosDeLlegada = horarioData.listarHorariosDeLlegada(
+                seleccionHorariosActivos);
+        
+        
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnActivarColectivo;
     private javax.swing.JButton btnAgregar;
+    private javax.swing.JButton btnDesactivarColectivo;
+    private javax.swing.JButton btnModificarColectivo;
     private javax.swing.JButton btnModificarFila;
     private javax.swing.JButton btnNuevo;
     private javax.swing.JButton btnQuitarFila;
@@ -1686,13 +1732,11 @@ public class Pasajes extends javax.swing.JInternalFrame {
     private javax.swing.JCheckBox checkboxColectivosActivos;
     private javax.swing.JCheckBox checkboxHorariosActivos;
     private javax.swing.JCheckBox checkboxPasajerosActivos;
+    private javax.swing.JComboBox<Colectivo> comboColectivos;
     private javax.swing.JComboBox<String> comboDestino;
     private javax.swing.JComboBox<String> comboHoraLlegada;
     private javax.swing.JComboBox<String> comboHoraSalida;
     private javax.swing.JComboBox<String> comboOrigen;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -1753,11 +1797,10 @@ public class Pasajes extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField7;
     private javax.swing.JTable jtTabla;
-    private javax.swing.JTextField textIdPasajero;
     private javax.swing.JTextField txtApellido;
     private javax.swing.JTextField txtAsiento;
+    private javax.swing.JTextField txtCapacidad;
     private javax.swing.JTextField txtCorreo;
     private javax.swing.JTextField txtDni;
     private javax.swing.JTextField txtDuracionHora;
@@ -1768,6 +1811,7 @@ public class Pasajes extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txtIdColectivo;
     private javax.swing.JTextField txtIdHorario;
     private javax.swing.JTextField txtIdPasaje;
+    private javax.swing.JTextField txtIdPasajero;
     private javax.swing.JTextField txtIdRuta;
     private javax.swing.JTextField txtMarca;
     private javax.swing.JTextField txtMatricula;
