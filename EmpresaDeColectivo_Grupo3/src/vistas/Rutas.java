@@ -4,10 +4,6 @@
  */
 package vistas;
 
-import EmpresaDeColectivo.Entidades.Ruta;
-import accesoADatos.RutaData;
-import java.time.Duration;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
@@ -61,6 +57,8 @@ public class Rutas extends javax.swing.JInternalFrame {
         btnModificarFila = new javax.swing.JButton();
         btnNuevo = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        txtRuta = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         txtOrigen = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
@@ -88,21 +86,21 @@ public class Rutas extends javax.swing.JInternalFrame {
         ));
         jScrollPane1.setViewportView(jtTabla);
 
-        btnAgregarFila.setText("agregar ");
+        btnAgregarFila.setText("agregarFila");
         btnAgregarFila.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAgregarFilaActionPerformed(evt);
             }
         });
 
-        btnQuitarFila.setText("eliminar ruta");
+        btnQuitarFila.setText("quitarFila");
         btnQuitarFila.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnQuitarFilaActionPerformed(evt);
             }
         });
 
-        btnModificarFila.setText("modificar ruta");
+        btnModificarFila.setText("modificarFila");
         btnModificarFila.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnModificarFilaActionPerformed(evt);
@@ -123,9 +121,9 @@ public class Rutas extends javax.swing.JInternalFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnNuevo)
-                .addGap(37, 37, 37)
+                .addGap(18, 18, 18)
                 .addComponent(btnAgregarFila, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(31, 31, 31)
                 .addComponent(btnQuitarFila, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnModificarFila, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -143,13 +141,20 @@ public class Rutas extends javax.swing.JInternalFrame {
                 .addContainerGap(15, Short.MAX_VALUE))
         );
 
-        jLabel2.setText("Origen");
+        jLabel1.setText("idRuta");
 
-        txtOrigen.addActionListener(new java.awt.event.ActionListener() {
+        txtRuta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtOrigenActionPerformed(evt);
+                txtRutaActionPerformed(evt);
             }
         });
+        txtRuta.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtRutaKeyTyped(evt);
+            }
+        });
+
+        jLabel2.setText("Origen");
 
         jLabel3.setText("Destino");
 
@@ -160,27 +165,35 @@ public class Rutas extends javax.swing.JInternalFrame {
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(16, 16, 16)
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(txtRuta, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(27, 27, 27)
                 .addComponent(jLabel2)
                 .addGap(18, 18, 18)
                 .addComponent(txtOrigen, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(78, 78, 78)
+                .addGap(120, 120, 120)
                 .addComponent(jLabel3)
-                .addGap(36, 36, 36)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(txtDestino, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 151, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
                 .addComponent(checkboxEstado)
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtOrigen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtDestino, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3)
-                    .addComponent(checkboxEstado)
-                    .addComponent(jLabel2))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(txtOrigen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtDestino, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel3)
+                        .addComponent(checkboxEstado))
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(txtRuta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel1)
+                        .addComponent(jLabel2)))
                 .addGap(0, 7, Short.MAX_VALUE))
         );
 
@@ -236,7 +249,7 @@ public class Rutas extends javax.swing.JInternalFrame {
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 807, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(jPanel1Layout.createSequentialGroup()
                             .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 86, Short.MAX_VALUE)
                             .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(31, 31, 31))
@@ -281,39 +294,14 @@ public class Rutas extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void txtRutaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtRutaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtRutaActionPerformed
+
     private void btnAgregarFilaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarFilaActionPerformed
         agregarFila();
         checkboxEstado.setEnabled(true);
         btnNuevo.setEnabled(false);
-        
-        RutaData rutaData = new RutaData();
-        Ruta ruta = new Ruta();
-        
-        if (txtOrigen.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Debe ingresar un Origen");
-        }
-        if (txtDestino.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Debe ingresar un Destino");
-        }
-        if (txtDuracionHora.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Debe ingresar una duracion de viaje en horas");
-        }
-        if (txtDuracionMin.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Debe ingresar una duracion de viaje en minutos");
-        }
-        
-        ruta.setOrigen(txtOrigen.getText());
-        ruta.setDestino(txtDestino.getText());
-        
-        Duration duracionHoraStr = Duration.parse(txtDuracionHora.getText().trim());
-        Duration duracionMinutosStr = Duration.parse(txtDuracionMin.getText().trim());
-        Duration duracionSegStr = null; 
-        ruta.setDuracionEstimada(duracionHoraStr,duracionMinutosStr,duracionSegStr);
-//        int horaDuracion = Integer.parseInt(duracionHoraStr);
-//        int minutosDuracion = Integer.parseInt(duracionMinutosStr);
-//        
-//        LocalTime duracionLocalTime = LocalTime.of(horaDuracion,minutosDuracion);
-//        ruta.setDuracionEstimada((LocalTime) duracionLocalTime);
     }//GEN-LAST:event_btnAgregarFilaActionPerformed
 
     private void btnQuitarFilaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuitarFilaActionPerformed
@@ -331,6 +319,13 @@ public class Rutas extends javax.swing.JInternalFrame {
         btnAgregarFila.setEnabled(true);
         btnQuitarFila.setEnabled(false);
     }//GEN-LAST:event_btnModificarFilaActionPerformed
+
+    private void txtRutaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtRutaKeyTyped
+        char caracter = evt.getKeyChar();
+        if (!Character.isDigit(caracter)) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtRutaKeyTyped
 
     private void txtDuracionHoraKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDuracionHoraKeyTyped
         char caracter = evt.getKeyChar();
@@ -356,10 +351,6 @@ public class Rutas extends javax.swing.JInternalFrame {
         jtTabla.clearSelection();
         
     }//GEN-LAST:event_btnNuevoActionPerformed
-
-    private void txtOrigenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtOrigenActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtOrigenActionPerformed
 
     private void armarJTable(String[] columnas) {
         for(String columna: columnas){
@@ -562,6 +553,7 @@ public class Rutas extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnNuevo;
     private javax.swing.JButton btnQuitarFila;
     private javax.swing.JCheckBox checkboxEstado;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -577,5 +569,6 @@ public class Rutas extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txtDuracionHora;
     private javax.swing.JTextField txtDuracionMin;
     private javax.swing.JTextField txtOrigen;
+    private javax.swing.JTextField txtRuta;
     // End of variables declaration//GEN-END:variables
 }
