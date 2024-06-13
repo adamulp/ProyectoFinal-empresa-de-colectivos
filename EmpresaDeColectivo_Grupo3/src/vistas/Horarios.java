@@ -4,7 +4,15 @@
  */
 package vistas;
 
+import EmpresaDeColectivo.Entidades.Horario;
+import EmpresaDeColectivo.Entidades.Ruta;
+import accesoADatos.HorarioData;
+import accesoADatos.RutaData;
+import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Vector;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -31,15 +39,13 @@ public class Horarios extends javax.swing.JInternalFrame {
         initComponents();
         ArrayList<String> columnas = new ArrayList<>();
 
-        columnas.add("idHorario");
-        columnas.add("idRuta");
-        columnas.add("horaSalida");
-        columnas.add("horaLlegada");
-        columnas.add("capacidad");
-        columnas.add("estado");
-
+        columnas.add("Destino");
+        columnas.add("Hora salida");
+        columnas.add("Hora llegada");
+        columnas.add("Estado");
 
         armarJTable(columnas.toArray(String[]::new));
+        
     }
 
     /**
@@ -65,11 +71,7 @@ public class Horarios extends javax.swing.JInternalFrame {
         txtLlegadaMinutos = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        txtIdHorario = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
-        txtIdRuta = new javax.swing.JTextField();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        jcRuta = new javax.swing.JComboBox<>();
         checkboxEstado = new javax.swing.JCheckBox();
         jPanel3 = new javax.swing.JPanel();
         btnAgregarFila = new javax.swing.JButton();
@@ -97,6 +99,11 @@ public class Horarios extends javax.swing.JInternalFrame {
 
         jLabel3.setText("Hora salida");
 
+        txtSalidaHora.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtSalidaHoraActionPerformed(evt);
+            }
+        });
         txtSalidaHora.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtSalidaHoraKeyTyped(evt);
@@ -180,28 +187,11 @@ public class Horarios extends javax.swing.JInternalFrame {
                 .addGap(0, 26, Short.MAX_VALUE))
         );
 
-        jLabel1.setText("Id horario");
-
-        txtIdHorario.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtIdHorarioKeyTyped(evt);
-            }
-        });
-
-        jLabel2.setText("Id ruta");
-
-        txtIdRuta.addActionListener(new java.awt.event.ActionListener() {
+        jcRuta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtIdRutaActionPerformed(evt);
+                jcRutaActionPerformed(evt);
             }
         });
-        txtIdRuta.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtIdRutaKeyTyped(evt);
-            }
-        });
-
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         checkboxEstado.setText("estado");
         checkboxEstado.addActionListener(new java.awt.event.ActionListener() {
@@ -214,58 +204,38 @@ public class Horarios extends javax.swing.JInternalFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(17, 17, 17)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtIdRuta, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtIdHorario, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(jComboBox1, 0, 120, Short.MAX_VALUE)
-                        .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(checkboxEstado)
-                        .addGap(36, 36, 36))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jcRuta, 0, 120, Short.MAX_VALUE)
+                .addGap(32, 32, 32)
+                .addComponent(checkboxEstado)
+                .addGap(36, 36, 36))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(txtIdHorario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(checkboxEstado))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(txtIdRuta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(26, Short.MAX_VALUE))
+                    .addComponent(checkboxEstado)
+                    .addComponent(jcRuta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(70, Short.MAX_VALUE))
         );
 
-        btnAgregarFila.setText("Agregar fila");
+        btnAgregarFila.setText("Agregar horario");
         btnAgregarFila.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAgregarFilaActionPerformed(evt);
             }
         });
 
-        btnQuitarFila.setText("Quitar fila");
+        btnQuitarFila.setText("Quitar horario");
         btnQuitarFila.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnQuitarFilaActionPerformed(evt);
             }
         });
 
-        btnModificarFila.setText("Modificar fila");
+        btnModificarFila.setText("Modificar horario");
         btnModificarFila.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnModificarFilaActionPerformed(evt);
@@ -325,10 +295,10 @@ public class Horarios extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(38, 38, 38))))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(364, 364, 364)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel8)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(412, 412, 412))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -366,6 +336,36 @@ public class Horarios extends javax.swing.JInternalFrame {
         checkboxEstado.setEnabled(true);
         btnNuevo.setEnabled(false);
 
+//        try {
+//            
+//            // Obtener datos de la vista 
+//            String horaSalidaStr = txtSalidaHora.getText().trim();
+//            String minutosSalidaStr = txtSalidaMinutos.getText().trim();
+//            String horaLlegadaStr = txtLlegadaHora.getText().trim();
+//            String minutosLlegadaStr = txtLlegadaMinutos.getText().trim();
+//
+//            // Convertir a valores enteros
+//            int horaSalida = Integer.parseInt(horaSalidaStr);
+//            int minutosSalida = Integer.parseInt(minutosSalidaStr);
+//            int horaLlegada = Integer.parseInt(horaLlegadaStr);
+//            int minutosLlegada = Integer.parseInt(minutosLlegadaStr);
+//
+//            // Crear objetos LocalTime para la hora de salida y llegada
+//            LocalTime horaSalidaLocalTime = LocalTime.of(horaSalida, minutosSalida);
+//            LocalTime horaLlegadaLocalTime = LocalTime.of(horaLlegada, minutosLlegada);
+//
+//            boolean estado = checkboxEstado.isSelected();
+//
+//            Horario horario = new Horario();
+//            horario.setHoraSalida(horaSalidaLocalTime);
+//            horario.setHoraLlegada(horaLlegadaLocalTime);
+//            horario.setEstado(estado);
+//
+//            HorarioData horarioData = new HorarioData();
+//            horarioData.guardarHorario(horario);
+//        } catch (NumberFormatException e) {
+//            JOptionPane.showMessageDialog(null, "Error: El ID de la ruta debe ser un número válido.");
+//        }
     }//GEN-LAST:event_btnAgregarFilaActionPerformed
 
     //Boton quitar fila
@@ -388,24 +388,6 @@ public class Horarios extends javax.swing.JInternalFrame {
         btnQuitarFila.setEnabled(false);
 
     }//GEN-LAST:event_btnModificarFilaActionPerformed
-
-    private void txtIdRutaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIdRutaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtIdRutaActionPerformed
-
-    private void txtIdHorarioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIdHorarioKeyTyped
-        char caracter = evt.getKeyChar();
-        if (!Character.isDigit(caracter)) {
-            evt.consume();
-        }
-    }//GEN-LAST:event_txtIdHorarioKeyTyped
-
-    private void txtIdRutaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIdRutaKeyTyped
-        char caracter = evt.getKeyChar();
-        if (!Character.isDigit(caracter)) {
-            evt.consume();
-        }
-    }//GEN-LAST:event_txtIdRutaKeyTyped
 
     private void txtSalidaHoraKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSalidaHoraKeyTyped
         char caracter = evt.getKeyChar();
@@ -444,6 +426,21 @@ public class Horarios extends javax.swing.JInternalFrame {
         btnQuitarFila.setEnabled(false);
         jtTabla.clearSelection();
     }//GEN-LAST:event_btnNuevoActionPerformed
+
+    private void txtSalidaHoraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSalidaHoraActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtSalidaHoraActionPerformed
+
+    private void jcRutaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcRutaActionPerformed
+        if (jcRuta.getSelectedIndex() == -1) {
+            return;
+        }
+        
+        Ruta ruta = (Ruta) jcRuta.getSelectedItem();
+        llenarLista(ruta);
+    }//GEN-LAST:event_jcRutaActionPerformed
+    
+
     private void armarJTable(String[] columnas) {
         for (String columna : columnas) {
             modelo.addColumn(columna);
@@ -451,9 +448,9 @@ public class Horarios extends javax.swing.JInternalFrame {
         jtTabla.setModel(modelo);
         jtTabla.setCellSelectionEnabled(false);
         jtTabla.setRowSelectionAllowed(true);
-        
+
         checkboxEstado.setSelected(true);
-        
+
         btnQuitarFila.setEnabled(false);
         btnNuevo.setEnabled(false);
         btnModificarFila.setEnabled(false);
@@ -464,8 +461,8 @@ public class Horarios extends javax.swing.JInternalFrame {
         columnas.add("horaLlegada");
         columnas.add("capacidad");
         columnas.add("estado");
-        */
-        
+         */
+
         jtTabla.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent event) {
@@ -476,21 +473,17 @@ public class Horarios extends javax.swing.JInternalFrame {
                 int filaSeleccionada = jtTabla.getSelectedRow();
                 int numFilas = jtTabla.getSelectedRowCount();
                 System.out.println("rowcount=" + numFilas);
-                
+
                 if (filaSeleccionada != -1) {
-                    if(numFilas == 1){
+                    if (numFilas == 1) {
                         btnModificarFila.setEnabled(true);
                         btnNuevo.setEnabled(true);
                         btnQuitarFila.setEnabled(true);
                         btnAgregarFila.setEnabled(false);
                         Boolean estado = (Boolean) jtTabla.getValueAt(filaSeleccionada, 4);
-                        if(estado != null){
+                        if (estado != null) {
                             checkboxEstado.setSelected(estado);
                         }
-                        
-
-                        txtIdHorario.setText(jtTabla.getValueAt(filaSeleccionada, 0).toString());
-                        txtIdRuta.setText(jtTabla.getValueAt(filaSeleccionada, 1).toString());
 //                        txt.setText(jtTabla.getValueAt(filaSeleccionada, 2).toString());
 //                        
 //                        String duracion = (String) jtTabla.getValueAt(filaSeleccionada, 3);
@@ -503,16 +496,16 @@ public class Horarios extends javax.swing.JInternalFrame {
 //                            txtDuracionMin.setText(duracionHHMM[1]);
 //                            }
 //                        }
-                        
+
                     }
                 }
-                if(numFilas == 0){
+                if (numFilas == 0) {
                     btnModificarFila.setEnabled(false);
                     btnQuitarFila.setEnabled(false);
                     btnAgregarFila.setEnabled(true);
                     checkboxEstado.setEnabled(true);
                 }
-                if(numFilas > 1){
+                if (numFilas > 1) {
                     btnModificarFila.setEnabled(false);
                     btnQuitarFila.setEnabled(true);
                     btnAgregarFila.setEnabled(false);
@@ -523,70 +516,104 @@ public class Horarios extends javax.swing.JInternalFrame {
     }
 
     private void limpiarCampos() {
-//        txt.setText("");
-//        combo.setSelectedIndex(-1);
-        txtIdHorario.setText("");
-        txtIdRuta.setText("");
         txtLlegadaHora.setText("");
         txtLlegadaMinutos.setText("");
         txtSalidaHora.setText("");
         txtSalidaMinutos.setText("");
     }
 
-    private void cargarCampos() {
+    private void llenarCombo() {
+        Ruta seleccionado = new Ruta();
+        seleccionado.setDestino(null);
+        jcRuta.addItem(seleccionado.getDestino());
+        jcRuta.setSelectedItem(seleccionado);
+
+        RutaData rutaData = new RutaData();
+        List<Ruta> rutas = rutaData.listarRutas();
+
+        for (Ruta ruta : rutas) {
+            jcRuta.addItem(ruta.toString());
+        }
 
     }
 
-    private void agregarFila() {
-        String horaSalida = txtSalidaHora.getText() + " " + txtSalidaMinutos.getText();
-        String horaLlegada = txtLlegadaHora.getText() + " " + txtLlegadaMinutos.getText();
-        if(validarCamposEntrada()){
-            modelo.addRow(new Object[]{
-            txtIdHorario.getText(),
-            txtIdRuta.getText(),
-            horaSalida,
-            horaLlegada,
-            checkboxEstado.isSelected()
-        });
-            limpiarCampos();
-        }        else{
-            JOptionPane.showMessageDialog(null,
-                "No se puede agregar la fila porque tiene "
-                        + "datos ínvalidos.");
+    private void llenarLista(Ruta rutaSeleccionada) {
+        if (rutaSeleccionada == null) {
+            return;
         }
-     }
+        String destino = rutaSeleccionada.getDestino();
+        RutaData rutaData = new RutaData();
+        List<Ruta> destinoRutas = rutaData.listarRutasxDestino(destino);
+        llenarLista(destinoRutas);
+    }
 
-    private void quitarFilasSeleccionadas(){
-// ----------------------- Pendiente --------------------
-//        Integer[] idFilas = getIdsDeLaJTabla();
-//        for(Integer idFila: idFilas){
-            // borrar fila de los datos persistentes
-            // Pendiente para hacer: Accesso a Datos::ColectivosData.java
-            // ColectivosDatos.borrarColectivo(idFila)
-//        }    
-// ----------------------- Pendiente --------------------
-        int[] filasSeleccionadas = jtTabla.getSelectedRows();
-        int filas = modelo.getRowCount();
-        for(int i=filasSeleccionadas.length-1; i >= 0; i--){
-            modelo.removeRow(filasSeleccionadas[i]);
+    private void llenarLista(List<Ruta> rutas) {
+        borrarLista();
+        System.out.println("llenarLista()");
+        for (Ruta ruta : rutas) {
+            System.out.println(ruta);
+            Vector<Object> renglon = new Vector<>();
+            renglon.add(ruta.getDestino());
+
+            modelo.addRow(renglon);
         }
         jtTabla.repaint();
-// ----------------------- Pendiente --------------------
-//        limpiarJTabla();
-  // ----------------------- Pendiente --------------------      
-        
     }
     
-    private void limpiarJTabla(){
+    private void borrarLista() {
         int filas = modelo.getRowCount() - 1;
         for (int i = filas; i >= 0; i--) {
             modelo.removeRow(i);
         }
         jtTabla.repaint();
-        
+    }
+    
+    private void agregarFila() {
+        String horaSalida = txtSalidaHora.getText() + " " + txtSalidaMinutos.getText();
+        String horaLlegada = txtLlegadaHora.getText() + " " + txtLlegadaMinutos.getText();
+        if (validarCamposEntrada()) {
+            modelo.addRow(new Object[]{
+                horaSalida,
+                horaLlegada,
+                checkboxEstado.isSelected()
+            });
+            limpiarCampos();
+        } else {
+            JOptionPane.showMessageDialog(null,
+                    "No se puede agregar la fila porque tiene "
+                    + "datos ínvalidos.");
+        }
     }
 
-    
+    private void quitarFilasSeleccionadas() {
+// ----------------------- Pendiente --------------------
+//        Integer[] idFilas = getIdsDeLaJTabla();
+//        for(Integer idFila: idFilas){
+        // borrar fila de los datos persistentes
+        // Pendiente para hacer: Accesso a Datos::ColectivosData.java
+        // ColectivosDatos.borrarColectivo(idFila)
+//        }    
+// ----------------------- Pendiente --------------------
+        int[] filasSeleccionadas = jtTabla.getSelectedRows();
+        int filas = modelo.getRowCount();
+        for (int i = filasSeleccionadas.length - 1; i >= 0; i--) {
+            modelo.removeRow(filasSeleccionadas[i]);
+        }
+        jtTabla.repaint();
+// ----------------------- Pendiente --------------------
+//        limpiarJTabla();
+        // ----------------------- Pendiente --------------------      
+
+    }
+
+    private void limpiarJTabla() {
+        int filas = modelo.getRowCount() - 1;
+        for (int i = filas; i >= 0; i--) {
+            modelo.removeRow(i);
+        }
+        jtTabla.repaint();
+
+    }
 
     private void modificarFila() {
         quitarFilasSeleccionadas();
@@ -606,7 +633,7 @@ public class Horarios extends javax.swing.JInternalFrame {
 //        return Integer.valueOf(
 //                    cadenaIdFila.toString());
 //    }
-    
+
 //        private Integer getIdsJTabla(int fila) {
 //        Object val = jtTabla.getValueAt(fila, 0);
 //        if (val == null) {
@@ -618,10 +645,9 @@ public class Horarios extends javax.swing.JInternalFrame {
 //        return Integer.valueOf((String) val);
 //    }
 // ----------------------- Pendiente --------------------
-    
-        private Integer[] getIdsDeLaJTabla(){
+    private Integer[] getIdsDeLaJTabla() {
         int numFilas = modelo.getRowCount();
-        if(numFilas < 1){
+        if (numFilas < 1) {
             return null;
         }
         int[] filasSeleccionadas = jtTabla.getSelectedRows();
@@ -639,21 +665,32 @@ public class Horarios extends javax.swing.JInternalFrame {
 
         return idFilas;
     }
-        
-    private boolean validarCamposEntrada(){
+
+    private boolean validarCamposEntrada() {
 //        Boolean retorno = null;
         boolean retorno = true;
-        if(txtIdHorario.getText().isBlank()){
-            JOptionPane.showMessageDialog(null, 
-                    "Error: el id del horario no puede estar vacía.");
+        if (txtSalidaHora.getText().isBlank()) {
+            JOptionPane.showMessageDialog(null,
+                    "Error: el campo de hora salida no puede estar vacía.");
             retorno = false;
         }
-        if(txtIdRuta.getText().isBlank()){
-            JOptionPane.showMessageDialog(null, 
-                    "Error: el id de la ruta no puede estar vacía.");
+        if (txtSalidaMinutos.getText().isBlank()) {
+            JOptionPane.showMessageDialog(null,
+                    "Error: el campo de minutos salida no puede estar vacía.");
+            retorno = false;
+        }
+        if (txtLlegadaHora.getText().isBlank()) {
+            JOptionPane.showMessageDialog(null,
+                    "Error: el campo de hora llegada no puede estar vacía.");
+            retorno = false;
+        }
+        if (txtLlegadaMinutos.getText().isBlank()) {
+            JOptionPane.showMessageDialog(null,
+                    "Error: el campo de minutos llegada no puede estar vacía.");
             retorno = false;
         }
         
+
         return retorno;
     }
 
@@ -663,10 +700,7 @@ public class Horarios extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnNuevo;
     private javax.swing.JButton btnQuitarFila;
     private javax.swing.JCheckBox checkboxEstado;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -677,9 +711,8 @@ public class Horarios extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JComboBox<String> jcRuta;
     private javax.swing.JTable jtTabla;
-    private javax.swing.JTextField txtIdHorario;
-    private javax.swing.JTextField txtIdRuta;
     private javax.swing.JTextField txtLlegadaHora;
     private javax.swing.JTextField txtLlegadaMinutos;
     private javax.swing.JTextField txtSalidaHora;
