@@ -363,7 +363,7 @@ public class Colectivos extends javax.swing.JInternalFrame {
 
         limpiarCampos();
         btnAgregarFila.setEnabled(true);
-        btnQuitarFila.setEnabled(false);
+        
     }//GEN-LAST:event_btnModificarFilaActionPerformed
 
     private void checkboxEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkboxEstadoActionPerformed
