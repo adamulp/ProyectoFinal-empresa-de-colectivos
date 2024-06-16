@@ -34,7 +34,7 @@ public class JTablaCompuesta extends JTable {
             }
         });
     }
-
+    
     public void agregarCamposSeccion(JPanel panel, SeccionTabla seccion, Object[] campos) {
         panel.add(new JLabel(seccion.getNombreSeccion())); // Etiqueta de la sección
         panel.add(new JLabel("")); // Espacio vacío

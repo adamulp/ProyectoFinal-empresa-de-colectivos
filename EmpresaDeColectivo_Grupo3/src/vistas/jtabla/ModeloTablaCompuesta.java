@@ -5,54 +5,54 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ModeloTablaCompuesta extends AbstractTableModel {
-
     protected List<SeccionTabla> secciones = new ArrayList<>();
-    private int rowCount = 0;
+    protected int totalColumnas = 0;
+    protected int totalFilas = 0;
+
+    public void agregarSeccion(SeccionTabla seccion) {
+        seccion.setColumnaInicio(totalColumnas);
+        secciones.add(seccion);
+        totalColumnas += seccion.getNombresColumnas().size();
+        totalFilas = Math.max(totalFilas, seccion.getFilas().size());
+        fireTableStructureChanged();
+    }
 
     @Override
     public int getRowCount() {
-        return rowCount;
+        return totalFilas;
     }
 
     @Override
     public int getColumnCount() {
-        int columnCount = 0;
-        for (SeccionTabla seccion : secciones) {
-            columnCount += seccion.getColumnasConfiguracion().size();
-        }
-        return columnCount;
+        return totalColumnas;
     }
 
     @Override
-    public String getColumnName(int columna) {
+    public String getColumnName(int column) {
         for (SeccionTabla seccion : secciones) {
-            if (columna >= seccion.columnaInicio
-                    && columna < seccion.columnaInicio + seccion.getColumnasConfiguracion().size()) {
-                return seccion.getColumnasConfiguracion().get(columna - seccion.columnaInicio).getNombreColumna();
+            if (column >= seccion.getColumnaInicio()
+                    && column < seccion.getColumnaInicio() + seccion.getNombresColumnas().size()) {
+                int sectionColumnIndex = column - seccion.getColumnaInicio();
+                return seccion.getNombresColumnas().get(sectionColumnIndex);
             }
         }
-        return "Desconocido";
+        return super.getColumnName(column);
     }
 
     @Override
     public Object getValueAt(int indiceFila, int indiceColumna) {
         for (SeccionTabla seccion : secciones) {
-            if (indiceColumna >= seccion.getColumnaInicio()
-                    && indiceColumna < seccion.getColumnaInicio() + seccion.getNombresColumnas().size()) {
-                FilaSeccion fila = seccion.getFilas().get(indiceFila);
-                int sectionColumnIndex = indiceColumna - seccion.getColumnaInicio();
-                return fila.datosFila[sectionColumnIndex];
+            int columnStart = seccion.getColumnaInicio();
+            int columnEnd = columnStart + seccion.getNombresColumnas().size();
+            if (indiceColumna >= columnStart && indiceColumna < columnEnd) {
+                List<FilaSeccion> filas = seccion.getFilas();
+                if (indiceFila < filas.size()) {
+                    FilaSeccion fila = filas.get(indiceFila);
+                    int sectionColumnIndex = indiceColumna - columnStart;
+                    return fila.datosFila[sectionColumnIndex];
+                }
             }
         }
         return null;
-    }
-
-    public void agregarSeccion(SeccionTabla seccion) {
-        seccion.columnaInicio = getColumnCount();
-        secciones.add(seccion);
-        if (!seccion.getFilas().isEmpty()) {
-            rowCount = seccion.getFilas().size();
-        }
-        fireTableStructureChanged();
     }
 }
