@@ -14,16 +14,16 @@ public class Main extends JFrame {
 
         // Secciones y datos de ejemplo
         SeccionTabla datosPersonales = new SeccionTabla("Datos Pasajero", "Pasajeros");
-        datosPersonales.agregarColumna(new ColumnaData("ID", "txt", true));
-        datosPersonales.agregarColumna(new ColumnaData("Nombre", "txt", true));
-        datosPersonales.agregarColumna(new ColumnaData("Apellido", "txt", true));
+        datosPersonales.agregarColumna(new FormularioData("ID", "txt", true));
+        datosPersonales.agregarColumna(new FormularioData("Nombre", "txt", true));
+        datosPersonales.agregarColumna(new FormularioData("Apellido", "txt", true));
         datosPersonales.agregarFila(1, new Object[]{1001, "Juan", "Pérez"});
         datosPersonales.agregarFila(2, new Object[]{1002, "María", "Gómez"});
 
         SeccionTabla orgRol = new SeccionTabla("Pasajes Disponibles", "Pasajes");
-        orgRol.agregarColumna(new ColumnaData("Fecha del Viaje",
+        orgRol.agregarColumna(new FormularioData("Fecha del Viaje",
                 Arrays.asList("2024-6-17", "2024-6-18", "2024-6-19")));
-        orgRol.agregarColumna(new ColumnaData("Horario", Arrays.asList("09:00hs", "11:15hs", "13:30hs")));
+        orgRol.agregarColumna(new FormularioData("Horario", Arrays.asList("09:00hs", "11:15hs", "13:30hs")));
         orgRol.agregarFila(1, new Object[]{"2024-6-17", "09:00hs"});
         orgRol.agregarFila(2, new Object[]{"2024-6-18", "11:15hs"});
 

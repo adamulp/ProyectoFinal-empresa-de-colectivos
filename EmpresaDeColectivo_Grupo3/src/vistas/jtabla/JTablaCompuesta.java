@@ -40,7 +40,7 @@ public class JTablaCompuesta extends JTable {
         panel.add(new JLabel("")); // Espacio vacío
         for (int i = 0; i < campos.length; i++) {
             panel.add(new JLabel(seccion.getNombresColumnas().get(i)));
-            ColumnaData columna = seccion.getColumnasConfiguracion().get(i);
+            FormularioData columna = seccion.getColumnasConfiguracion().get(i);
             String tipoCampo = columna.getTipoCampo();
             switch (tipoCampo) {
                 case "txt":

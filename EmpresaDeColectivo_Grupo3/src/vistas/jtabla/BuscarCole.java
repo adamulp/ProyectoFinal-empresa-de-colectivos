@@ -31,16 +31,16 @@ public class BuscarCole extends javax.swing.JFrame {
 
         // Example sections and data
         SeccionTabla datosPersonales = new SeccionTabla("Datos Pasajero", "Pasajeros");
-        datosPersonales.agregarColumna(new ColumnaData("DNI", "txt", true));
-        datosPersonales.agregarColumna(new ColumnaData("Nombre", "txt", true));
-        datosPersonales.agregarColumna(new ColumnaData("Apellido", "txt", true));
+        datosPersonales.agregarColumna(new FormularioData("DNI", "txt", true));
+        datosPersonales.agregarColumna(new FormularioData("Nombre", "txt", true));
+        datosPersonales.agregarColumna(new FormularioData("Apellido", "txt", true));
         datosPersonales.agregarFila(1, new Object[]{1001, "Juan", "Pérez"});
         datosPersonales.agregarFila(2, new Object[]{1002, "María", "Gómez"});
 
         SeccionTabla orgRol = new SeccionTabla("Pasajes Disponibles", "Pasajes");
-        orgRol.agregarColumna(new ColumnaData("Fecha del Viaje",
+        orgRol.agregarColumna(new FormularioData("Fecha del Viaje",
                 Arrays.asList("2024-6-17", "2024-6-18", "2024-6-19")));
-        orgRol.agregarColumna(new ColumnaData("Horario", Arrays.asList("09:00hs", "11:15hs", "13:30hs")));
+        orgRol.agregarColumna(new FormularioData("Horario", Arrays.asList("09:00hs", "11:15hs", "13:30hs")));
         orgRol.agregarFila(1, new Object[]{"2024-6-17", "09:00hs"});
         orgRol.agregarFila(2, new Object[]{"2024-6-18", "11:15hs"});
 
@@ -170,11 +170,11 @@ public class BuscarCole extends javax.swing.JFrame {
         jLabel28 = new javax.swing.JLabel();
         comboHoraSalida = new javax.swing.JComboBox<>();
         panelCamposTexto3 = new javax.swing.JPanel();
-        lblNombre1 = new javax.swing.JLabel();
+        lblNombres = new javax.swing.JLabel();
         txtNombre = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
+        lblApellidos = new javax.swing.JLabel();
         txtApellido = new javax.swing.JTextField();
-        lblDni1 = new javax.swing.JLabel();
+        lblDni = new javax.swing.JLabel();
         txtDni = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         comboColectivos = new javax.swing.JComboBox<>();
@@ -338,11 +338,11 @@ public class BuscarCole extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        lblNombre1.setText("Nombres:");
+        lblNombres.setText("Nombres:");
 
-        jLabel4.setText("Apellidos:");
+        lblApellidos.setText("Apellidos:");
 
-        lblDni1.setText("DNI:");
+        lblDni.setText("DNI:");
 
         javax.swing.GroupLayout panelCamposTexto3Layout = new javax.swing.GroupLayout(panelCamposTexto3);
         panelCamposTexto3.setLayout(panelCamposTexto3Layout);
@@ -350,15 +350,15 @@ public class BuscarCole extends javax.swing.JFrame {
             panelCamposTexto3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelCamposTexto3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lblNombre1)
+                .addComponent(lblNombres)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jLabel4)
+                .addComponent(lblApellidos)
                 .addGap(18, 18, 18)
                 .addComponent(txtApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(lblDni1)
+                .addComponent(lblDni)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(txtDni, javax.swing.GroupLayout.DEFAULT_SIZE, 145, Short.MAX_VALUE)
                 .addContainerGap())
@@ -368,11 +368,11 @@ public class BuscarCole extends javax.swing.JFrame {
             .addGroup(panelCamposTexto3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelCamposTexto3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblNombre1)
+                    .addComponent(lblNombres)
                     .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4)
+                    .addComponent(lblApellidos)
                     .addComponent(txtApellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblDni1)
+                    .addComponent(lblDni)
                     .addComponent(txtDni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -549,17 +549,17 @@ public class BuscarCole extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel31;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel21;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel34;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
+    private javax.swing.JLabel lblApellidos;
     private javax.swing.JLabel lblColectivo;
     private javax.swing.JLabel lblDestinos;
-    private javax.swing.JLabel lblDni1;
-    private javax.swing.JLabel lblNombre1;
+    private javax.swing.JLabel lblDni;
+    private javax.swing.JLabel lblNombres;
     private javax.swing.JLabel lblOrigenes;
     private javax.swing.JPanel panelCamposTexto1;
     private javax.swing.JPanel panelCamposTexto2;

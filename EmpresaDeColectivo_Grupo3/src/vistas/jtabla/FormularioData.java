@@ -7,7 +7,7 @@ package vistas.jtabla;
 import java.util.List;
 import javax.swing.JButton;
 
-public class ColumnaData {
+public class FormularioData {
     private String nombreColumna;
     private String tipoCampo;
     private boolean esEditable;
@@ -16,27 +16,27 @@ public class ColumnaData {
     private JButton boton;
 
     // Constructors
-    public ColumnaData(String nombreColumna, String tipoCampo, boolean esEditable) {
+    public FormularioData(String nombreColumna, String tipoCampo, boolean esEditable) {
         this.nombreColumna = nombreColumna;
         this.tipoCampo = tipoCampo;
         this.esEditable = esEditable;
     }
 
-    public ColumnaData(String nombreColumna, List<Object> valoresComboBox) {
+    public FormularioData(String nombreColumna, List<Object> valoresComboBox) {
         this.nombreColumna = nombreColumna;
         this.tipoCampo = "cmb";
         this.valoresComboBox = valoresComboBox;
         this.esEditable = true;
     }
 
-    public ColumnaData(String nombreColumna, DateRange rangoFechas) {
+    public FormularioData(String nombreColumna, DateRange rangoFechas) {
         this.nombreColumna = nombreColumna;
         this.tipoCampo = "JDateChooser";
         this.rangoFechas = rangoFechas;
         this.esEditable = true;
     }
 
-    public ColumnaData(String nombreColumna, JButton boton, boolean esEditable) {
+    public FormularioData(String nombreColumna, JButton boton, boolean esEditable) {
         this.nombreColumna = nombreColumna;
         this.tipoCampo = "btn";
         this.boton = boton;

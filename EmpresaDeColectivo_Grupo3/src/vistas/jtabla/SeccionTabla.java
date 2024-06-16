@@ -8,7 +8,7 @@ public class SeccionTabla {
     protected String nombreSeccion;
     protected String nombreTabla;
     protected List<String> nombresColumnas = new ArrayList<>();
-    protected List<ColumnaData> columnasConfiguracion = new ArrayList<>();
+    protected List<FormularioData> columnasConfiguracion = new ArrayList<>();
     protected List<FilaSeccion> filas = new ArrayList<>();
     protected int columnaInicio;
 
@@ -17,7 +17,7 @@ public class SeccionTabla {
         this.nombreTabla = nombreTabla;
     }
 
-    public void agregarColumna(ColumnaData columna) {
+    public void agregarColumna(FormularioData columna) {
         nombresColumnas.add(columna.getNombreColumna());
         columnasConfiguracion.add(columna);
     }
@@ -31,7 +31,7 @@ public class SeccionTabla {
         return nombresColumnas;
     }
 
-    public List<ColumnaData> getColumnasConfiguracion() {
+    public List<FormularioData> getColumnasConfiguracion() {
         return columnasConfiguracion;
     }
 
