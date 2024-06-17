@@ -15,11 +15,10 @@ public class ReprogramarPasaje extends javax.swing.JFrame {
      */
     public ReprogramarPasaje() {
         initComponents();
-        customizeComponents();
-        addRowSelectionListener();
+        vincularTablaConFormulario();
     }
 
-    private void customizeComponents() {
+    private void vincularTablaConFormulario() {
         // Crear el modelo de la tabla
         modelo = new ModeloTablaCompuesta();
 
@@ -32,9 +31,9 @@ public class ReprogramarPasaje extends javax.swing.JFrame {
         datosPersonales.agregarFila(2, new Object[]{1002, "María", "Gómez"});
 
         SeccionTabla orgRol = new SeccionTabla("Pasajes Disponibles", "Pasajes");
-        orgRol.agregarColumna(new FormularioData("Fecha del Viaje",
-                Arrays.asList("2024-6-17", "2024-6-18", "2024-6-19")));
-        orgRol.agregarColumna(new FormularioData("Horario", Arrays.asList("09:00hs", "11:15hs", "13:30hs")));
+//        orgRol.agregarColumna(new FormularioData("Fecha del Viaje",
+//                Arrays.asList("2024-6-17", "2024-6-18", "2024-6-19")));
+//        orgRol.agregarColumna(new FormularioData("Horario", Arrays.asList("09:00hs", "11:15hs", "13:30hs")));
         orgRol.agregarFila(1, new Object[]{"2024-6-17", "09:00hs"});
         orgRol.agregarFila(2, new Object[]{"2024-6-18", "11:15hs"});
 
@@ -42,28 +41,18 @@ public class ReprogramarPasaje extends javax.swing.JFrame {
         modelo.agregarSeccion(orgRol);
 
         // Populate combo boxes
-        for (Object fecha : orgRol.getColumnasConfiguracion().get(0).getValoresComboBox()) {
-            comboFecha.addItem(fecha.toString());
-        }
-        for (Object horario : orgRol.getColumnasConfiguracion().get(1).getValoresComboBox()) {
-            comboHorario.addItem(horario.toString());
-        }
+//        for (Object fecha : orgRol.getColumnasConfiguracion().get(0).getValoresComboBox()) {
+//            comboFecha.addItem(fecha.toString());
+//        }
+//        for (Object horario : orgRol.getColumnasConfiguracion().get(1).getValoresComboBox()) {
+//            comboHorario.addItem(horario.toString());
+//        }
 
         // Crear la tabla personalizada
         tabla = new JTablaCompuesta(modelo);
         jScrollPane1.setViewportView(tabla);  // Add the custom table to the scroll pane
-
-        // Set up the form fields
-        setupFormFields(datosPersonales, orgRol);
     }
 
-    private void setupFormFields(SeccionTabla... secciones) {
-        for (SeccionTabla seccion : secciones) {
-            Object[] campos = new Object[seccion.getNombresColumnas().size()];
-            JPanel panel = seccion.getNombreSeccion().equals("Sección 1") ? panelCamposTexto1 : panelCamposTexto2;
-            tabla.agregarCamposSeccion(panel, seccion, campos);
-        }
-    }
 
     // Add row selection listener
     private void addRowSelectionListener() {
