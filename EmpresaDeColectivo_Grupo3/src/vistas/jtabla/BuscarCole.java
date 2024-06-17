@@ -49,10 +49,35 @@ public class BuscarCole extends javax.swing.JFrame {
                       "Pasajes"
                 
         );
-        datosPasajes.agregarColumna("Fecha Viaje", jdFechaViaje, false);
-        datosPasajes.agregarColumna("Hora Viaje", comboHoraViaje, false);
-        datosPasajes.agregarColumna("Asiento", txtAsiento, false);
-        datosPasajes.agregarColumna("Precio", txtPrecio, false);
+        datosPasajes.agregarColumna(
+                
+            "Fecha Viaje",
+                jdFechaViaje,
+              false
+                
+        );
+        
+        datosPasajes.agregarColumna(
+                
+           "Hora Viaje", 
+               comboHoraViaje, 
+             false
+                
+        );
+        
+        datosPasajes.agregarColumna(
+            "Asiento", 
+                txtAsiento, 
+              false
+        );
+        
+        datosPasajes.agregarColumna(
+                
+            "Precio", 
+                txtPrecio, 
+              false
+                
+        );
         
         
         // -------------------------Pasajeros-------------------------------------
@@ -62,25 +87,80 @@ public class BuscarCole extends javax.swing.JFrame {
                     "Pasajeros"
                 
         );
-        datosPasajero.agregarColumna("Nombre", txtNombre, false);
-        datosPasajero.agregarColumna("Apellido", txtApellido, false);
-        datosPasajero.agregarColumna("DNI", txtDni, false);
-        datosPasajero.agregarColumna("Correo", txtCorreo, false);
-        datosPasajero.agregarColumna("Telefono", txtTelefono, false);
+        
+        datosPasajero.agregarColumna(
+                
+            "Nombre",
+                txtNombre, 
+              false
+        );
+        
+        datosPasajero.agregarColumna(
+                
+                "Apellido", 
+                txtApellido, 
+                false
+                
+        );
+        
+        datosPasajero.agregarColumna(
+                
+            "DNI",
+                txtDni, 
+              false
+        );
+        
+        datosPasajero.agregarColumna(
+                
+                "Correo", 
+                txtCorreo, 
+                false
+        );
+        
+        datosPasajero.agregarColumna(
+                
+           "Telefono", 
+                txtTelefono, 
+              false
+        );
+        
 //        datosPasajero.agregarColumna("Estado", checkBoxPasajeroActivo, false);
         
         // -------------------------Colectivos-------------------------------------
         SeccionTabla datosColectivo = new SeccionTabla(
-                
-                "Datos Colectivos", 
+              "Datos Colectivos", 
                 "Colectivos"
+        );
+        
+//        datosColectivo.agregarColumna("ID_Colectivo", txtIdColectivo, false);
+        datosColectivo.agregarColumna(
+                
+            "Matricula", 
+                txtMatricula, 
+              false
                 
         );
-//        datosColectivo.agregarColumna("ID_Colectivo", txtIdColectivo, false);
-        datosColectivo.agregarColumna("Matricula", txtMatricula, false);
-        datosColectivo.agregarColumna("Marca", txtMarca, false);
-        datosColectivo.agregarColumna("Modelo", txtModelo, false);
-        datosColectivo.agregarColumna("Capacidad", txtCapacidad, false);
+        
+        datosColectivo.agregarColumna(
+                
+            "Marca", 
+                txtMarca, 
+              false
+                
+        );
+        datosColectivo.agregarColumna(
+                
+            "Modelo", 
+                txtModelo, 
+                false
+        );
+        datosColectivo.agregarColumna(
+                
+            "Capacidad", 
+                txtCapacidad, 
+              false
+                
+        );
 //        datosColectivo.agregarColumna("Estado", checkBoxColectivoActivo, false);
 
         // -------------------------Rutas-------------------------------------
