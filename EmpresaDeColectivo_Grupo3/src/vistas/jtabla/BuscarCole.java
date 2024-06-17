@@ -55,7 +55,7 @@ public class BuscarCole extends javax.swing.JFrame {
     }
 
     private void llenarCombos() {
-        // Populate colectivos
+        // Llenar combo de colectivos
         ColectivoData colectivoData = new ColectivoData();
         List<Colectivo> colectivos = colectivoData.listarColectivos();
         if (colectivos != null) {
@@ -64,7 +64,7 @@ public class BuscarCole extends javax.swing.JFrame {
             }
         }
 
-        // Populate rutas
+        // Llenar combo de Rutas
         boolean seleccionRutasActivas = checkboxColectivosActivos.isSelected();
         RutaData rutaData = new RutaData();
         List<String> origenes = rutaData.listarOrigenesUnicos(seleccionRutasActivas);
@@ -82,7 +82,7 @@ public class BuscarCole extends javax.swing.JFrame {
             }
         }
 
-        // Populate horarios
+        // Llenar combo de horarios
         HorarioData horarioData = new HorarioData();
         boolean seleccionHorariosActivos = checkboxHorariosActivos.isSelected();
         List<LocalTime> horariosDeSalida = horarioData.listarHorariosDeSalida(seleccionHorariosActivos);
