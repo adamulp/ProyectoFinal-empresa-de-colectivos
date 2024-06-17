@@ -15,8 +15,8 @@ public class PasajeroData {
     }
       
      public void guardarPasajero(Pasajero pasajero) {
-        String sql = "INSERT INTO Pasajeros (Nombre, Apellido, DNI, Correo,Telefono) "
-                + "VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO Pasajeros (Nombre, Apellido, DNI, Correo,Telefono, Estado) "
+                + "VALUES (?, ?, ?, ?, ?, ?)";
         try {
             PreparedStatement ps = con.prepareStatement(sql,
                     Statement.RETURN_GENERATED_KEYS);
@@ -25,6 +25,7 @@ public class PasajeroData {
             ps.setString(3, pasajero.getDni());
             ps.setString(4, pasajero.getCorreo());
             ps.setString(5, pasajero.getTelefono());
+            ps.setBoolean(6, pasajero.estaActivo());
             
             ps.executeUpdate();
 
@@ -183,7 +184,7 @@ public class PasajeroData {
  public List<Pasajero> buscarPasajeroPorDni(String dni) {
         List<Pasajero> pasajeros = new ArrayList<>();
         String sql = "SELECT ID_Pasajero, Nombre, Apellido, DNI, Correo, Telefono, Estado "
-                    + "FROM pasajeros WHERE DNI=?";
+                    + "FROM Pasajeros WHERE DNI=?";
         PreparedStatement ps = null;
         try {
             ps = con.prepareStatement(sql);

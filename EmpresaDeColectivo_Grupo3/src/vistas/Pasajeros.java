@@ -473,7 +473,7 @@ public class Pasajeros extends javax.swing.JInternalFrame {
     
     
     private void jBAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAgregarActionPerformed
-        PasajeroData PasajeroData = new PasajeroData();
+        PasajeroData pasajeroData = new PasajeroData();
         Pasajero pasajero;
        
 
@@ -501,12 +501,16 @@ public class Pasajeros extends javax.swing.JInternalFrame {
             pasajero.setDni(txtDni.getText());
             pasajero.setCorreo(txtCorreo.getText());
             pasajero.setTelefono(txtTelefono.getText());
+            pasajero.setEstado(true);
             
-            PasajeroData.guardarPasajero(pasajero);
-            limpiarCampos();
-           
-    
-    
+            if(pasajeroData.buscarPasajeroPorDni(pasajero.getDni()) != null){
+                pasajeroData.guardarPasajero(pasajero);
+                limpiarCampos();
+            }else{
+                JOptionPane.showMessageDialog(null,
+                        "Ya existe el pasajero, tendrás que modificar "
+                      + "el registro en vez de agregarlo");
+            }
     }//GEN-LAST:event_jBAgregarActionPerformed
 
     
@@ -717,7 +721,7 @@ private void llenarCamposConDatosDelPasajero(int selectedRow) {
                     pasajero.getDni(),
                     pasajero.getCorreo(),
                     pasajero.getTelefono(),
-                    pasajero.isEstado()
+                    pasajero.estaActivo()
                 };
                 modelo.addRow(fila);
             }
@@ -742,7 +746,7 @@ private void llenarCamposConDatosDelPasajero(int selectedRow) {
                 pasajero.getDni(),
                 pasajero.getCorreo(),
                 pasajero.getTelefono(),
-                pasajero.isEstado()
+                pasajero.estaActivo()
             };
             modelo.addRow(fila);
         }

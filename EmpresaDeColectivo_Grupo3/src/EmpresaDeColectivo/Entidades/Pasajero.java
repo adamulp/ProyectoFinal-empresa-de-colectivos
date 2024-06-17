@@ -48,7 +48,7 @@ public class Pasajero {
         return telefono;
     }
 
-    public boolean isEstado() {
+    public boolean estaActivo() {
         return estado;
     }
 
