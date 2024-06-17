@@ -15,7 +15,7 @@ public class PasajeroData {
     }
       
      public void guardarPasajero(Pasajero pasajero) {
-        String sql = "INSERT INTO pasajeros (nombre, apellido, dni, correo,telefono) "
+        String sql = "INSERT INTO Pasajeros (Nombre, Apellido, DNI, Correo,Telefono) "
                 + "VALUES (?, ?, ?, ?, ?)";
         try {
             PreparedStatement ps = con.prepareStatement(sql,
@@ -48,7 +48,7 @@ public class PasajeroData {
      public Pasajero buscarPasajero(int idPasajero) {
     Pasajero pasajero = null;
     String sql = "SELECT ID_Pasajero, Nombre, Apellido, DNI, Correo, Telefono, Estado "
-            + "FROM pasajeros "
+            + "FROM Pasajeros "
             + "WHERE ID_Pasajero = ?";
     
     try {
@@ -82,7 +82,7 @@ public class PasajeroData {
     public List<Pasajero> listarPasajeros() {
         List<Pasajero> pasajeros = new ArrayList<>();
         try {
-            String sql = "SELECT * FROM pasajeros WHERE estado = 1";
+            String sql = "SELECT * FROM Pasajeros WHERE Estado = 1";
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
 
@@ -109,7 +109,7 @@ public class PasajeroData {
     public List<Pasajero> listarPasajerosInactivos() {
         List<Pasajero> pasajeros = new ArrayList<>();
         try {
-            String sql = "SELECT * FROM pasajeros WHERE estado = 0";
+            String sql = "SELECT * FROM Pasajeros WHERE Estado = 0";
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
 
@@ -137,7 +137,7 @@ public class PasajeroData {
     
       
       public void modificarPasajero(Pasajero pasajero) {
-        String sql = "UPDATE pasajeros SET nombre = ? , apellido = ?, dni = ?,correo = ?,telefono = ?"
+        String sql = "UPDATE Pasajeros SET Nombre = ? , Apellido = ?, DNI = ?,Correo = ?,Telefono = ?"
                 +   " WHERE ID_Pasajero = ?";
         PreparedStatement ps = null;
         try {
@@ -163,7 +163,7 @@ public class PasajeroData {
       
       public void eliminarPasajero(int idPasajero) {
         try {
-            String sql = "UPDATE pasajeros SET estado = 0 WHERE ID_Pasajero = ? ";
+            String sql = "UPDATE Pasajeros SET Estado = 0 WHERE ID_Pasajero = ? ";
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, idPasajero);
 
@@ -182,8 +182,8 @@ public class PasajeroData {
       
  public List<Pasajero> buscarPasajeroPorDni(String dni) {
         List<Pasajero> pasajeros = new ArrayList<>();
-        String sql = "SELECT ID_Pasajero, nombre, apellido, dni, correo, telefono, estado "
-                    + "FROM pasajeros WHERE dni=?";
+        String sql = "SELECT ID_Pasajero, Nombre, Apellido, DNI, Correo, Telefono, Estado "
+                    + "FROM pasajeros WHERE DNI=?";
         PreparedStatement ps = null;
         try {
             ps = con.prepareStatement(sql);
@@ -192,12 +192,12 @@ public class PasajeroData {
             while (rs.next()) {
                 Pasajero pasajero = new Pasajero();
                 pasajero.setIdPasajero(rs.getInt("ID_Pasajero"));
-                pasajero.setNombre(rs.getString("nombre"));
-                pasajero.setApellido(rs.getString("apellido"));
-                pasajero.setDni(rs.getString("dni"));
-                pasajero.setCorreo(rs.getString("correo"));
-                pasajero.setTelefono(rs.getString("telefono"));
-                pasajero.setEstado(rs.getBoolean("estado"));
+                pasajero.setNombre(rs.getString("Nombre"));
+                pasajero.setApellido(rs.getString("Apellido"));
+                pasajero.setDni(rs.getString("DNI"));
+                pasajero.setCorreo(rs.getString("Correo"));
+                pasajero.setTelefono(rs.getString("Telefono"));
+                pasajero.setEstado(rs.getBoolean("Estado"));
                 pasajeros.add(pasajero);
             }
             if (pasajeros.isEmpty()) {
@@ -212,8 +212,8 @@ public class PasajeroData {
       
        public List<Pasajero> buscarPasajeroPorApellido(String apellido) {
         List<Pasajero> pasajeros = new ArrayList<>();
-        String sql = "SELECT ID_Pasajero, nombre, apellido, dni, correo, telefono, estado "
-                    + "FROM pasajeros WHERE apellido=?";
+        String sql = "SELECT ID_Pasajero, Nombre, Apellido, DNI, Correo, Telefono, Estado "
+                    + "FROM Pasajeros WHERE Apellido=?";
         PreparedStatement ps = null;
         try {
             ps = con.prepareStatement(sql);
@@ -222,12 +222,12 @@ public class PasajeroData {
             while (rs.next()) {
                 Pasajero pasajero = new Pasajero();
                 pasajero.setIdPasajero(rs.getInt("ID_Pasajero"));
-                pasajero.setNombre(rs.getString("nombre"));
-                pasajero.setApellido(rs.getString("apellido"));
-                pasajero.setDni(rs.getString("dni"));
-                pasajero.setCorreo(rs.getString("correo"));
-                pasajero.setTelefono(rs.getString("telefono"));
-                pasajero.setEstado(rs.getBoolean("estado"));
+                pasajero.setNombre(rs.getString("Nombre"));
+                pasajero.setApellido(rs.getString("Apellido"));
+                pasajero.setDni(rs.getString("DNI"));
+                pasajero.setCorreo(rs.getString("Correo"));
+                pasajero.setTelefono(rs.getString("Telefono"));
+                pasajero.setEstado(rs.getBoolean("Estado"));
                 pasajeros.add(pasajero);
             }
             if (pasajeros.isEmpty()) {
@@ -242,7 +242,7 @@ public class PasajeroData {
        
        public List<Pasajero> buscarPasajeroPorNombre(String nombre) {
         List<Pasajero> pasajeros = new ArrayList<>();
-        String sql = "SELECT ID_Pasajero, nombre, apellido, dni, correo, telefono, estado "
+        String sql = "SELECT ID_Pasajero, Nombre, Apellido, DNI, Correo, Telefono, Estado "
                     + "FROM pasajeros WHERE nombre=?";
         PreparedStatement ps = null;
         try {
@@ -252,12 +252,12 @@ public class PasajeroData {
             while (rs.next()) {
                 Pasajero pasajero = new Pasajero();
                 pasajero.setIdPasajero(rs.getInt("ID_Pasajero"));
-                pasajero.setNombre(rs.getString("nombre"));
-                pasajero.setApellido(rs.getString("apellido"));
-                pasajero.setDni(rs.getString("dni"));
-                pasajero.setCorreo(rs.getString("correo"));
-                pasajero.setTelefono(rs.getString("telefono"));
-                pasajero.setEstado(rs.getBoolean("estado"));
+                pasajero.setNombre(rs.getString("Nombre"));
+                pasajero.setApellido(rs.getString("Apellido"));
+                pasajero.setDni(rs.getString("DNI"));
+                pasajero.setCorreo(rs.getString("Correo"));
+                pasajero.setTelefono(rs.getString("Telefono"));
+                pasajero.setEstado(rs.getBoolean("Estado"));
                 pasajeros.add(pasajero);
             }
             if (pasajeros.isEmpty()) {
