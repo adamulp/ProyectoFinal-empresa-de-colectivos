@@ -127,27 +127,9 @@ public class BuscarCole extends javax.swing.JFrame {
         modelo.agregarSeccion(datosColectivo);
         modelo.agregarSeccion(datosRuta);
                 
-        // Ejemplo
-//        SeccionTabla datosPersonales = new SeccionTabla("Datos Pasajero", "Pasajeros");
-//        datosPersonales.agregarColumna(new FormularioData("DNI", txtDni, true));
-//        datosPersonales.agregarColumna(new FormularioData("Nombre", txtNombre, true));
-//        datosPersonales.agregarColumna(new FormularioData("Apellido", txtApellido, true));
-//        datosPersonales.agregarFila(1, new Object[]{1001, "Juan", "Pérez"});
-//        datosPersonales.agregarFila(2, new Object[]{1002, "María", "Gómez"});
-//        modelo.agregarSeccion(datosPersonales);
-
-//        SeccionTabla orgRol = new SeccionTabla("Pasajes Disponibles", "Pasajes");
-//        orgRol.agregarColumna(new FormularioData("Fecha del Viaje", comboFecha, true));
-//        orgRol.agregarColumna(new FormularioData("Horario", comboHorario, true));
-//        orgRol.agregarFila(1, new Object[]{"2024-6-17", "09:00hs"});
-//        orgRol.agregarFila(2, new Object[]{"2024-6-18", "11:15hs"});
-//        modelo.agregarSeccion(orgRol);
-
-        // Create the custom table
         tabla = new JTablaCompuesta(modelo);
-        jScrollPane1.setViewportView(tabla);  // Add the custom table to the scroll pane
+        jScrollPane1.setViewportView(tabla);
 
-        // Fill combo boxes
         llenarCombos();
     }
     
