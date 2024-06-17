@@ -31,16 +31,15 @@ public class BuscarCole extends javax.swing.JFrame {
 
         // Example sections and data
         SeccionTabla datosPersonales = new SeccionTabla("Datos Pasajero", "Pasajeros");
-        datosPersonales.agregarColumna(new FormularioData("DNI", "txt", true));
-        datosPersonales.agregarColumna(new FormularioData("Nombre", "txt", true));
-        datosPersonales.agregarColumna(new FormularioData("Apellido", "txt", true));
+        datosPersonales.agregarColumna(new FormularioData("DNI", txtDni, true));
+        datosPersonales.agregarColumna(new FormularioData("Nombre", txtNombre, true));
+        datosPersonales.agregarColumna(new FormularioData("Apellido", txtApellido, true));
         datosPersonales.agregarFila(1, new Object[]{1001, "Juan", "Pérez"});
         datosPersonales.agregarFila(2, new Object[]{1002, "María", "Gómez"});
 
         SeccionTabla orgRol = new SeccionTabla("Pasajes Disponibles", "Pasajes");
-        orgRol.agregarColumna(new FormularioData("Fecha del Viaje",
-                Arrays.asList("2024-6-17", "2024-6-18", "2024-6-19")));
-        orgRol.agregarColumna(new FormularioData("Horario", Arrays.asList("09:00hs", "11:15hs", "13:30hs")));
+        orgRol.agregarColumna(new FormularioData("Fecha del Viaje", comboFecha, true));
+        orgRol.agregarColumna(new FormularioData("Horario", comboHorario, true));
         orgRol.agregarFila(1, new Object[]{"2024-6-17", "09:00hs"});
         orgRol.agregarFila(2, new Object[]{"2024-6-18", "11:15hs"});
 
@@ -51,47 +50,8 @@ public class BuscarCole extends javax.swing.JFrame {
         tabla = new JTablaCompuesta(modelo);
         jScrollPane1.setViewportView(tabla);  // Add the custom table to the scroll pane
 
-        // Set up the form fields
-        setupFormFields(datosPersonales, orgRol);
-
-        // Add selection listener to update form fields
-        tabla.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-            @Override
-            public void valueChanged(ListSelectionEvent e) {
-                if (!e.getValueIsAdjusting()) {
-                    int selectedRow = tabla.getSelectedRow();
-                    if (selectedRow >= 0) {
-                        updateFormFields(selectedRow);
-                    }
-                }
-            }
-        });
-
         // Fill combo boxes
         llenarCombos();
-    }
-
-    private void setupFormFields(SeccionTabla... secciones) {
-        for (SeccionTabla seccion : secciones) {
-            JPanel panel = seccion.getNombreSeccion().equals("Datos Pasajero") ? panelCamposTexto1 : panelCamposTexto2;
-            Object[] valores = new Object[seccion.nombresColumnas.size()]; // Assuming initial values are empty
-            tabla.agregarCamposSeccion(panel, seccion, valores);
-        }
-    }
-
-    private void updateFormFields(int selectedRow) {
-        // Datos Pasajero section
-        txtDni.setText(tabla.getValueAt(selectedRow, 0).toString());
-        txtNombre.setText(tabla.getValueAt(selectedRow, 1).toString());
-        txtApellido.setText(tabla.getValueAt(selectedRow, 2).toString());
-
-        // Pasajes Disponibles section
-        String fechaSeleccionada = tabla.getValueAt(selectedRow, 3).toString();
-        String horarioSeleccionado = tabla.getValueAt(selectedRow, 4).toString();
-
-        // Update combo boxes
-        comboFecha.setSelectedItem(fechaSeleccionada);
-        comboHorario.setSelectedItem(horarioSeleccionado);
     }
 
     private void llenarCombos() {
@@ -136,7 +96,7 @@ public class BuscarCole extends javax.swing.JFrame {
 
         if (horariosDeLlegada != null) {
             for (LocalTime horario : horariosDeLlegada) {
-                comboHoraSalida.addItem(horario.toString());
+                comboHoraLlegada.addItem(horario.toString());
             }
         }
     }

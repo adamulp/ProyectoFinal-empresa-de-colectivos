@@ -8,8 +8,10 @@ import java.util.HashMap;
 import java.util.Map;
 import com.toedter.calendar.JDateChooser;
 import java.util.Date;
+import javax.swing.JButton;
 
 public class JTablaCompuesta extends JTable {
+
     private ModeloTablaCompuesta modelo;
     private Map<String, Object[]> camposSeccion;
     private Map<String, Integer> columnasInicioSeccion;
@@ -19,87 +21,94 @@ public class JTablaCompuesta extends JTable {
         this.modelo = modelo;
         camposSeccion = new HashMap<>();
         columnasInicioSeccion = new HashMap<>();
+        addSelectionListener();
+    }
 
-        // Add selection listener to respond to table selection changes
-        ListSelectionModel selectionModel = getSelectionModel();
-        selectionModel.addListSelectionListener(new ListSelectionListener() {
+    public void setCamposSeccion(Map<String, Object[]> camposSeccion, Map<String, Integer> columnasInicioSeccion) {
+        this.camposSeccion = camposSeccion;
+        this.columnasInicioSeccion = columnasInicioSeccion;
+        modelo.fireTableDataChanged();
+    }
+
+     public void actualizarCampos(int selectedRow) {
+        for (SeccionTabla seccion : modelo.secciones) {
+            for (FormularioData columna : seccion.getColumnasConfiguracion()) {
+                JComponent campo = columna.getCampo();
+                Object valor = modelo.getValueAt(selectedRow, seccion.getColumnaInicio() + seccion.getNombresColumnas().indexOf(columna.getNombreColumna()));
+
+                switch (columna.getTipoCampo()) {
+                    case "JDateChooser":
+                        if (campo instanceof JDateChooser) {
+                            ((JDateChooser) campo).setDate((Date) valor);
+                        }
+                        break;
+                    case "JPanel":
+                        System.out.println("JTablaCompuesta::JPanel Stub: Unsupported/future behavior");
+                        break;
+                    case "JInternalFrame":
+                        System.out.println("JTablaCompuesta::JInternalFrame Stub: Unsupported/future behavior");
+                        break;
+                    case "JLabel":
+                        if (campo instanceof JLabel) {
+                            ((JLabel) campo).setText(valor != null ? valor.toString() : "");
+                        }
+                        break;
+                    case "JButton":
+                        System.out.println("JTablaCompuesta::JButton Stub: Unsupported/future behavior");
+                        break;
+                    case "JCheckBox":
+                        System.out.println("JTablaCompuesta::JCheckBox Stub: Unsupported/future behavior");
+                        break;
+                    case "JComboBox":
+                        if (campo instanceof JComboBox) {
+                            ((JComboBox<Object>) campo).setSelectedItem(valor);
+                        }
+                        break;
+                    case "JList":
+                        if (campo instanceof JList) {
+                            ((JList<Object>) campo).setSelectedValue(valor, true);
+                        }
+                        break;
+                    case "JRadioButton":
+                        System.out.println("JTablaCompuesta::JRadioButton Stub: Unsupported/future behavior");
+                        break;
+                    case "JScrollPane":
+                        System.out.println("JTablaCompuesta::JScrollPane Stub: Unsupported/future behavior");
+                        break;
+                    case "JTextField":
+                        if (campo instanceof JTextArea) {
+                            ((JTextArea) campo).setText(valor != null ? valor.toString() : "");
+                        }
+                        break;
+                    case "JTextArea":
+                        if (campo instanceof JTextArea) {
+                            ((JTextArea) campo).setText(valor != null ? valor.toString() : "");
+                        }
+                        break;
+                    case "JTree":
+                        System.out.println("JTablaCompuesta::JTree Stub: Unsupported/future behavior");
+                        break;
+                    default:
+                        System.out.println("JTablaCompuesta --- " + columna.getTipoCampo() + ": Unplanned/unsupported behavior");
+                        break;
+                }
+            }
+        }
+    }
+     
+    private void addSelectionListener() {
+        this.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
                 if (!e.getValueIsAdjusting()) {
                     int selectedRow = getSelectedRow();
-                    if (selectedRow != -1) {
+                    if (selectedRow >= 0) {
                         actualizarCampos(selectedRow);
                     }
                 }
             }
         });
     }
-    
-    public void agregarCamposSeccion(JPanel panel, SeccionTabla seccion, Object[] campos) {
-        panel.add(new JLabel(seccion.getNombreSeccion())); // Etiqueta de la sección
-        panel.add(new JLabel("")); // Espacio vacío
-        for (int i = 0; i < campos.length; i++) {
-            panel.add(new JLabel(seccion.getNombresColumnas().get(i)));
-            FormularioData columna = seccion.getColumnasConfiguracion().get(i);
-            String tipoCampo = columna.getTipoCampo();
-            switch (tipoCampo) {
-                case "txt":
-                    JTextField textField = new JTextField();
-                    textField.setEditable(columna.esEditable());
-                    campos[i] = textField;
-                    break;
-                case "btn":
-                    JButton button = columna.getBoton();
-                    button.setEnabled(columna.esEditable());
-                    campos[i] = button;
-                    break;
-                case "JDateChooser":
-                    JDateChooser dateChooser = new JDateChooser();
-                    dateChooser.setSelectableDateRange(
-                        columna.getRangoFechas().getStartDate(), 
-                        columna.getRangoFechas().getEndDate()
-                    );
-                    campos[i] = dateChooser;
-                    break;
-                case "cmb":
-                    JComboBox<Object> comboBox = new JComboBox<>(columna.getValoresComboBox().toArray());
-                    comboBox.setEnabled(columna.esEditable());
-                    campos[i] = comboBox;
-                    break;
-                default:
-                    throw new IllegalArgumentException("Tipo de campo no soportado: " + tipoCampo);
-            }
-            panel.add((JComponent) campos[i]);
-        }
-        camposSeccion.put(seccion.getNombreSeccion(), campos);
-        columnasInicioSeccion.put(seccion.getNombreSeccion(), seccion.getColumnaInicio());
-    }
 
-    public void setCamposSeccion(Map<String, Object[]> camposSeccion, Map<String, Integer> columnasInicioSeccion) {
-        this.camposSeccion = camposSeccion;
-        this.columnasInicioSeccion = columnasInicioSeccion;
 
-        // Notify the table that data has changed
-        modelo.fireTableDataChanged();
-    }
-
-    private void actualizarCampos(int selectedRow) {
-        for (SeccionTabla seccion : modelo.secciones) {
-            Object[] campos = camposSeccion.get(seccion.getNombreSeccion());
-            if (campos != null) {
-                for (int i = 0; i < campos.length; i++) {
-                    Object valor = modelo.getValueAt(selectedRow, seccion.getColumnaInicio() + i);
-                    if (campos[i] instanceof JTextField) {
-                        ((JTextField) campos[i]).setText(valor != null ? valor.toString() : "");
-                    } else if (campos[i] instanceof JDateChooser) {
-                        ((JDateChooser) campos[i]).setDate((Date) valor);
-                    } else if (campos[i] instanceof JComboBox) {
-                        ((JComboBox<Object>) campos[i]).setSelectedItem(valor);
-                    } else if (campos[i] instanceof JButton) {
-                        ((JButton) campos[i]).setEnabled(valor != null && valor.toString().equals("Expired"));
-                    }
-                }
-            }
-        }
-    }
 }
