@@ -130,7 +130,7 @@ public class BuscarCole extends javax.swing.JFrame {
         tabla = new JTablaCompuesta(modelo);
         jScrollPane1.setViewportView(tabla);
 
-        llenarCombos();
+        // llenarCombos();
     }
     
 
