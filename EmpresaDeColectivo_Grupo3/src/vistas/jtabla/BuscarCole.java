@@ -44,10 +44,6 @@ public class BuscarCole extends javax.swing.JFrame {
         List<Pasaje> pasajes = pasajeData.listarPasajes();
         
         SeccionTabla datosPasajes = new SeccionTabla("Datos Pasajes", "Pasajes");
-//        datosPasajes.agregarColumna(new FormularioData("ID_Pasaje", txtIdPasaje, false));
-//        datosPasajes.agregarColumna(new FormularioData("ID_Pasajero", txtIdPasajero, false));
-//        datosPasajes.agregarColumna(new FormularioData("ID_Colectivo", txtIdColectivo, false));
-//        datosPasajes.agregarColumna(new FormularioData("ID_Ruta", txtIdRuta, false));
         datosPasajes.agregarColumna("Fecha Viaje", jdFechaViaje, false);
         datosPasajes.agregarColumna("Hora Viaje", comboHoraViaje, false);
         datosPasajes.agregarColumna("Asiento", txtAsiento, false);
@@ -56,7 +52,6 @@ public class BuscarCole extends javax.swing.JFrame {
         
         // -------------------------Pasajeros-------------------------------------
         SeccionTabla datosPasajero = new SeccionTabla("Datos Pasajeros", "Pasajeros");
-//        datosPasajero.agregarColumna("ID_Pasajero", txtIdPasajero, false);
         datosPasajero.agregarColumna("Nombre", txtNombre, false);
         datosPasajero.agregarColumna("Apellido", txtApellido, false);
         datosPasajero.agregarColumna("DNI", txtDni, false);
