@@ -65,7 +65,7 @@ CREATE TABLE IF NOT EXISTS `Pasajeros` (
   `ID_Pasajero` int(11) NOT NULL AUTO_INCREMENT,
   `Nombre` varchar(255) NOT NULL,
   `Apellido` varchar(255) NOT NULL,
-  `DNI` varchar(20) NOT NULL,
+  `DNI` varchar(20) NOT NULL UNIQUE,
   `Correo` varchar(255) NOT NULL,
   `Telefono` varchar(20) NOT NULL,
   `Estado` tinyint(4) NOT NULL,
