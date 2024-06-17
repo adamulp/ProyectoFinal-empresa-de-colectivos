@@ -23,10 +23,10 @@ public class BuscarCole extends javax.swing.JFrame {
      */
     public BuscarCole() {
         initComponents();
-        customizeComponents();
+        vincularTablaConFormulario();
     }
     
-    private void customizeComponents() {
+    private void vincularTablaConFormulario() {
         modelo = new ModeloTablaCompuesta();
 
         // Example sections and data
