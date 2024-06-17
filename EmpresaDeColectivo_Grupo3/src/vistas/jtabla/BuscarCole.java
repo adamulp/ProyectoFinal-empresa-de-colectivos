@@ -91,9 +91,27 @@ public class BuscarCole extends javax.swing.JFrame {
                 
         );
 //        datosRuta.agregarColumna("ID_Ruta", txtIdRuta, false);
-        datosRuta.agregarColumna("Origen", comboOrigen, false);
-        datosRuta.agregarColumna("Destino", comboDestino, false);
-        datosRuta.agregarColumna("Duración Estimada", txtDuracionEstimada, false);
+        datosRuta.agregarColumna(
+                
+        "Origen", 
+            comboOrigen, 
+          false
+                
+        );
+        
+        datosRuta.agregarColumna(
+                
+            "Destino", 
+                comboDestino, 
+              false
+                
+        );
+        datosRuta.agregarColumna(
+                
+            "Duración Estimada", 
+                txtDuracionEstimada, 
+              false
+        );
 //        datosRuta.agregarColumna("Ruta Activa", checkBoxRutaActiva, false);
         
 
