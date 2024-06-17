@@ -21,6 +21,10 @@ public class SeccionTabla {
         nombresColumnas.add(columna.getNombreColumna());
         columnasConfiguracion.add(columna);
     }
+    
+    public void agregarColumna(String nombreColumna, Object campoGUI, boolean habilitado){
+        agregarColumna(new FormularioData(nombreColumna, campoGUI, habilitado));
+    }
 
     public void agregarFila(int clavePrimaria, Object[] filaDatos) {
         FilaSeccion fila = new FilaSeccion(clavePrimaria, filaDatos);
