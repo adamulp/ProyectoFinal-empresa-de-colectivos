@@ -43,7 +43,12 @@ public class BuscarCole extends javax.swing.JFrame {
         PasajeData pasajeData = new PasajeData();
         List<Pasaje> pasajes = pasajeData.listarPasajes();
         
-        SeccionTabla datosPasajes = new SeccionTabla("Datos Pasajes", "Pasajes");
+        SeccionTabla datosPasajes = new SeccionTabla(
+                
+                    "Datos Pasajes",
+                      "Pasajes"
+                
+        );
         datosPasajes.agregarColumna("Fecha Viaje", jdFechaViaje, false);
         datosPasajes.agregarColumna("Hora Viaje", comboHoraViaje, false);
         datosPasajes.agregarColumna("Asiento", txtAsiento, false);
@@ -51,7 +56,12 @@ public class BuscarCole extends javax.swing.JFrame {
         
         
         // -------------------------Pasajeros-------------------------------------
-        SeccionTabla datosPasajero = new SeccionTabla("Datos Pasajeros", "Pasajeros");
+        SeccionTabla datosPasajero = new SeccionTabla(
+                
+                  "Datos Pasajeros",
+                    "Pasajeros"
+                
+        );
         datosPasajero.agregarColumna("Nombre", txtNombre, false);
         datosPasajero.agregarColumna("Apellido", txtApellido, false);
         datosPasajero.agregarColumna("DNI", txtDni, false);
@@ -60,7 +70,12 @@ public class BuscarCole extends javax.swing.JFrame {
 //        datosPasajero.agregarColumna("Estado", checkBoxPasajeroActivo, false);
         
         // -------------------------Colectivos-------------------------------------
-        SeccionTabla datosColectivo = new SeccionTabla("Datos Colectivos", "Colectivos");
+        SeccionTabla datosColectivo = new SeccionTabla(
+                
+                "Datos Colectivos", 
+                "Colectivos"
+                
+        );
 //        datosColectivo.agregarColumna("ID_Colectivo", txtIdColectivo, false);
         datosColectivo.agregarColumna("Matricula", txtMatricula, false);
         datosColectivo.agregarColumna("Marca", txtMarca, false);
@@ -69,7 +84,12 @@ public class BuscarCole extends javax.swing.JFrame {
 //        datosColectivo.agregarColumna("Estado", checkBoxColectivoActivo, false);
 
         // -------------------------Rutas-------------------------------------
-        SeccionTabla datosRuta = new SeccionTabla("Datos Ruta", "Rutas");
+        SeccionTabla datosRuta = new SeccionTabla(
+                
+                "Datos Ruta",
+                "Rutas"
+                
+        );
 //        datosRuta.agregarColumna("ID_Ruta", txtIdRuta, false);
         datosRuta.agregarColumna("Origen", comboOrigen, false);
         datosRuta.agregarColumna("Destino", comboDestino, false);
@@ -87,7 +107,13 @@ public class BuscarCole extends javax.swing.JFrame {
             LocalTime horaViaje = pasaje.getHoraViaje();
             int asiento = pasaje.getAsiento();
             double precio = pasaje.getPrecio();
-            datosPasajes.agregarFila(idPasaje, new Object[]{fechaViaje, horaViaje, asiento, precio});
+            
+            datosPasajes.agregarFila(idPasaje, new Object[]{
+                fechaViaje, 
+                horaViaje, 
+                asiento, 
+                precio
+            });
             
             
             Pasajero pasajero = pasaje.getPasajero();
@@ -142,8 +168,14 @@ public class BuscarCole extends javax.swing.JFrame {
         // Llenar combo de Rutas
         boolean seleccionRutasActivas = checkboxColectivosActivos.isSelected();
         RutaData rutaData = new RutaData();
-        List<String> origenes = rutaData.listarOrigenesUnicos(seleccionRutasActivas);
-        List<String> destinos = rutaData.listarDestinosUnicos(seleccionRutasActivas);
+        
+        List<String> origenes = rutaData.listarOrigenesUnicos(
+                seleccionRutasActivas
+        );
+        
+        List<String> destinos = rutaData.listarDestinosUnicos(
+                seleccionRutasActivas
+        );
 
         if (origenes != null) {
             for (String origen : origenes) {
@@ -160,8 +192,14 @@ public class BuscarCole extends javax.swing.JFrame {
         // Llenar combo de horarios
         HorarioData horarioData = new HorarioData();
         boolean seleccionHorariosActivos = checkboxHorariosActivos.isSelected();
-        List<LocalTime> horariosDeSalida = horarioData.listarHorariosDeSalida(seleccionHorariosActivos);
-        List<LocalTime> horariosDeLlegada = horarioData.listarHorariosDeLlegada(seleccionHorariosActivos);
+        
+        List<LocalTime> horariosDeSalida = horarioData.listarHorariosDeSalida(
+                seleccionHorariosActivos
+        );
+        
+        List<LocalTime> horariosDeLlegada = horarioData.listarHorariosDeLlegada(
+                seleccionHorariosActivos
+        );
 
         if (horariosDeSalida != null) {
             for (LocalTime horario : horariosDeSalida) {
