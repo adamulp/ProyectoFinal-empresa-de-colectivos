@@ -35,26 +35,10 @@ public class BuscarCole extends javax.swing.JFrame {
     private void vincularTablaConFormulario() {
         modelo = new ModeloTablaCompuesta();
         
-        
-        
-        
-//        PasajeroData pasajeroData = new PasajeroData();
-//        List<Pasajero> pasajerosActivos = pasajeroData.listarPasajeros();
-//        List<Pasajero> pasajerosInactivos = pasajeroData.listarPasajerosInactivos();
-//        
-//        RutaData rutaData = new RutaData();
-//        List<Ruta> rutasActivas = rutaData.listarRutas();
-//        List<Ruta> rutasInactivas = rutaData.listarRutasInactivas();
-//        Ruta ruta = rutaData.buscarRuta(idRuta);
-//        
-//        ColectivoData colectivoData = new ColectivoData();
-//        List<Colectivo> colectivos = colectivoData.listarColectivos();
-//        Colectivo colectivo = buscarColectivo(idColectivo);
-//        
-//        HorarioData horarioData = new HorarioData();
-//        Horario horario = listarHorariosPorRuta(ruta);
-//        
-        
+// ################################################################################################
+// ----------------- Vincular los campos del formulario con el modelo de la jtabla ----------------
+// ################################################################################################
+
         // -------------------------Pasajes-------------------------------------
         PasajeData pasajeData = new PasajeData();
         List<Pasaje> pasajes = pasajeData.listarPasajes();
@@ -69,6 +53,8 @@ public class BuscarCole extends javax.swing.JFrame {
         datosPasajes.agregarColumna("Asiento", txtAsiento, false);
         datosPasajes.agregarColumna("Precio", txtPrecio, false);
         
+        
+        // -------------------------Pasajeros-------------------------------------
         SeccionTabla datosPasajero = new SeccionTabla("Datos Pasajeros", "Pasajeros");
 //        datosPasajero.agregarColumna("ID_Pasajero", txtIdPasajero, false);
         datosPasajero.agregarColumna("Nombre", txtNombre, false);
@@ -78,6 +64,7 @@ public class BuscarCole extends javax.swing.JFrame {
         datosPasajero.agregarColumna("Telefono", txtTelefono, false);
 //        datosPasajero.agregarColumna("Estado", checkBoxPasajeroActivo, false);
         
+        // -------------------------Colectivos-------------------------------------
         SeccionTabla datosColectivo = new SeccionTabla("Datos Colectivos", "Colectivos");
 //        datosColectivo.agregarColumna("ID_Colectivo", txtIdColectivo, false);
         datosColectivo.agregarColumna("Matricula", txtMatricula, false);
@@ -85,7 +72,8 @@ public class BuscarCole extends javax.swing.JFrame {
         datosColectivo.agregarColumna("Modelo", txtModelo, false);
         datosColectivo.agregarColumna("Capacidad", txtCapacidad, false);
 //        datosColectivo.agregarColumna("Estado", checkBoxColectivoActivo, false);
-        
+
+        // -------------------------Rutas-------------------------------------
         SeccionTabla datosRuta = new SeccionTabla("Datos Ruta", "Rutas");
 //        datosRuta.agregarColumna("ID_Ruta", txtIdRuta, false);
         datosRuta.agregarColumna("Origen", comboOrigen, false);
@@ -93,6 +81,11 @@ public class BuscarCole extends javax.swing.JFrame {
         datosRuta.agregarColumna("Duración Estimada", txtDuracionEstimada, false);
 //        datosRuta.agregarColumna("Ruta Activa", checkBoxRutaActiva, false);
         
+
+// ################################################################################################
+// ----------------- Llenar la jtabla con datos de la base de datos  ------------------------------
+// ################################################################################################
+
         for(Pasaje pasaje: pasajes){
             int idPasaje = pasaje.getIdPasaje();
             LocalDate fechaViaje = pasaje.getFechaViaje();
