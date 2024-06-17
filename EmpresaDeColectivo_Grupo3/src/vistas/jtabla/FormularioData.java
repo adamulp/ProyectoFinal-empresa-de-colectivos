@@ -29,6 +29,10 @@ public class FormularioData {
         return habilitado;
     }
     
+    public String tipoCampo(){
+        return tipoCampo;
+    }
+    
     public static String tipoCampo(JComponent campo){
         return campo.getClass().getSimpleName();
     }
