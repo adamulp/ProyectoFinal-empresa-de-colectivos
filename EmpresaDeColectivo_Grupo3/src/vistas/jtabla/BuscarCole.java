@@ -232,7 +232,7 @@ public class BuscarCole extends javax.swing.JFrame {
                 colectivo.getModelo(),
                 colectivo.getCapacidad()
             });
-            
+            System.out.println("Prueba de rutas");
             Ruta ruta = pasaje.getRuta();
             int idRuta = ruta.getIdRuta();
             datosRuta.agregarFila(idRuta, new Object[]{

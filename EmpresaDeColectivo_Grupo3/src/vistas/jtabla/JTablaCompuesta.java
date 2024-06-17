@@ -4,6 +4,8 @@ import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import com.toedter.calendar.JDateChooser;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Date;
 
 public class JTablaCompuesta extends JTable {
@@ -37,7 +39,8 @@ public class JTablaCompuesta extends JTable {
 
                 switch (columna.tipoCampo()) {
                     case "JDateChooser":
-                        ((JDateChooser) columna.getCampoGUI()).setDate((Date) valor);
+                        Date fecha = Date.from(((LocalDate)valor).atStartOfDay(ZoneId.systemDefault()).toInstant());
+                        ((JDateChooser) columna.getCampoGUI()).setDate(fecha);
                         break;
                     case "JPanel":
                         System.out.println("JTablaCompuesta::JPanel Stub: Unsupported/future behavior");
