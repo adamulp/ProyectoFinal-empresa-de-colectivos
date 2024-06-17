@@ -10,9 +10,9 @@ public class RangoFechas {
     private Date fechaInicio;
     private Date fechaFin;
 
-    public RangoFechas(Date startDate, Date endDate) {
-        this.fechaInicio = startDate;
-        this.fechaFin = endDate;
+    public RangoFechas(Date fechaInicio, Date fechaFin) {
+        this.fechaInicio = fechaInicio;
+        this.fechaFin = fechaFin;
     }
 
     public Date getFechaInicio() {
