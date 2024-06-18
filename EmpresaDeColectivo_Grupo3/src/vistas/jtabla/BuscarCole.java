@@ -9,6 +9,7 @@ import accesoADatos.HorarioData;
 import accesoADatos.PasajeData;
 import accesoADatos.PasajeroData;
 import accesoADatos.RutaData;
+import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Arrays;
@@ -238,7 +239,7 @@ public class BuscarCole extends javax.swing.JFrame {
             datosRuta.agregarFila(idRuta, new Object[]{
                 ruta.getOrigen(),
                 ruta.getDestino(),
-                ruta.getDuracionEstimada()
+                strDuracion(ruta.getDuracionEstimada())
             });
         }
         modelo.agregarSeccion(datosPasajes);
@@ -252,7 +253,19 @@ public class BuscarCole extends javax.swing.JFrame {
         // llenarCombos();
     }
     
-
+    private String strDuracion(Duration duration){
+        // Datos Rutas.duracion
+        long duracionSegundos = duration.getSeconds();
+        long horas = duracionSegundos / 3600;
+        long minutos = (duracionSegundos % 3600) / 60;
+        String duracionHora = String.format("%02d", horas);
+        String duracionMin = String.format("%02d", minutos);
+        return duracionHora + ":" + duracionMin;
+    }
+    
+    private String strDuracion(Ruta ruta){
+        return BuscarCole.this.strDuracion(ruta.getDuracionEstimada());
+    }
     private void llenarCombos() {
         // Llenar combo de colectivos
         ColectivoData colectivoData = new ColectivoData();

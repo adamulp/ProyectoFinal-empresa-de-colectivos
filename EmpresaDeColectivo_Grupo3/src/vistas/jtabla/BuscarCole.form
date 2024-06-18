@@ -278,7 +278,6 @@
                                               <Group type="102" alignment="0" attributes="0">
                                                   <EmptySpace min="48" pref="48" max="-2" attributes="0"/>
                                                   <Component id="lblOrigenes" min="-2" max="-2" attributes="0"/>
-                                                  <EmptySpace min="71" pref="71" max="-2" attributes="0"/>
                                               </Group>
                                           </Group>
                                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
