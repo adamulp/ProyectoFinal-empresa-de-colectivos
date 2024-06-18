@@ -372,8 +372,6 @@ public class BuscarCole extends javax.swing.JFrame {
         comboColectivos = new javax.swing.JComboBox<>();
         lblDatosColectivo = new javax.swing.JLabel();
         panelPasaje = new javax.swing.JPanel();
-        comboFecha = new javax.swing.JComboBox<>();
-        comboHorario = new javax.swing.JComboBox<>();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jdFechaViaje = new com.toedter.calendar.JDateChooser();
@@ -383,6 +381,7 @@ public class BuscarCole extends javax.swing.JFrame {
         txtPrecio = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         lblDatosPasaje = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -449,7 +448,7 @@ public class BuscarCole extends javax.swing.JFrame {
                     .addGroup(panelPasajeroLayout.createSequentialGroup()
                         .addGap(273, 273, 273)
                         .addComponent(lblDatosPasajero)))
-                .addContainerGap(415, Short.MAX_VALUE))
+                .addContainerGap(125, Short.MAX_VALUE))
         );
         panelPasajeroLayout.setVerticalGroup(
             panelPasajeroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -474,7 +473,7 @@ public class BuscarCole extends javax.swing.JFrame {
                 .addGap(30, 30, 30))
         );
 
-        tabPanePasajes.addTab("Pasaajero", panelPasajero);
+        tabPanePasajes.addTab("Pasajero", panelPasajero);
 
         panelRutas.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)));
 
@@ -530,7 +529,7 @@ public class BuscarCole extends javax.swing.JFrame {
                 .addComponent(lblDuracionEstimada)
                 .addGap(18, 18, 18)
                 .addComponent(txtDuracionEstimada, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 728, Short.MAX_VALUE))
+                .addGap(0, 438, Short.MAX_VALUE))
         );
         panelRutasLayout.setVerticalGroup(
             panelRutasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -642,7 +641,7 @@ public class BuscarCole extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jPanel34, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(checkboxHorariosActivos))
-                        .addContainerGap(765, Short.MAX_VALUE))))
+                        .addContainerGap(475, Short.MAX_VALUE))))
             .addGroup(panelHorariosLayout.createSequentialGroup()
                 .addGap(136, 136, 136)
                 .addComponent(lblHorarios)
@@ -727,7 +726,7 @@ public class BuscarCole extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(comboColectivos, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(checkboxColectivosActivos))))
-                .addContainerGap(675, Short.MAX_VALUE))
+                .addContainerGap(385, Short.MAX_VALUE))
         );
         panelColectivoLayout.setVerticalGroup(
             panelColectivoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -759,9 +758,9 @@ public class BuscarCole extends javax.swing.JFrame {
 
         panelPasaje.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)));
 
-        jLabel2.setText("comboFecha");
+        jLabel2.setText("Fecha");
 
-        jLabel3.setText("comboHorario");
+        jLabel3.setText("Horario");
 
         jLabel1.setText("Asiento");
 
@@ -775,40 +774,29 @@ public class BuscarCole extends javax.swing.JFrame {
         panelPasajeLayout.setHorizontalGroup(
             panelPasajeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelPasajeLayout.createSequentialGroup()
-                .addGroup(panelPasajeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelPasajeLayout.createSequentialGroup()
-                        .addGroup(panelPasajeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(panelPasajeLayout.createSequentialGroup()
-                                .addGap(50, 50, 50)
+                .addContainerGap()
+                .addGroup(panelPasajeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(panelPasajeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(panelPasajeLayout.createSequentialGroup()
+                            .addComponent(txtAsiento, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(18, 18, 18)
+                            .addComponent(txtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(panelPasajeLayout.createSequentialGroup()
+                            .addComponent(jLabel1)
+                            .addGap(39, 39, 39)
+                            .addComponent(jLabel4)))
+                    .addGroup(panelPasajeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(panelPasajeLayout.createSequentialGroup()
+                            .addComponent(jdFechaViaje, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(24, 24, 24)
+                            .addComponent(comboHoraViaje, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(panelPasajeLayout.createSequentialGroup()
+                            .addGroup(panelPasajeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addComponent(jLabel2)
-                                .addGap(78, 78, 78)
-                                .addComponent(jLabel3)
-                                .addGap(13, 13, 13))
-                            .addGroup(panelPasajeLayout.createSequentialGroup()
-                                .addGroup(panelPasajeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(panelPasajeLayout.createSequentialGroup()
-                                        .addComponent(comboFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelPasajeLayout.createSequentialGroup()
-                                        .addComponent(jdFechaViaje, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(24, 24, 24)))
-                                .addGroup(panelPasajeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(comboHorario, 0, 112, Short.MAX_VALUE)
-                                    .addComponent(comboHoraViaje, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                        .addGap(18, 18, 18)
-                        .addGroup(panelPasajeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(panelPasajeLayout.createSequentialGroup()
-                                .addComponent(txtAsiento, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(txtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(panelPasajeLayout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addGap(39, 39, 39)
-                                .addComponent(jLabel4))))
-                    .addGroup(panelPasajeLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(lblDatosPasaje)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(lblDatosPasaje))
+                            .addGap(153, 153, 153)
+                            .addComponent(jLabel3))))
+                .addContainerGap(504, Short.MAX_VALUE))
         );
         panelPasajeLayout.setVerticalGroup(
             panelPasajeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -819,46 +807,54 @@ public class BuscarCole extends javax.swing.JFrame {
                     .addComponent(jLabel3)
                     .addComponent(jLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panelPasajeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(comboFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(comboHorario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel4))
-                .addGap(11, 11, 11)
                 .addGroup(panelPasajeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jdFechaViaje, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(panelPasajeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(comboHoraViaje, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txtAsiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(comboHoraViaje, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 63, Short.MAX_VALUE)
+                .addGroup(panelPasajeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel4))
+                .addGap(8, 8, 8)
+                .addGroup(panelPasajeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtAsiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(40, 40, 40))
         );
 
         tabPanePasajes.addTab("Pasaje", panelPasaje);
+
+        jLabel7.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
+        jLabel7.setText("Pasajes");
 
         javax.swing.GroupLayout panelCamposTexto1Layout = new javax.swing.GroupLayout(panelCamposTexto1);
         panelCamposTexto1.setLayout(panelCamposTexto1Layout);
         panelCamposTexto1Layout.setHorizontalGroup(
             panelCamposTexto1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelCamposTexto1Layout.createSequentialGroup()
-                .addGroup(panelCamposTexto1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(panelCamposTexto1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelCamposTexto1Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1575, Short.MAX_VALUE))
+                        .addComponent(jScrollPane1))
                     .addGroup(panelCamposTexto1Layout.createSequentialGroup()
-                        .addGap(34, 34, 34)
-                        .addComponent(tabPanePasajes, javax.swing.GroupLayout.PREFERRED_SIZE, 1113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGap(622, 622, 622)
+                        .addComponent(jLabel7)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
+            .addGroup(panelCamposTexto1Layout.createSequentialGroup()
+                .addGap(32, 32, 32)
+                .addComponent(tabPanePasajes, javax.swing.GroupLayout.PREFERRED_SIZE, 823, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(723, Short.MAX_VALUE))
         );
         panelCamposTexto1Layout.setVerticalGroup(
             panelCamposTexto1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelCamposTexto1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(43, 43, 43)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel7)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tabPanePasajes, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(124, Short.MAX_VALUE))
+                .addGap(186, 186, 186))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -869,7 +865,10 @@ public class BuscarCole extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelCamposTexto1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(panelCamposTexto1, javax.swing.GroupLayout.PREFERRED_SIZE, 463, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(17, 17, 17))
         );
 
         pack();
@@ -928,11 +927,9 @@ public class BuscarCole extends javax.swing.JFrame {
     private javax.swing.JCheckBox checkboxHorariosActivos;
     private javax.swing.JComboBox<String> comboColectivos;
     private javax.swing.JComboBox<String> comboDestino;
-    private javax.swing.JComboBox<String> comboFecha;
     private javax.swing.JComboBox<String> comboHoraLlegada;
     private javax.swing.JComboBox<String> comboHoraSalida;
     private javax.swing.JComboBox<String> comboHoraViaje;
-    private javax.swing.JComboBox<String> comboHorario;
     private javax.swing.JComboBox<String> comboOrigen;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -943,6 +940,7 @@ public class BuscarCole extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel21;
     private javax.swing.JPanel jPanel34;
     private javax.swing.JScrollPane jScrollPane1;
