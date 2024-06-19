@@ -20,9 +20,15 @@ public class JTablaCompuesta extends JTable {
 
     private ModeloTablaCompuesta modelo;
     private MouseListener suprimirMouse;
+    private Color fondoCampoDeshabilitado;
+    private Color textoCampoDeshabilitado;
+    
     public JTablaCompuesta(ModeloTablaCompuesta modelo) {
         super(modelo);
         this.modelo = modelo;
+        this.fondoCampoDeshabilitado = Color.decode("#E0E0E0");
+        this.textoCampoDeshabilitado = Color.decode("#0F0F0F");
+        
         this.suprimirMouse = new MouseAdapter() {
                                 @Override
                                 public void mouseClicked(MouseEvent e) {
@@ -72,18 +78,18 @@ public class JTablaCompuesta extends JTable {
                         ((JLabel) columna.getCampoGUI()).setText(valor.toString());
                         break;
                     case "JButton":
-                        ((JButton) columna.getCampoGUI()).setEnabled(columna.esHabilitado());
+                        ((JButton) columna.getCampoGUI()).setEnabled(columna.esEditable());
                         break;
                     case "JCheckBox":
                         System.out.println("JTablaCompuesta::JCheckBox Stub: Unsupported/future behavior");
                         break;
                     case "JComboBox":
                         ((JComboBox<?>) columna.getCampoGUI()).setSelectedItem(valor);
-                        ((JComboBox<?>) columna.getCampoGUI()).setEnabled(columna.esHabilitado());
+                        ((JComboBox<?>) columna.getCampoGUI()).setEnabled(columna.esEditable());
                         break;
                     case "JList":
                         ((JList<?>) columna.getCampoGUI()).setSelectedValue(valor, true);
-                        ((JList<?>) columna.getCampoGUI()).setEnabled(columna.esHabilitado());
+                        ((JList<?>) columna.getCampoGUI()).setEnabled(columna.esEditable());
                         break;
                     case "JRadioButton":
                         System.out.println("JTablaCompuesta::JRadioButton Stub: Unsupported/future behavior");
@@ -97,11 +103,11 @@ public class JTablaCompuesta extends JTable {
                     case "JTextField":
                         JTextField textField = ((JTextField) columna.getCampoGUI());
                         textField.setText(valor.toString());
-                        if (!columna.esHabilitado()) {
-                            textField.setBackground(Color.decode("#E0E0E0"));
-                            textField.setForeground(Color.decode("#0F0F0F"));
+                        if (!columna.esEditable()) {
+                            textField.setBackground(fondoCampoDeshabilitado);
+                            textField.setForeground(textoCampoDeshabilitado);
                             textField.setHighlighter(null);
-                            textField.setCaretColor(Color.decode("#E0E0E0"));
+                            textField.setCaretColor(fondoCampoDeshabilitado);
                             textField.setCaretPosition(textField.getText().length());
                             textField.addMouseListener(suprimirMouse);
                         } else {
@@ -114,7 +120,7 @@ public class JTablaCompuesta extends JTable {
                             textField.setCaretColor(null);
                             textField.removeMouseListener(suprimirMouse);
                         }
-                        textField.setEditable(columna.esHabilitado());
+                        textField.setEditable(columna.esEditable());
 
                         break;
                     case "JTree":
@@ -127,4 +133,13 @@ public class JTablaCompuesta extends JTable {
             }
         }
     }
+
+    public void setFondoCampoDeshabilitado(Color fondoCampoDeshabilitado) {
+        this.fondoCampoDeshabilitado = fondoCampoDeshabilitado;
+    }
+
+    public void setTextoCampoDeshabilitado(Color textoCampoDeshabilitado) {
+        this.textoCampoDeshabilitado = textoCampoDeshabilitado;
+    }
+    
 }

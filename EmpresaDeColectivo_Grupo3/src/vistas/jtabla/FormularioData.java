@@ -25,7 +25,7 @@ public class FormularioData {
         return campoGUI;
     }
 
-    public boolean esHabilitado() {
+    public boolean esEditable() {
         return habilitado;
     }
     
