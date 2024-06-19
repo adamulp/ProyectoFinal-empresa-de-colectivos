@@ -112,19 +112,11 @@ public class PasajeData {
             while (rs.next()) {
                 Pasajero pasajero = pasajeroData.buscarPasajero(rs.getInt("ID_Pasajero"));
                 
-                
                 int idRuta = rs.getInt("ID_Ruta");
-                System.out.println("idRuta=" + idRuta);
                 Ruta ruta = rutaData.buscarRuta(idRuta);
-                System.out.println("ruta.getId=" + ruta.getIdRuta());
-                
                 
                 int idColectivo = rs.getInt("ID_Colectivo");
-                System.out.println("Buscando ID_Colectivo cod id=" + idColectivo + "...");
                 Colectivo colectivo = colectivoData.buscarColectivo(idColectivo);
-                
-                System.out.println("pasajero=" + pasajero.getApellido() + ""
-                        + ", colectivo.getID()=" + colectivo.getIdColectivo());
                 
                 Pasaje pasaje = new Pasaje();
                 pasaje.setIdPasaje(rs.getInt("ID_Pasaje"));
