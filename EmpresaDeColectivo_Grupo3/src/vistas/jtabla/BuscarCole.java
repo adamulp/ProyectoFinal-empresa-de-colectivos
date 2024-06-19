@@ -54,7 +54,7 @@ public class BuscarCole extends javax.swing.JFrame {
                 
             "Fecha Viaje",
                 jdFechaViaje,
-              false
+              true
                 
         );
         
@@ -62,14 +62,14 @@ public class BuscarCole extends javax.swing.JFrame {
                 
            "Hora Viaje", 
                comboHoraViaje, 
-             false
+             true
                 
         );
         
         datosPasajes.agregarColumna(
             "Asiento", 
                 txtAsiento, 
-              false
+              true
         );
         
         datosPasajes.agregarColumna(
@@ -115,14 +115,14 @@ public class BuscarCole extends javax.swing.JFrame {
                 
                 "Correo", 
                 txtCorreo, 
-                false
+                true
         );
         
         datosPasajero.agregarColumna(
                 
            "Telefono", 
                 txtTelefono, 
-              false
+              true
         );
         
 //        datosPasajero.agregarColumna("Estado", checkBoxPasajeroActivo, false);
@@ -159,7 +159,7 @@ public class BuscarCole extends javax.swing.JFrame {
                 
             "Capacidad", 
                 txtCapacidad, 
-              false
+              true
                 
         );
 //        datosColectivo.agregarColumna("Estado", checkBoxColectivoActivo, false);
@@ -176,7 +176,7 @@ public class BuscarCole extends javax.swing.JFrame {
                 
         "Origen", 
             comboOrigen, 
-          false
+          true
                 
         );
         
@@ -184,7 +184,7 @@ public class BuscarCole extends javax.swing.JFrame {
                 
             "Destino", 
                 comboDestino, 
-              false
+              true
                 
         );
         datosRuta.agregarColumna(
@@ -412,6 +412,8 @@ public class BuscarCole extends javax.swing.JFrame {
         panelPasajero.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)));
 
         lblNombres.setText("Nombres:");
+
+        txtNombre.setForeground(javax.swing.UIManager.getDefaults().getColor("TitlePane.embeddedForeground"));
 
         lblApellidos.setText("Apellidos:");
 

@@ -4,16 +4,36 @@ import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import com.toedter.calendar.JDateChooser;
+import java.awt.Color;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
+import javax.swing.text.DefaultHighlighter;
+import javax.swing.text.Highlighter;
 
 public class JTablaCompuesta extends JTable {
-    private ModeloTablaCompuesta modelo;
 
+    private ModeloTablaCompuesta modelo;
+    private MouseListener suprimirMouse;
     public JTablaCompuesta(ModeloTablaCompuesta modelo) {
         super(modelo);
         this.modelo = modelo;
+        this.suprimirMouse = new MouseAdapter() {
+                                @Override
+                                public void mouseClicked(MouseEvent e) {
+                                    e.consume();
+                                }
+
+                                @Override
+                                public void mousePressed(MouseEvent e) {
+                                    e.consume();
+                                }
+                            };
         addSelectionListener();
     }
 
@@ -39,7 +59,7 @@ public class JTablaCompuesta extends JTable {
 
                 switch (columna.tipoCampo()) {
                     case "JDateChooser":
-                        Date fecha = Date.from(((LocalDate)valor).atStartOfDay(ZoneId.systemDefault()).toInstant());
+                        Date fecha = Date.from(((LocalDate) valor).atStartOfDay(ZoneId.systemDefault()).toInstant());
                         ((JDateChooser) columna.getCampoGUI()).setDate(fecha);
                         break;
                     case "JPanel":
@@ -52,16 +72,18 @@ public class JTablaCompuesta extends JTable {
                         ((JLabel) columna.getCampoGUI()).setText(valor.toString());
                         break;
                     case "JButton":
-                        System.out.println("JTablaCompuesta::JButton Stub: Unsupported/future behavior");
+                        ((JButton) columna.getCampoGUI()).setEnabled(columna.esHabilitado());
                         break;
                     case "JCheckBox":
                         System.out.println("JTablaCompuesta::JCheckBox Stub: Unsupported/future behavior");
                         break;
                     case "JComboBox":
                         ((JComboBox<?>) columna.getCampoGUI()).setSelectedItem(valor);
+                        ((JComboBox<?>) columna.getCampoGUI()).setEnabled(columna.esHabilitado());
                         break;
                     case "JList":
                         ((JList<?>) columna.getCampoGUI()).setSelectedValue(valor, true);
+                        ((JList<?>) columna.getCampoGUI()).setEnabled(columna.esHabilitado());
                         break;
                     case "JRadioButton":
                         System.out.println("JTablaCompuesta::JRadioButton Stub: Unsupported/future behavior");
@@ -73,7 +95,27 @@ public class JTablaCompuesta extends JTable {
                         ((JTextArea) columna.getCampoGUI()).setText(valor.toString());
                         break;
                     case "JTextField":
-                        ((JTextField) columna.getCampoGUI()).setText(valor.toString());
+                        JTextField textField = ((JTextField) columna.getCampoGUI());
+                        textField.setText(valor.toString());
+                        if (!columna.esHabilitado()) {
+                            textField.setBackground(Color.decode("#E0E0E0"));
+                            textField.setForeground(Color.decode("#0F0F0F"));
+                            textField.setHighlighter(null);
+                            textField.setCaretColor(Color.decode("#E0E0E0"));
+                            textField.setCaretPosition(textField.getText().length());
+                            textField.addMouseListener(suprimirMouse);
+                        } else {
+                            textField.setBackground(null);
+                            textField.setForeground(null);
+                            Highlighter highlighter = new DefaultHighlighter();
+                            textField.setHighlighter(highlighter);
+                            Highlighter.HighlightPainter highlightPainter = new DefaultHighlighter.DefaultHighlightPainter(Color.YELLOW);
+                            textField.setCaretPosition(0);
+                            textField.setCaretColor(null);
+                            textField.removeMouseListener(suprimirMouse);
+                        }
+                        textField.setEditable(columna.esHabilitado());
+
                         break;
                     case "JTree":
                         System.out.println("JTablaCompuesta::JTree Stub: Unsupported/future behavior");
