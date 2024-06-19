@@ -22,24 +22,24 @@ public class JTablaCompuesta extends JTable {
     private MouseListener suprimirMouse;
     private Color fondoCampoDeshabilitado;
     private Color textoCampoDeshabilitado;
-    
+
     public JTablaCompuesta(ModeloTablaCompuesta modelo) {
         super(modelo);
         this.modelo = modelo;
         this.fondoCampoDeshabilitado = Color.decode("#E0E0E0");
         this.textoCampoDeshabilitado = Color.decode("#0F0F0F");
-        
-        this.suprimirMouse = new MouseAdapter() {
-                                @Override
-                                public void mouseClicked(MouseEvent e) {
-                                    e.consume();
-                                }
 
-                                @Override
-                                public void mousePressed(MouseEvent e) {
-                                    e.consume();
-                                }
-                            };
+        this.suprimirMouse = new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                e.consume();
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                e.consume();
+            }
+        };
         addSelectionListener();
     }
 
@@ -55,6 +55,46 @@ public class JTablaCompuesta extends JTable {
                 }
             }
         });
+    }
+
+    private void setEditable(JComponent campo, boolean editable) {
+        if (campo instanceof JTextField){
+            ((JTextField) campo).setEditable(editable);
+        }
+        
+        if (!editable) {
+            campo.setBackground(fondoCampoDeshabilitado);
+            campo.setForeground(textoCampoDeshabilitado);
+
+            if (campo instanceof JTextField) {
+                ((JTextField) campo).setHighlighter(null);
+
+                ((JTextField) campo).
+                        setCaretColor(fondoCampoDeshabilitado);
+
+                ((JTextField) campo).setCaretPosition(
+                        ((JTextField) campo).
+                                getText().length());
+            }
+
+            campo.addMouseListener(suprimirMouse);
+
+        } else {
+            campo.setBackground(null);
+            campo.setForeground(null);
+            if (campo instanceof JTextField) {
+                Highlighter highlighter = new DefaultHighlighter();
+                ((JTextField) campo).setHighlighter(highlighter);
+
+                Highlighter.HighlightPainter highlightPainter
+                        = new DefaultHighlighter.DefaultHighlightPainter(
+                                null);
+
+                ((JTextField) campo).setCaretPosition(0);
+                ((JTextField) campo).setCaretColor(null);
+            }
+            campo.removeMouseListener(suprimirMouse);
+        }
     }
 
     public void actualizarCampos(int selectedRow) {
@@ -85,6 +125,7 @@ public class JTablaCompuesta extends JTable {
                         break;
                     case "JComboBox":
                         ((JComboBox<?>) columna.getCampoGUI()).setSelectedItem(valor);
+//                        setEditable(((JComboBox<?>) columna.getCampoGUI()), columna.esEditable());
                         ((JComboBox<?>) columna.getCampoGUI()).setEnabled(columna.esEditable());
                         break;
                     case "JList":
@@ -93,6 +134,7 @@ public class JTablaCompuesta extends JTable {
                         break;
                     case "JRadioButton":
                         System.out.println("JTablaCompuesta::JRadioButton Stub: Unsupported/future behavior");
+                        ((JRadioButton) columna.getCampoGUI()).setEnabled(columna.esEditable());
                         break;
                     case "JScrollPane":
                         System.out.println("JTablaCompuesta::JScrollPane Stub: Unsupported/future behavior");
@@ -103,23 +145,7 @@ public class JTablaCompuesta extends JTable {
                     case "JTextField":
                         JTextField textField = ((JTextField) columna.getCampoGUI());
                         textField.setText(valor.toString());
-                        if (!columna.esEditable()) {
-                            textField.setBackground(fondoCampoDeshabilitado);
-                            textField.setForeground(textoCampoDeshabilitado);
-                            textField.setHighlighter(null);
-                            textField.setCaretColor(fondoCampoDeshabilitado);
-                            textField.setCaretPosition(textField.getText().length());
-                            textField.addMouseListener(suprimirMouse);
-                        } else {
-                            textField.setBackground(null);
-                            textField.setForeground(null);
-                            Highlighter highlighter = new DefaultHighlighter();
-                            textField.setHighlighter(highlighter);
-                            Highlighter.HighlightPainter highlightPainter = new DefaultHighlighter.DefaultHighlightPainter(Color.YELLOW);
-                            textField.setCaretPosition(0);
-                            textField.setCaretColor(null);
-                            textField.removeMouseListener(suprimirMouse);
-                        }
+                        setEditable(textField, columna.esEditable());
                         textField.setEditable(columna.esEditable());
 
                         break;
@@ -141,5 +167,5 @@ public class JTablaCompuesta extends JTable {
     public void setTextoCampoDeshabilitado(Color textoCampoDeshabilitado) {
         this.textoCampoDeshabilitado = textoCampoDeshabilitado;
     }
-    
+
 }

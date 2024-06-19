@@ -23,198 +23,171 @@ import javax.swing.event.ListSelectionListener;
  * @author adam
  */
 public class BuscarCole extends javax.swing.JFrame {
+
     private JTablaCompuesta tabla;
     private ModeloTablaCompuesta modelo;
+
     /**
      * Creates new form BuscarCole
      */
     public BuscarCole() {
         initComponents();
+        setCheckBoxesActivos(true);
         vincularTablaConFormulario();
     }
-    
+
+    private void setCheckBoxesActivos(boolean checked) {
+        checkBoxRutasActivas.setSelected(checked);
+        checkboxColectivosActivos.setSelected(checked);
+        checkboxHorariosActivos.setSelected(checked);
+    }
+
     private void vincularTablaConFormulario() {
         modelo = new ModeloTablaCompuesta();
-        
+
 // ################################################################################################
 // ----------------- Vincular los campos del formulario con el modelo de la jtabla ----------------
 // ################################################################################################
-
         // -------------------------Pasajes-------------------------------------
         PasajeData pasajeData = new PasajeData();
         List<Pasaje> pasajes = pasajeData.listarPasajes();
-        
+
         SeccionTabla datosPasajes = new SeccionTabla(
-                
-                    "Datos Pasajes",
-                      "Pasajes"
-                
+                "Datos Pasajes",
+                "Pasajes"
         );
         datosPasajes.agregarColumna(
-                
-            "Fecha Viaje",
+                "Fecha Viaje",
                 jdFechaViaje,
-              true
-                
-        );
-        
-        datosPasajes.agregarColumna(
-                
-           "Hora Viaje", 
-               comboHoraViaje, 
-             true
-                
-        );
-        
-        datosPasajes.agregarColumna(
-            "Asiento", 
-                txtAsiento, 
-              true
-        );
-        
-        datosPasajes.agregarColumna(
-                
-            "Precio", 
-                txtPrecio, 
-              false
-                
-        );
-        
-        
-        // -------------------------Pasajeros-------------------------------------
-        SeccionTabla datosPasajero = new SeccionTabla(
-                
-                  "Datos Pasajeros",
-                    "Pasajeros"
-                
-        );
-        
-        datosPasajero.agregarColumna(
-                
-            "Nombre",
-                txtNombre, 
-              false
-        );
-        
-        datosPasajero.agregarColumna(
-                
-                "Apellido", 
-                txtApellido, 
-                false
-                
-        );
-        
-        datosPasajero.agregarColumna(
-                
-            "DNI",
-                txtDni, 
-              false
-        );
-        
-        datosPasajero.agregarColumna(
-                
-                "Correo", 
-                txtCorreo, 
                 true
         );
-        
-        datosPasajero.agregarColumna(
-                
-           "Telefono", 
-                txtTelefono, 
-              true
+
+        datosPasajes.agregarColumna(
+                "Hora Viaje",
+                comboHoraViaje,
+                true
         );
-        
+
+        datosPasajes.agregarColumna(
+                "Asiento",
+                txtAsiento,
+                true
+        );
+
+        datosPasajes.agregarColumna(
+                "Precio",
+                txtPrecio,
+                false
+        );
+
+        // -------------------------Pasajeros-------------------------------------
+        SeccionTabla datosPasajero = new SeccionTabla(
+                "Datos Pasajeros",
+                "Pasajeros"
+        );
+
+        datosPasajero.agregarColumna(
+                "Nombre",
+                txtNombre,
+                false
+        );
+
+        datosPasajero.agregarColumna(
+                "Apellido",
+                txtApellido,
+                false
+        );
+
+        datosPasajero.agregarColumna(
+                "DNI",
+                txtDni,
+                false
+        );
+
+        datosPasajero.agregarColumna(
+                "Correo",
+                txtCorreo,
+                true
+        );
+
+        datosPasajero.agregarColumna(
+                "Telefono",
+                txtTelefono,
+                true
+        );
+
 //        datosPasajero.agregarColumna("Estado", checkBoxPasajeroActivo, false);
-        
         // -------------------------Colectivos-------------------------------------
         SeccionTabla datosColectivo = new SeccionTabla(
-              "Datos Colectivos", 
+                "Datos Colectivos",
                 "Colectivos"
         );
-        
+
 //        datosColectivo.agregarColumna("ID_Colectivo", txtIdColectivo, false);
         datosColectivo.agregarColumna(
-                
-            "Matricula", 
-                txtMatricula, 
-              false
-                
+                "Matricula",
+                txtMatricula,
+                false
         );
-        
+
         datosColectivo.agregarColumna(
-                
-            "Marca", 
-                txtMarca, 
-              false
-                
-        );
-        datosColectivo.agregarColumna(
-                
-            "Modelo", 
-                txtModelo, 
+                "Marca",
+                txtMarca,
                 false
         );
         datosColectivo.agregarColumna(
-                
-            "Capacidad", 
-                txtCapacidad, 
-              true
-                
+                "Modelo",
+                txtModelo,
+                false
+        );
+        datosColectivo.agregarColumna(
+                "Capacidad",
+                txtCapacidad,
+                true
         );
 //        datosColectivo.agregarColumna("Estado", checkBoxColectivoActivo, false);
 
         // -------------------------Rutas-------------------------------------
         SeccionTabla datosRuta = new SeccionTabla(
-                
                 "Datos Ruta",
                 "Rutas"
-                
         );
 //        datosRuta.agregarColumna("ID_Ruta", txtIdRuta, false);
         datosRuta.agregarColumna(
-                
-        "Origen", 
-            comboOrigen, 
-          true
-                
+                "Origen",
+                comboOrigen,
+                false
         );
-        
+
         datosRuta.agregarColumna(
-                
-            "Destino", 
-                comboDestino, 
-              true
-                
+                "Destino",
+                comboDestino,
+                true
         );
         datosRuta.agregarColumna(
-                
-            "Duración Estimada", 
-                txtDuracionEstimada, 
-              false
+                "Duración Estimada",
+                txtDuracionEstimada,
+                false
         );
 //        datosRuta.agregarColumna("Ruta Activa", checkBoxRutaActiva, false);
-        
 
 // ################################################################################################
 // ----------------- Llenar la jtabla con datos de la base de datos  ------------------------------
 // ################################################################################################
-
-        for(Pasaje pasaje: pasajes){
+        for (Pasaje pasaje : pasajes) {
             int idPasaje = pasaje.getIdPasaje();
             LocalDate fechaViaje = pasaje.getFechaViaje();
             LocalTime horaViaje = pasaje.getHoraViaje();
             int asiento = pasaje.getAsiento();
             double precio = pasaje.getPrecio();
-            
+
             datosPasajes.agregarFila(idPasaje, new Object[]{
-                fechaViaje, 
-                horaViaje, 
-                asiento, 
+                fechaViaje,
+                horaViaje,
+                asiento,
                 precio
             });
-            
-            
+
             Pasajero pasajero = pasaje.getPasajero();
             int idPasajero = pasajero.getIdPasajero();
             datosPasajero.agregarFila(idPasajero, new Object[]{
@@ -224,7 +197,7 @@ public class BuscarCole extends javax.swing.JFrame {
                 pasajero.getCorreo(),
                 pasajero.getTelefono()
             });
-            
+
             Colectivo colectivo = pasaje.getColectivo();
             int idColectivo = colectivo.getIdColectivo();
             datosColectivo.agregarFila(idColectivo, new Object[]{
@@ -233,7 +206,6 @@ public class BuscarCole extends javax.swing.JFrame {
                 colectivo.getModelo(),
                 colectivo.getCapacidad()
             });
-            System.out.println("Prueba de rutas");
             Ruta ruta = pasaje.getRuta();
             int idRuta = ruta.getIdRuta();
             datosRuta.agregarFila(idRuta, new Object[]{
@@ -246,14 +218,14 @@ public class BuscarCole extends javax.swing.JFrame {
         modelo.agregarSeccion(datosPasajero);
         modelo.agregarSeccion(datosColectivo);
         modelo.agregarSeccion(datosRuta);
-                
+
         tabla = new JTablaCompuesta(modelo);
         jScrollPane1.setViewportView(tabla);
 
-        // llenarCombos();
+        llenarCombos();
     }
-    
-    private String strDuracion(Duration duration){
+
+    private String strDuracion(Duration duration) {
         // Datos Rutas.duracion
         long duracionSegundos = duration.getSeconds();
         long horas = duracionSegundos / 3600;
@@ -262,10 +234,11 @@ public class BuscarCole extends javax.swing.JFrame {
         String duracionMin = String.format("%02d", minutos);
         return duracionHora + ":" + duracionMin;
     }
-    
-    private String strDuracion(Ruta ruta){
+
+    private String strDuracion(Ruta ruta) {
         return BuscarCole.this.strDuracion(ruta.getDuracionEstimada());
     }
+
     private void llenarCombos() {
         // Llenar combo de colectivos
         ColectivoData colectivoData = new ColectivoData();
@@ -275,23 +248,24 @@ public class BuscarCole extends javax.swing.JFrame {
                 comboColectivos.addItem(colectivo.toString());
             }
         }
-
         // Llenar combo de Rutas
         boolean seleccionRutasActivas = checkboxColectivosActivos.isSelected();
         RutaData rutaData = new RutaData();
-        
+
         List<String> origenes = rutaData.listarOrigenesUnicos(
                 seleccionRutasActivas
         );
-        
         List<String> destinos = rutaData.listarDestinosUnicos(
                 seleccionRutasActivas
         );
 
         if (origenes != null) {
             for (String origen : origenes) {
+                System.out.println("origen=" + origen);
                 comboOrigen.addItem(origen);
             }
+        } else {
+            System.out.println("orgenes == null?");
         }
 
         if (destinos != null) {
@@ -303,11 +277,11 @@ public class BuscarCole extends javax.swing.JFrame {
         // Llenar combo de horarios
         HorarioData horarioData = new HorarioData();
         boolean seleccionHorariosActivos = checkboxHorariosActivos.isSelected();
-        
+
         List<LocalTime> horariosDeSalida = horarioData.listarHorariosDeSalida(
                 seleccionHorariosActivos
         );
-        
+
         List<LocalTime> horariosDeLlegada = horarioData.listarHorariosDeLlegada(
                 seleccionHorariosActivos
         );
@@ -323,8 +297,8 @@ public class BuscarCole extends javax.swing.JFrame {
                 comboHoraLlegada.addItem(horario.toString());
             }
         }
-    }
 
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
