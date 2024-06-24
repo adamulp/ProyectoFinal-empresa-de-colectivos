@@ -17,7 +17,7 @@ public class SeccionTabla {
         this.nombreSeccion = nombreSeccion;
         this.nombreTabla = nombreTabla;
     }
-
+    
     public void agregarColumna(FormularioData columna) {
         nombresColumnas.add(columna.getNombreColumna());
         columnasConfiguracion.add(columna);
@@ -36,7 +36,16 @@ public class SeccionTabla {
                 listaInicial
         ));
     }
-
+    
+    public FormularioData getFormularioData(Object campoGUI){
+        for(FormularioData columna : this.columnasConfiguracion){
+            if(columna.getCampoGUI().equals(campoGUI)){
+                return columna;
+            }
+        }
+        return null;
+    }
+    
     public void agregarFila(int clavePrimaria, Object[] filaDatos) {
         FilaSeccion fila = new FilaSeccion(clavePrimaria, filaDatos);
         filas.add(fila);

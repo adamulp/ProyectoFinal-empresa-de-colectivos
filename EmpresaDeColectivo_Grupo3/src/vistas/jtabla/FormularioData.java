@@ -17,7 +17,7 @@ public class FormularioData {
         this.nombreColumna = nombreColumna;
         this.campoGUI = campoGUI;
         this.habilitado = habilitado;
-        this.tipoCampo = campoGUI.getClass().getSimpleName(); // Get the type of the component
+        this.tipoCampo = campoGUI.getClass().getSimpleName();
     }
     
     public FormularioData(
@@ -28,6 +28,10 @@ public class FormularioData {
             ){
         this(nombreColumna, campoGUI, habilitado);
         this.listaValores = listaInicial;
+    }
+    
+    public void setListaValores(List<Object> valores){
+        this.listaValores = valores;
     }
     
     public boolean tieneListaDeValores(){

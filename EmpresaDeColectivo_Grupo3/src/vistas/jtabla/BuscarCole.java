@@ -220,7 +220,7 @@ public class BuscarCole extends javax.swing.JFrame {
         modelo.agregarSeccion(datosRuta);
 
         tabla = new JTablaCompuesta(modelo);
-        jScrollPane1.setViewportView(tabla);
+        jScrollPane1.setViewportView(tabla); //dibujar la tabla
 
         llenarCombos();
     }
