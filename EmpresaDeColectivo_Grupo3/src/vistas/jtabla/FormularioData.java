@@ -11,7 +11,7 @@ public class FormularioData {
     private Object campoGUI;
     private boolean habilitado;
     private String tipoCampo;
-    private ArrayList<Object> listaValores;
+    private List<Object> listaValores;
 
     public FormularioData(String nombreColumna, Object campoGUI, boolean habilitado) {
         this.nombreColumna = nombreColumna;
