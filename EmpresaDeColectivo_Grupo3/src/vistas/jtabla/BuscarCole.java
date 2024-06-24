@@ -898,7 +898,7 @@ public class BuscarCole extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> comboDestino;
     private javax.swing.JComboBox<String> comboHoraLlegada;
     private javax.swing.JComboBox<String> comboHoraSalida;
-    private javax.swing.JComboBox<String> comboHoraViaje;
+    private javax.swing.JComboBox<LocalTime> comboHoraViaje;
     private javax.swing.JComboBox<String> comboOrigen;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

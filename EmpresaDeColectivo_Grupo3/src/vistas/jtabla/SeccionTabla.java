@@ -11,6 +11,7 @@ public class SeccionTabla {
     protected List<FormularioData> columnasConfiguracion = new ArrayList<>();
     protected List<FilaSeccion> filas = new ArrayList<>();
     protected int columnaInicio;
+    
 
     public SeccionTabla(String nombreSeccion, String nombreTabla) {
         this.nombreSeccion = nombreSeccion;
@@ -24,6 +25,16 @@ public class SeccionTabla {
     
     public void agregarColumna(String nombreColumna, Object campoGUI, boolean editable){
         agregarColumna(new FormularioData(nombreColumna, campoGUI, editable));
+    }
+    
+    public void agregarColumna(String nombreColumna, Object campoGUI,
+            boolean editable, List<Object> listaInicial){
+        agregarColumna(new FormularioData(
+                nombreColumna,
+                campoGUI, 
+                editable,
+                listaInicial
+        ));
     }
 
     public void agregarFila(int clavePrimaria, Object[] filaDatos) {

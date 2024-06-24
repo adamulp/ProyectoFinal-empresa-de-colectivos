@@ -124,9 +124,12 @@ public class JTablaCompuesta extends JTable {
                         System.out.println("JTablaCompuesta::JCheckBox Stub: Unsupported/future behavior");
                         break;
                     case "JComboBox":
-                        ((JComboBox<?>) columna.getCampoGUI()).setSelectedItem(valor);
+                        if(columna.listaContiene(valor)){
+                            ((JComboBox<?>) columna.getCampoGUI()).setSelectedItem(valor);
+                        }
 //                        setEditable(((JComboBox<?>) columna.getCampoGUI()), columna.esEditable());
                         ((JComboBox<?>) columna.getCampoGUI()).setEnabled(columna.esEditable());
+                        
                         break;
                     case "JList":
                         ((JList<?>) columna.getCampoGUI()).setSelectedValue(valor, true);
