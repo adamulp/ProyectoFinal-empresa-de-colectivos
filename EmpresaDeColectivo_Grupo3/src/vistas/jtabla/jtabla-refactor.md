@@ -37,7 +37,7 @@ classDiagram
     }
 
     class GestorActualizacionTabla {
-        +actualizarListaValores(JTablaCompuesta tabla, int rowIndex)
+        +actualizarListaValores(JTablaCompuesta tabla, int indiceFila)
     }
 
     SeccionTabla-->FilaSeccion
