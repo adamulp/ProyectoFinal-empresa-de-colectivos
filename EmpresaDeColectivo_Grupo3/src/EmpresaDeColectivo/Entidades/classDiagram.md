@@ -61,8 +61,3 @@ classDiagram
     Pasaje-->Ruta
     Ruta-->Horario
 ```
-
-```mermaid
-
-
-```

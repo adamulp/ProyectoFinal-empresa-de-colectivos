@@ -67,6 +67,10 @@ public class BuscarCole extends javax.swing.JFrame {
                 comboHoraViaje,
                 true
         );
+        
+        String nombreColTest = datosPasajes.getFormularioData(
+                comboHoraViaje).getNombreColumna();
+        System.out.println("nombreColTest=" + nombreColTest);
 
         datosPasajes.agregarColumna(
                 "Asiento",
@@ -259,14 +263,14 @@ public class BuscarCole extends javax.swing.JFrame {
                 seleccionRutasActivas
         );
 
-        if (origenes != null) {
-            for (String origen : origenes) {
-                System.out.println("origen=" + origen);
-                comboOrigen.addItem(origen);
-            }
-        } else {
-            System.out.println("orgenes == null?");
-        }
+//        if (origenes != null) {
+//            for (String origen : origenes) {
+//                System.out.println("origen=" + origen);
+//                comboOrigen.addItem(origen);
+//            }
+//        } else {
+//            System.out.println("orgenes == null?");
+//        }
 
         if (destinos != null) {
             for (String destino : destinos) {
