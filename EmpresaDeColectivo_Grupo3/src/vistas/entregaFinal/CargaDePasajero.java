@@ -101,6 +101,11 @@ public class CargaDePasajero extends javax.swing.JPanel {
                 jTDNIMousePressed(evt);
             }
         });
+        jTDNI.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTDNIKeyTyped(evt);
+            }
+        });
 
         jTNombre.setBackground(new java.awt.Color(255, 255, 255));
         jTNombre.setForeground(new java.awt.Color(153, 153, 153));
@@ -139,6 +144,11 @@ public class CargaDePasajero extends javax.swing.JPanel {
         jTTelefono.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jTTelefonoMousePressed(evt);
+            }
+        });
+        jTTelefono.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTTelefonoKeyTyped(evt);
             }
         });
 
@@ -374,6 +384,22 @@ public class CargaDePasajero extends javax.swing.JPanel {
             jTCorreo.setForeground(Color.GRAY);
         }
     }//GEN-LAST:event_jTTelefonoMousePressed
+
+    private void jTDNIKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTDNIKeyTyped
+        char caracter = evt.getKeyChar();
+        if (!Character.isDigit(caracter) && caracter != '.') {
+            evt.consume();
+        }
+    }//GEN-LAST:event_jTDNIKeyTyped
+
+    private void jTTelefonoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTTelefonoKeyTyped
+        char caracter = evt.getKeyChar();
+        if (!Character.isDigit(caracter) && caracter != '+'
+             && caracter != '-' && caracter != '('
+             && caracter != ')') {
+            evt.consume();
+        }
+    }//GEN-LAST:event_jTTelefonoKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

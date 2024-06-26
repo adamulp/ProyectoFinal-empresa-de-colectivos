@@ -39,7 +39,7 @@ public class Principal extends javax.swing.JPanel {
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(102, 102, 102));
-        jLabel3.setText("Esta herramienta le va a permitir controlar colectivos, pasajeros y rutas para tareas especificas como lo pueden ser :");
+        jLabel3.setText("Esta herramienta le va a permitir controlar colectivos, pasajeros y rutas para las tareas a continuacion :");
 
         jLabel4.setForeground(new java.awt.Color(102, 102, 102));
         jLabel4.setText("- Visualizar, actualizar y eliminar ");
@@ -82,7 +82,7 @@ public class Principal extends javax.swing.JPanel {
                             .addComponent(jLabel7)
                             .addComponent(jLabel8)
                             .addComponent(jLabel9))))
-                .addContainerGap(44, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -105,7 +105,7 @@ public class Principal extends javax.swing.JPanel {
                 .addComponent(jLabel8)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel9)
-                .addContainerGap(61, Short.MAX_VALUE))
+                .addContainerGap(42, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);

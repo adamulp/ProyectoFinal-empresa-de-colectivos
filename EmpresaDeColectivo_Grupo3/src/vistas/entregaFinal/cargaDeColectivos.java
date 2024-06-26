@@ -71,6 +71,11 @@ public class cargaDeColectivos extends javax.swing.JPanel {
         txtCapacidad.setBackground(new java.awt.Color(255, 255, 255));
         txtCapacidad.setForeground(new java.awt.Color(102, 102, 102));
         txtCapacidad.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 153, 153)));
+        txtCapacidad.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtCapacidadKeyTyped(evt);
+            }
+        });
 
         jBAgregar.setBackground(new java.awt.Color(255, 255, 255));
         jBAgregar.setForeground(new java.awt.Color(102, 102, 102));
@@ -167,7 +172,7 @@ public class cargaDeColectivos extends javax.swing.JPanel {
                     .addComponent(jComboBox1)
                     .addComponent(lblMatricula, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(txtMatricula))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
                 .addGroup(panelColectivoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtCapacidad)
                     .addComponent(lblCapacidad, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -225,6 +230,13 @@ public class cargaDeColectivos extends javax.swing.JPanel {
         jBLimpieza.setBackground(new Color(255, 255, 255));
         jBLimpieza.setForeground(new Color(102, 102, 102));
     }//GEN-LAST:event_jBLimpiezaMouseExited
+
+    private void txtCapacidadKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCapacidadKeyTyped
+        char caracter = evt.getKeyChar();
+        if (!Character.isDigit(caracter)) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtCapacidadKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

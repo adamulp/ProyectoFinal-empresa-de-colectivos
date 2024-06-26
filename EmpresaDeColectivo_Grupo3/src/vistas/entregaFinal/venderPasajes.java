@@ -96,6 +96,11 @@ public class venderPasajes extends javax.swing.JPanel{
         jTDNI.setForeground(new java.awt.Color(102, 102, 102));
         jTDNI.setText("Ingrese el DNI");
         jTDNI.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 102, 102)));
+        jTDNI.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTDNIKeyTyped(evt);
+            }
+        });
 
         jBBuscar.setBackground(new java.awt.Color(255, 255, 255));
         jBBuscar.setForeground(new java.awt.Color(102, 102, 102));
@@ -495,6 +500,13 @@ public class venderPasajes extends javax.swing.JPanel{
          jBAsignar.setBackground(new Color(255,255,255)); 
          jBAsignar.setForeground(new Color(102,102,102));
     }//GEN-LAST:event_jBAsignarMouseExited
+
+    private void jTDNIKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTDNIKeyTyped
+        char caracter = evt.getKeyChar();
+        if (!Character.isDigit(caracter) && caracter != '.') {
+            evt.consume();
+        }
+    }//GEN-LAST:event_jTDNIKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
