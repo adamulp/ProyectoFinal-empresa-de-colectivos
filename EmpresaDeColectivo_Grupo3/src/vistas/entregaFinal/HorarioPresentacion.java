@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
 package vistas.entregaFinal;
 
 import java.awt.BorderLayout;
@@ -10,7 +6,7 @@ import javax.swing.JButton;
 
 /**
  *
- * @author 54266
+ * @author adam, enzo, alexis, nicolas
  */
 public class HorarioPresentacion extends javax.swing.JPanel {
 

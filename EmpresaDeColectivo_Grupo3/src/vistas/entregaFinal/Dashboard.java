@@ -25,7 +25,7 @@ import vistas.entregaFinal.RutaPresentacion;
 
 /**
  *
- * @author 54266
+ * @author adam, enzo, alexis, nicolas
  */
 public class Dashboard extends javax.swing.JFrame {
 
