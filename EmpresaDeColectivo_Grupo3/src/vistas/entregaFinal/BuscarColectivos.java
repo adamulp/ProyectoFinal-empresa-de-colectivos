@@ -8,9 +8,9 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 
 
-public class buscarColectivos extends javax.swing.JPanel {
+public class BuscarColectivos extends javax.swing.JPanel {
 
-    public buscarColectivos() {
+    public BuscarColectivos() {
         initComponents();
         
     }

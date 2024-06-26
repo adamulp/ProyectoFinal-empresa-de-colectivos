@@ -35,7 +35,7 @@ public class PasajeroPresentacion extends javax.swing.JPanel {
     }
     
      private void mostrarBuscarPasajeros(){
-      buscarPasajeros c1 = new buscarPasajeros();
+      BuscarPasajeros c1 = new BuscarPasajeros();
         c1.setSize(817, 602);
         c1.setLocation(0, 0);
 

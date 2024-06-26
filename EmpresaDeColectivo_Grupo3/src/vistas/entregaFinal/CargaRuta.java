@@ -10,9 +10,9 @@ import java.awt.Color;
  *
  * @author 54266
  */
-public class cargaRuta extends javax.swing.JPanel {
+public class CargaRuta extends javax.swing.JPanel {
 
-    public cargaRuta() {
+    public CargaRuta() {
         initComponents();
     }
 

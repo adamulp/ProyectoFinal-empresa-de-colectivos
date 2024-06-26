@@ -10,10 +10,10 @@ import java.awt.Color;
  *
  * @author 54266
  */
-public class buscarHorarios extends javax.swing.JPanel {
+public class BuscarHorarios extends javax.swing.JPanel {
 
    
-    public buscarHorarios() {
+    public BuscarHorarios() {
         initComponents();
     }
 

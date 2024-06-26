@@ -10,12 +10,12 @@ import java.awt.Color;
  *
  * @author 54266
  */
-public class buscarPasajeros extends javax.swing.JPanel {
+public class BuscarPasajeros extends javax.swing.JPanel {
 
     /**
      * Creates new form buscarPasajeros
      */
-    public buscarPasajeros() {
+    public BuscarPasajeros() {
         initComponents();
          jLBusquedaPasajero.requestFocusInWindow();
     }

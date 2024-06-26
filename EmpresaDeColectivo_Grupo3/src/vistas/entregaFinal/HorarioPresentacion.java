@@ -21,7 +21,7 @@ public class HorarioPresentacion extends javax.swing.JPanel {
 private JButton botonSeleccionado;
  
  private void mostrarHorarios() {
-        buscarHorarios h1 = new buscarHorarios();
+        BuscarHorarios h1 = new BuscarHorarios();
         h1.setSize(817, 602);
         h1.setLocation(0, 0);
 
@@ -32,7 +32,7 @@ private JButton botonSeleccionado;
     }
       
        private void mostrarCargaHorarios() {
-        cargarHorarios ch1 = new cargarHorarios();
+        CargarHorarios ch1 = new CargarHorarios();
         ch1.setSize(817, 602);
         ch1.setLocation(0, 0);
 

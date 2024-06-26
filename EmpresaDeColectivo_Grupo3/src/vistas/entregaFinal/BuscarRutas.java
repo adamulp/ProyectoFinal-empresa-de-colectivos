@@ -10,10 +10,10 @@ import java.awt.Color;
  *
  * @author 54266
  */
-public class buscarRutas extends javax.swing.JPanel {
+public class BuscarRutas extends javax.swing.JPanel {
 
   
-    public buscarRutas() {
+    public BuscarRutas() {
         initComponents();
     }
 

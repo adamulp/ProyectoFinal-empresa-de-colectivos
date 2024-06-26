@@ -7,10 +7,10 @@ package vistas.entregaFinal;
 import java.awt.Color;
 
 
-public class cargaDeColectivos extends javax.swing.JPanel {
+public class CargaDeColectivos extends javax.swing.JPanel {
 
    
-    public cargaDeColectivos() {
+    public CargaDeColectivos() {
         initComponents();
     }
 

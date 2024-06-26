@@ -22,7 +22,7 @@ public class ColectivoPresentacion extends javax.swing.JPanel {
    private JButton botonSeleccionado;
     
      private void mostrarColectivos(){
-      buscarColectivos c1 = new buscarColectivos();
+      BuscarColectivos c1 = new BuscarColectivos();
         c1.setSize(817, 602);
         c1.setLocation(0, 0);
 
@@ -35,7 +35,7 @@ public class ColectivoPresentacion extends javax.swing.JPanel {
     
     
     private void mostrarCarga(){
-      cargaDeColectivos r1 = new cargaDeColectivos();
+      CargaDeColectivos r1 = new CargaDeColectivos();
         r1.setSize(817, 602);
         r1.setLocation(0, 0);
 

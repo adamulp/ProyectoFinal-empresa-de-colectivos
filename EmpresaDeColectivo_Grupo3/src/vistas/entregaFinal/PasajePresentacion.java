@@ -149,7 +149,7 @@ public class PasajePresentacion extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
      private void venderPasajes() {
-        venderPasajes p1 = new venderPasajes();
+        VenderPasajes p1 = new VenderPasajes();
         p1.setSize(817, 602);
         p1.setLocation(0, 0);
 
@@ -160,7 +160,7 @@ public class PasajePresentacion extends javax.swing.JPanel {
     }
       
        private void buscarPasajes() {
-        buscarPasajes b1 = new buscarPasajes();
+        BuscarPasajes b1 = new BuscarPasajes();
         b1.setSize(817, 602);
         b1.setLocation(0, 0);
 

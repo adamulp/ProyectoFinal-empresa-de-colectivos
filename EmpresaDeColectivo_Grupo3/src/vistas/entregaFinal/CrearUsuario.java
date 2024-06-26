@@ -10,12 +10,12 @@ import java.awt.Color;
  *
  * @author 54266
  */
-public class crearUsuario extends javax.swing.JPanel {
+public class CrearUsuario extends javax.swing.JPanel {
 
     /**
      * Creates new form crearusuarios
      */
-    public crearUsuario() {
+    public CrearUsuario() {
         initComponents();
     }
 

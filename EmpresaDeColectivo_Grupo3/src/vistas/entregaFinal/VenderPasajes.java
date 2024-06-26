@@ -14,16 +14,16 @@ import javax.swing.SwingUtilities;
  *
  * @author 54266
  */
-public class venderPasajes extends javax.swing.JPanel{
+public class VenderPasajes extends javax.swing.JPanel{
 
    
-    public venderPasajes() {
+    public VenderPasajes() {
        initComponents();
         
    }
 
   private void mostrarCargarUsuario() {
-        crearUsuario p1 = new crearUsuario();
+        CrearUsuario p1 = new CrearUsuario();
         p1.setSize(817, 602);
         p1.setLocation(0, 0);
 

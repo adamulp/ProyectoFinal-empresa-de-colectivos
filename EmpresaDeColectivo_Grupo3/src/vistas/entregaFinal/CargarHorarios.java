@@ -6,10 +6,10 @@ package vistas.entregaFinal;
 
 import java.awt.Color;
 
-public class cargarHorarios extends javax.swing.JPanel {
+public class CargarHorarios extends javax.swing.JPanel {
 
   
-    public cargarHorarios() {
+    public CargarHorarios() {
         initComponents();
     }
 

@@ -21,7 +21,7 @@ public class RutaPresentacion extends javax.swing.JPanel {
     private JButton botonSeleccionado;
   
       private void mostrarRutas() {
-        buscarRutas r1 = new buscarRutas();
+        BuscarRutas r1 = new BuscarRutas();
         r1.setSize(817, 602);
         r1.setLocation(0, 0);
 
@@ -32,7 +32,7 @@ public class RutaPresentacion extends javax.swing.JPanel {
     }
       
        private void mostrarCargaRutas() {
-        cargaRuta r1 = new cargaRuta();
+        CargaRuta r1 = new CargaRuta();
         r1.setSize(817, 602);
         r1.setLocation(0, 0);
 

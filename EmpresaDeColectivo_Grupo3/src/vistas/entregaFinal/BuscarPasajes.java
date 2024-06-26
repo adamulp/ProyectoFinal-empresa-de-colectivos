@@ -10,12 +10,12 @@ import java.awt.Color;
  *
  * @author 54266
  */
-public class buscarPasajes extends javax.swing.JPanel {
+public class BuscarPasajes extends javax.swing.JPanel {
 
     /**
      * Creates new form venderPasajes
      */
-    public buscarPasajes() {
+    public BuscarPasajes() {
         initComponents();
     }
 
