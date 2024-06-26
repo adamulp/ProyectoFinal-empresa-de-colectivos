@@ -1,4 +1,4 @@
-package vistas;
+package vistas.primeraEntrega;
 
 import EmpresaDeColectivo.Entidades.Colectivo;
 import accesoADatos.ColectivoData;

@@ -15,6 +15,7 @@ import java.time.LocalTime;
 import java.util.Arrays;
 import java.util.List;
 import javax.swing.JPanel;
+import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
@@ -224,6 +225,7 @@ public class BuscarCole extends javax.swing.JFrame {
         modelo.agregarSeccion(datosRuta);
 
         tabla = new JTablaCompuesta(modelo);
+        tabla.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         jScrollPane1.setViewportView(tabla); //dibujar la tabla
 
         llenarCombos();
