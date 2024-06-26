@@ -90,6 +90,11 @@ public class buscarColectivos extends javax.swing.JPanel {
         jTMatricula.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jTMatricula.setText("Ingrese la matricula");
         jTMatricula.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 153, 153)));
+        jTMatricula.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTMatriculaFocusLost(evt);
+            }
+        });
         jTMatricula.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTMatriculaMouseClicked(evt);
@@ -200,8 +205,16 @@ public class buscarColectivos extends javax.swing.JPanel {
     }//GEN-LAST:event_jBuscarMouseExited
 
     private void jTMatriculaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTMatriculaMouseClicked
-       jTMatricula.setText("");
+        if(jTMatricula.getText().equals("Ingrese la matricula")){
+            jTMatricula.setText("");
+        }
     }//GEN-LAST:event_jTMatriculaMouseClicked
+
+    private void jTMatriculaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTMatriculaFocusLost
+        if(jTMatricula.getText().isBlank()){
+            jTMatricula.setText("Ingrese la matricula");
+        }
+    }//GEN-LAST:event_jTMatriculaFocusLost
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

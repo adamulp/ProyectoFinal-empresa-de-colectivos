@@ -276,6 +276,7 @@
             </Property>
           </Properties>
           <Events>
+            <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jTMatriculaFocusLost"/>
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jTMatriculaMouseClicked"/>
           </Events>
         </Component>
