@@ -68,9 +68,9 @@ public class BuscarCole extends javax.swing.JFrame {
                 true
         );
         
-        String nombreColTest = datosPasajes.getFormularioData(
-                comboHoraViaje).getNombreColumna();
-        System.out.println("nombreColTest=" + nombreColTest);
+//        String nombreColTest = datosPasajes.getFormularioData(
+//                comboHoraViaje).getNombreColumna();
+//        System.out.println("nombreColTest=" + nombreColTest);
 
         datosPasajes.agregarColumna(
                 "Asiento",

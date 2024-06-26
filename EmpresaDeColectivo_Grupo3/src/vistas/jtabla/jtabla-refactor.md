@@ -36,7 +36,7 @@ classDiagram
         +getModelo() : ModeloTablaCompuesta
     }
 
-    class GestorActualizacionTabla {
+    class GestorActualizacionFormulario {
         +actualizarListaValores(JTablaCompuesta tabla, int indiceFila)
     }
 
@@ -44,6 +44,6 @@ classDiagram
     SeccionTabla-->FormularioData
     ModeloTablaCompuesta-->SeccionTabla
     JTablaCompuesta-->ModeloTablaCompuesta
-    JTablaCompuesta-->GestorActualizacionTabla
-    GestorActualizacionTabla-->FormularioData
+    JTablaCompuesta-->GestorActualizacionFormulario
+    GestorActualizacionFormulario-->FormularioData
 ```
