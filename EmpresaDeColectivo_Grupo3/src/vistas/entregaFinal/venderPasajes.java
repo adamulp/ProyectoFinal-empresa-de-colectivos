@@ -96,6 +96,16 @@ public class venderPasajes extends javax.swing.JPanel{
         jTDNI.setForeground(new java.awt.Color(102, 102, 102));
         jTDNI.setText("Ingrese el DNI");
         jTDNI.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 102, 102)));
+        jTDNI.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTDNIFocusLost(evt);
+            }
+        });
+        jTDNI.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jTDNIMousePressed(evt);
+            }
+        });
         jTDNI.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 jTDNIKeyTyped(evt);
@@ -507,6 +517,20 @@ public class venderPasajes extends javax.swing.JPanel{
             evt.consume();
         }
     }//GEN-LAST:event_jTDNIKeyTyped
+
+    private void jTDNIMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTDNIMousePressed
+        if (jTDNI.getText().equals("Ingrese el DNI")) {
+            jTDNI.setText("");
+            jTDNI.setForeground(Color.BLACK);
+        }
+    }//GEN-LAST:event_jTDNIMousePressed
+
+    private void jTDNIFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTDNIFocusLost
+        if (jTDNI.getText().isEmpty()) {
+            jTDNI.setText("Ingrese el DNI");
+            jTDNI.setForeground(Color.GRAY);
+        }
+    }//GEN-LAST:event_jTDNIFocusLost
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
