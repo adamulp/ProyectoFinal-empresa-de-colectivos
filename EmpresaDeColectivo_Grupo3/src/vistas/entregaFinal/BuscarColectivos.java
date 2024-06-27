@@ -149,6 +149,11 @@ public class BuscarColectivos extends javax.swing.JPanel {
                 jBEliminarMouseExited(evt);
             }
         });
+        jBEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBEliminarActionPerformed(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(0, 204, 204)));
@@ -291,6 +296,10 @@ public class BuscarColectivos extends javax.swing.JPanel {
     private void checkBoxColectivosActivosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxColectivosActivosActionPerformed
         actualizarTabla();
     }//GEN-LAST:event_checkBoxColectivosActivosActionPerformed
+
+    private void jBEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBEliminarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jBEliminarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

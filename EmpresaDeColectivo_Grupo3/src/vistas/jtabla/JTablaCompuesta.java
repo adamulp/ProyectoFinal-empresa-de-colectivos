@@ -101,63 +101,65 @@ public class JTablaCompuesta extends JTable {
         for (SeccionTabla seccion : modelo.secciones) {
             for (FormularioData columna : seccion.getColumnasConfiguracion()) {
                 int colIndex = seccion.getNombresColumnas().indexOf(columna.getNombreColumna());
-                Object valor = modelo.getValueAt(selectedRow, seccion.getColumnaInicio() + colIndex);
+                if(columna.tipoCampo() != null){
+                    Object valor = modelo.getValueAt(selectedRow, seccion.getColumnaInicio() + colIndex);
 
-                switch (columna.tipoCampo()) {
-                    case "JDateChooser":
-                        Date fecha = Date.from(((LocalDate) valor).atStartOfDay(ZoneId.systemDefault()).toInstant());
-                        ((JDateChooser) columna.getCampoGUI()).setDate(fecha);
-                        break;
-                    case "JPanel":
-                        System.out.println("JTablaCompuesta::JPanel Stub: Unsupported/future behavior");
-                        break;
-                    case "JInternalFrame":
-                        System.out.println("JTablaCompuesta::JInternalFrame Stub: Unsupported/future behavior");
-                        break;
-                    case "JLabel":
-                        ((JLabel) columna.getCampoGUI()).setText(valor.toString());
-                        break;
-                    case "JButton":
-                        ((JButton) columna.getCampoGUI()).setEnabled(columna.esEditable());
-                        break;
-                    case "JCheckBox":
-                        System.out.println("JTablaCompuesta::JCheckBox Stub: Unsupported/future behavior");
-                        break;
-                    case "JComboBox":
-                        if(columna.listaContiene(valor)){
-                            ((JComboBox<?>) columna.getCampoGUI()).setSelectedItem(valor);
-                        }
-//                        setEditable(((JComboBox<?>) columna.getCampoGUI()), columna.esEditable());
-                        ((JComboBox<?>) columna.getCampoGUI()).setEnabled(columna.esEditable());
-                        
-                        break;
-                    case "JList":
-                        ((JList<?>) columna.getCampoGUI()).setSelectedValue(valor, true);
-                        ((JList<?>) columna.getCampoGUI()).setEnabled(columna.esEditable());
-                        break;
-                    case "JRadioButton":
-                        System.out.println("JTablaCompuesta::JRadioButton Stub: Unsupported/future behavior");
-                        ((JRadioButton) columna.getCampoGUI()).setEnabled(columna.esEditable());
-                        break;
-                    case "JScrollPane":
-                        System.out.println("JTablaCompuesta::JScrollPane Stub: Unsupported/future behavior");
-                        break;
-                    case "JTextArea":
-                        ((JTextArea) columna.getCampoGUI()).setText(valor.toString());
-                        break;
-                    case "JTextField":
-                        JTextField textField = ((JTextField) columna.getCampoGUI());
-                        textField.setText(valor.toString());
-                        setEditable(textField, columna.esEditable());
-                        textField.setEditable(columna.esEditable());
+                    switch (columna.tipoCampo()) {
+                        case "JDateChooser":
+                            Date fecha = Date.from(((LocalDate) valor).atStartOfDay(ZoneId.systemDefault()).toInstant());
+                            ((JDateChooser) columna.getCampoGUI()).setDate(fecha);
+                            break;
+                        case "JPanel":
+                            System.out.println("JTablaCompuesta::JPanel Stub: Unsupported/future behavior");
+                            break;
+                        case "JInternalFrame":
+                            System.out.println("JTablaCompuesta::JInternalFrame Stub: Unsupported/future behavior");
+                            break;
+                        case "JLabel":
+                            ((JLabel) columna.getCampoGUI()).setText(valor.toString());
+                            break;
+                        case "JButton":
+                            ((JButton) columna.getCampoGUI()).setEnabled(columna.esEditable());
+                            break;
+                        case "JCheckBox":
+                            System.out.println("JTablaCompuesta::JCheckBox Stub: Unsupported/future behavior");
+                            break;
+                        case "JComboBox":
+                            if(columna.listaContiene(valor)){
+                                ((JComboBox<?>) columna.getCampoGUI()).setSelectedItem(valor);
+                            }
+    //                        setEditable(((JComboBox<?>) columna.getCampoGUI()), columna.esEditable());
+                            ((JComboBox<?>) columna.getCampoGUI()).setEnabled(columna.esEditable());
 
-                        break;
-                    case "JTree":
-                        System.out.println("JTablaCompuesta::JTree Stub: Unsupported/future behavior");
-                        break;
-                    default:
-                        System.out.println("JTablaCompuesta ---" + columna.tipoCampo() + ": Unplanned/unsupported behavior");
-                        break;
+                            break;
+                        case "JList":
+                            ((JList<?>) columna.getCampoGUI()).setSelectedValue(valor, true);
+                            ((JList<?>) columna.getCampoGUI()).setEnabled(columna.esEditable());
+                            break;
+                        case "JRadioButton":
+                            System.out.println("JTablaCompuesta::JRadioButton Stub: Unsupported/future behavior");
+                            ((JRadioButton) columna.getCampoGUI()).setEnabled(columna.esEditable());
+                            break;
+                        case "JScrollPane":
+                            System.out.println("JTablaCompuesta::JScrollPane Stub: Unsupported/future behavior");
+                            break;
+                        case "JTextArea":
+                            ((JTextArea) columna.getCampoGUI()).setText(valor.toString());
+                            break;
+                        case "JTextField":
+                            JTextField textField = ((JTextField) columna.getCampoGUI());
+                            textField.setText(valor.toString());
+                            setEditable(textField, columna.esEditable());
+                            textField.setEditable(columna.esEditable());
+
+                            break;
+                        case "JTree":
+                            System.out.println("JTablaCompuesta::JTree Stub: Unsupported/future behavior");
+                            break;
+                        default:
+                            System.out.println("JTablaCompuesta ---" + columna.tipoCampo() + ": Unplanned/unsupported behavior");
+                            break;
+                    }
                 }
             }
         }
