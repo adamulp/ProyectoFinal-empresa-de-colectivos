@@ -81,14 +81,14 @@ public class ColectivoData {
         return colectivo;
     }
 
-    public Colectivo buscarColectivoPorMatricula(int matricula) {
+    public Colectivo buscarColectivoPorMatricula(String matricula) {
         Colectivo colectivo = null;
-        String sql = "SELECT idColectivo, Matricula, Marca, Modelo, Capacidad, Estado  "
+        String sql = "SELECT ID_Colectivo, Matricula, Marca, Modelo, Capacidad, Estado  "
                 + "FROM Colectivos WHERE Matricula=?";
         PreparedStatement ps = null;
         try {
             ps = con.prepareStatement(sql);
-            ps.setInt(1, matricula);
+            ps.setString(1, matricula);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 colectivo = new Colectivo();
@@ -185,4 +185,62 @@ public class ColectivoData {
             JOptionPane.showMessageDialog(null, " Error al acceder a la tabla Colectivo");
         }
     }
+    
+    public List<String> listarMarcas() {
+        List<String> marcas = new ArrayList<>();
+        String sql;
+        sql = " SELECT DISTINCT Marca "
+                + " FROM Colectivos";
+       
+        PreparedStatement ps;
+        try {
+            ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                String marca = rs.getString("Marca");
+                marcas.add(marca);
+            }
+            rs.close();
+            ps.close();
+        }
+        catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null,
+                    "Error al acceder la bd desde "
+                  + "listarMarcas()"
+                  + " " + ex.getMessage());
+        }
+
+        return marcas;
+    }
+    
+    public List<String> listarModelos() {
+        List<String> modelos = new ArrayList<>();
+        String sql;
+        sql = " SELECT DISTINCT Modelo "
+                + " FROM Colectivos";
+       
+        PreparedStatement ps;
+        try {
+            ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                String modelo = rs.getString("Modelo");
+                modelos.add(modelo);
+            }
+            rs.close();
+            ps.close();
+        }
+        catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null,
+                    "Error al acceder la bd desde "
+                  + "listarMarcas()"
+                  + " " + ex.getMessage());
+        }
+
+        return modelos;
+    }
+    
+    
 }

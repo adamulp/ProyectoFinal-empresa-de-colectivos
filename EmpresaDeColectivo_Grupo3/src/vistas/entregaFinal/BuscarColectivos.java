@@ -5,6 +5,7 @@ import accesoADatos.ColectivoData;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.util.List;
+import javax.swing.JPanel;
 import javax.swing.ListSelectionModel;
 import vistas.jtabla.JTablaCompuesta;
 import vistas.jtabla.ModeloTablaCompuesta;
@@ -13,14 +14,28 @@ import vistas.jtabla.SeccionTabla;
 
 public class BuscarColectivos extends javax.swing.JPanel {
     
+    private JPanel jPMostrar;
+    
     private JTablaCompuesta tabla;
     private ModeloTablaCompuesta modelo;
     private SeccionTabla datosColectivos;
 
-    public BuscarColectivos() {
+    public BuscarColectivos(JPanel jPMostrar) {
+        this.jPMostrar = jPMostrar;
         initComponents();
         checkBoxColectivosActivos.setSelected(true);
         vincularTablaConFormulario();
+    }
+    
+    private void mostrarCarga(Colectivo colectivo){
+      CargaDeColectivos r1 = new CargaDeColectivos(colectivo);
+        r1.setSize(817, 602);
+        r1.setLocation(0, 0);
+
+        jPMostrar.removeAll();
+        jPMostrar.add(r1, BorderLayout.CENTER);
+        jPMostrar.revalidate();
+        jPMostrar.repaint();
     }
     
     private void vincularTablaConFormulario() {
@@ -190,6 +205,11 @@ public class BuscarColectivos extends javax.swing.JPanel {
                 jBBuscarMouseExited(evt);
             }
         });
+        jBBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBBuscarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -307,6 +327,16 @@ public class BuscarColectivos extends javax.swing.JPanel {
             modelo.eliminarFila(indiceFila);
         }
     }//GEN-LAST:event_jBEliminarActionPerformed
+
+    private void jBBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBBuscarActionPerformed
+        ColectivoData colectivoData = new ColectivoData();
+        Colectivo colectivo = colectivoData.buscarColectivoPorMatricula(
+                jTMatricula.getText());
+        if(colectivo != null){
+            mostrarCarga(colectivo);
+        }
+        
+    }//GEN-LAST:event_jBBuscarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

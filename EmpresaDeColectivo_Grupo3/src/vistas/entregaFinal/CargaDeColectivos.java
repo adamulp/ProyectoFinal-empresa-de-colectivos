@@ -1,13 +1,69 @@
 package vistas.entregaFinal;
 
+import EmpresaDeColectivo.Entidades.Colectivo;
+import accesoADatos.ColectivoData;
 import java.awt.Color;
+import java.util.List;
+import javax.swing.JComboBox;
 
 
 public class CargaDeColectivos extends javax.swing.JPanel {
-
-   
+    
     public CargaDeColectivos() {
         initComponents();
+        initCombos();
+        comboMarca.setSelectedIndex(-1);
+        comboModelo.setSelectedIndex(-1);
+        jBActualizar.setEnabled(false);
+    }
+    
+    public CargaDeColectivos(Colectivo colectivo){
+        initComponents();
+        initCombos();
+        comboMarca.setSelectedItem(colectivo.getMarca());
+        comboModelo.setSelectedItem(colectivo.getModelo());
+        jBAgregar.setEnabled(false);
+        jBActualizar.setEnabled(true);
+        txtCapacidad.setText(Integer.toString(colectivo.getCapacidad()));
+        txtMatricula.setText(colectivo.getMatricula());
+        
+        
+    }
+    
+    private void setComboEditable(JComboBox combo){
+        combo.setEditable(true);
+        combo.addActionListener(e -> {
+            String itemNuevo = (String) combo.getSelectedItem();
+            if (itemNuevo != null && !itemNuevo.trim().isEmpty() && combo.getItemCount() == 0) {
+                combo.addItem(itemNuevo);
+            }
+        });
+    }
+    
+    private void initCombos(){
+        ColectivoData colectivoData = new ColectivoData();
+        List<String> marcas = colectivoData.listarMarcas();
+        List<String> modelos = colectivoData.listarModelos();
+        
+        for(String marca : marcas){
+            comboMarca.addItem(marca);
+        }
+        
+        for(String modelo : modelos){
+            comboModelo.addItem(modelo);
+        }
+        
+        setComboEditable(comboMarca);
+        setComboEditable(comboModelo);
+    }
+    
+    private void limpiarCampos(){
+        jBAgregar.setEnabled(true);
+        jBActualizar.setEnabled(false);
+        comboMarca.setSelectedIndex(-1);
+        comboModelo.setSelectedIndex(-1);
+        txtCapacidad.setText("");
+        txtMatricula.setText("");
     }
 
     /**
@@ -25,8 +81,8 @@ public class CargaDeColectivos extends javax.swing.JPanel {
         lblMatricula = new javax.swing.JLabel();
         txtMatricula = new javax.swing.JTextField();
         lblCapacidad = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jComboBox2 = new javax.swing.JComboBox<>();
+        comboMarca = new javax.swing.JComboBox<>();
+        comboModelo = new javax.swing.JComboBox<>();
         txtCapacidad = new javax.swing.JTextField();
         jBAgregar = new javax.swing.JButton();
         jBActualizar = new javax.swing.JButton();
@@ -56,13 +112,12 @@ public class CargaDeColectivos extends javax.swing.JPanel {
         lblCapacidad.setForeground(new java.awt.Color(102, 102, 102));
         lblCapacidad.setText("Capacidad");
 
-        jComboBox1.setBackground(new java.awt.Color(255, 255, 255));
-        jComboBox1.setForeground(new java.awt.Color(102, 102, 102));
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Volkswagen", "Mercedez Benz", "Scania" }));
+        comboMarca.setBackground(new java.awt.Color(255, 255, 255));
+        comboMarca.setForeground(new java.awt.Color(102, 102, 102));
+        comboMarca.setSelectedIndex(-1);
 
-        jComboBox2.setBackground(new java.awt.Color(255, 255, 255));
-        jComboBox2.setForeground(new java.awt.Color(102, 102, 102));
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        comboModelo.setBackground(new java.awt.Color(255, 255, 255));
+        comboModelo.setForeground(new java.awt.Color(102, 102, 102));
 
         txtCapacidad.setBackground(new java.awt.Color(255, 255, 255));
         txtCapacidad.setForeground(new java.awt.Color(102, 102, 102));
@@ -111,6 +166,11 @@ public class CargaDeColectivos extends javax.swing.JPanel {
                 jBLimpiezaMouseExited(evt);
             }
         });
+        jBLimpieza.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBLimpiezaActionPerformed(evt);
+            }
+        });
 
         lblModelo.setForeground(new java.awt.Color(102, 102, 102));
         lblModelo.setText("Modelo");
@@ -127,11 +187,11 @@ public class CargaDeColectivos extends javax.swing.JPanel {
                     .addGroup(panelColectivoLayout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(panelColectivoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(comboModelo, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(panelColectivoLayout.createSequentialGroup()
                                 .addComponent(lblMarca)
                                 .addGap(54, 54, 54)
-                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(comboMarca, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addGap(44, 44, 44)
                 .addComponent(jBActualizar, javax.swing.GroupLayout.DEFAULT_SIZE, 182, Short.MAX_VALUE)
                 .addGap(44, 44, 44)
@@ -165,14 +225,14 @@ public class CargaDeColectivos extends javax.swing.JPanel {
                 .addGap(39, 39, 39)
                 .addGroup(panelColectivoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblMarca)
-                    .addComponent(jComboBox1)
+                    .addComponent(comboMarca)
                     .addComponent(lblMatricula, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(txtMatricula))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
                 .addGroup(panelColectivoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtCapacidad)
                     .addComponent(lblCapacidad, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox2)
+                    .addComponent(comboModelo)
                     .addComponent(lblModelo))
                 .addGap(45, 45, 45)
                 .addGroup(panelColectivoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -234,13 +294,17 @@ public class CargaDeColectivos extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_txtCapacidadKeyTyped
 
+    private void jBLimpiezaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBLimpiezaActionPerformed
+        limpiarCampos();
+    }//GEN-LAST:event_jBLimpiezaActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> comboMarca;
+    private javax.swing.JComboBox<String> comboModelo;
     private javax.swing.JButton jBActualizar;
     private javax.swing.JButton jBAgregar;
     private javax.swing.JButton jBLimpieza;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JLabel lblCapacidad;
     private javax.swing.JLabel lblDatosColectivo;
     private javax.swing.JLabel lblMarca;

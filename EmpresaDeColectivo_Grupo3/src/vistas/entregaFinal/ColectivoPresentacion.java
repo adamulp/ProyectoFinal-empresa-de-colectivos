@@ -18,7 +18,7 @@ public class ColectivoPresentacion extends javax.swing.JPanel {
    private JButton botonSeleccionado;
     
      private void mostrarColectivos(){
-      BuscarColectivos c1 = new BuscarColectivos();
+      BuscarColectivos c1 = new BuscarColectivos(jPMostrar);
         c1.setSize(817, 602);
         c1.setLocation(0, 0);
 
