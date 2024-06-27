@@ -72,7 +72,8 @@ public class ColectivoData {
                 colectivo.setModelo(rs.getString("Modelo"));
                 colectivo.setCapacidad(rs.getInt("Capacidad"));
             } else {
-                JOptionPane.showMessageDialog(null, "No existe el Colectivo");
+                JOptionPane.showMessageDialog(null, "No existe "
+                        + "un registro del Colectivo");
                 ps.close();
             }
         } catch (SQLException ex) {
@@ -99,7 +100,8 @@ public class ColectivoData {
                 colectivo.setCapacidad(rs.getInt("Capacidad"));
                 colectivo.setEstado(rs.getBoolean("Estado"));
             } else {
-                JOptionPane.showMessageDialog(null, "No existe el colectivo");
+                JOptionPane.showMessageDialog(null, "No existe "
+                        + " un registro del colectivo");
             }
             ps.close();
         } catch (SQLException ex) {
@@ -107,28 +109,59 @@ public class ColectivoData {
         }
         return colectivo;
     }
-    
+
+    public List<Colectivo> buscarColectivoPorMatricula(String matriculaParcial, boolean activo) {
+        List<Colectivo> colectivos = new ArrayList<>();
+        String sql = "SELECT ID_Colectivo, Matricula, Marca, Modelo, Capacidad, Estado "
+                + "FROM Colectivos "
+                + "WHERE Matricula LIKE ? ";
+        if (activo) {
+            sql += "AND Estado = 1";
+        } else {
+            sql += "AND Estado = 0";
+        }
+
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setString(1, matriculaParcial + "%");
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    Colectivo colectivo = new Colectivo();
+                    colectivo.setIdColectivo(rs.getInt("ID_Colectivo"));
+                    colectivo.setMatricula(rs.getString("Matricula"));
+                    colectivo.setMarca(rs.getString("Marca"));
+                    colectivo.setModelo(rs.getString("Modelo"));
+                    colectivo.setCapacidad(rs.getInt("Capacidad"));
+                    colectivo.setEstado(activo);
+                    colectivos.add(colectivo);
+                }
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Colectivo: " + ex.getMessage());
+        }
+        return colectivos;
+    }
+
     public List<Colectivo> listarColectivos(boolean activo) {
         List<Colectivo> colectivos = new ArrayList<>();
         String sql;
-        if(!activo){
+        if (!activo) {
             sql = "SELECT * FROM Colectivos WHERE Estado = 0 ";
-        }else{
+        } else {
             sql = "SELECT * FROM Colectivos WHERE Estado = 1 ";
         }
-        
+
         try {
-           PreparedStatement ps = con.prepareStatement(sql);
+            PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
                 Colectivo colectivo = new Colectivo();
-                colectivo = new Colectivo();
                 colectivo.setIdColectivo(rs.getInt("ID_Colectivo"));
                 colectivo.setMatricula(rs.getString("Matricula"));
                 colectivo.setMarca(rs.getString("Marca"));
                 colectivo.setModelo(rs.getString("Modelo"));
                 colectivo.setCapacidad(rs.getInt("Capacidad"));
+                colectivo.setEstado(activo);
                 colectivos.add(colectivo);
             }
 
@@ -139,7 +172,7 @@ public class ColectivoData {
         return colectivos;
 
     }
-    
+
     public List<Colectivo> listarColectivos() {
         return listarColectivos(true);
     }
@@ -187,13 +220,13 @@ public class ColectivoData {
             JOptionPane.showMessageDialog(null, " Error al acceder a la tabla Colectivo");
         }
     }
-    
+
     public List<String> listarMarcas() {
         List<String> marcas = new ArrayList<>();
         String sql;
         sql = " SELECT DISTINCT Marca "
                 + " FROM Colectivos";
-       
+
         PreparedStatement ps;
         try {
             ps = con.prepareStatement(sql);
@@ -205,24 +238,23 @@ public class ColectivoData {
             }
             rs.close();
             ps.close();
-        }
-        catch (SQLException ex) {
-                JOptionPane.showMessageDialog(null,
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null,
                     "Error al acceder la bd desde "
-                  + "listarMarcas()"
-                  + " " + ex.getMessage());
+                    + "listarMarcas()"
+                    + " " + ex.getMessage());
         }
 
         return marcas;
     }
-    
+
     public List<String> listarModelos(String marca) {
         List<String> modelos = new ArrayList<>();
         String sql;
         sql = " SELECT DISTINCT Modelo "
                 + " FROM Colectivos "
                 + " WHERE marca = ? ";
-       
+
         PreparedStatement ps;
         try {
             ps = con.prepareStatement(sql);
@@ -235,23 +267,22 @@ public class ColectivoData {
             }
             rs.close();
             ps.close();
-        }
-        catch (SQLException ex) {
-                JOptionPane.showMessageDialog(null,
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null,
                     "Error al acceder la bd desde "
-                  + "listarMarcas()"
-                  + " " + ex.getMessage());
+                    + "listarMarcas()"
+                    + " " + ex.getMessage());
         }
 
         return modelos;
     }
-    
+
     public List<String> listarModelos() {
         List<String> modelos = new ArrayList<>();
         String sql;
         sql = " SELECT DISTINCT Modelo "
                 + " FROM Colectivos ";
-       
+
         PreparedStatement ps;
         try {
             ps = con.prepareStatement(sql);
@@ -263,16 +294,14 @@ public class ColectivoData {
             }
             rs.close();
             ps.close();
-        }
-        catch (SQLException ex) {
-                JOptionPane.showMessageDialog(null,
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null,
                     "Error al acceder la bd desde "
-                  + "listarMarcas()"
-                  + " " + ex.getMessage());
+                    + "listarMarcas()"
+                    + " " + ex.getMessage());
         }
 
         return modelos;
     }
-    
-    
+
 }

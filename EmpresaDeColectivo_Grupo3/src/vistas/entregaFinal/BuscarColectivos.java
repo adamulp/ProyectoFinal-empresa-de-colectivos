@@ -4,18 +4,19 @@ import EmpresaDeColectivo.Entidades.Colectivo;
 import accesoADatos.ColectivoData;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.event.KeyEvent;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.ListSelectionModel;
 import vistas.jtabla.JTablaCompuesta;
 import vistas.jtabla.ModeloTablaCompuesta;
 import vistas.jtabla.SeccionTabla;
 
-
 public class BuscarColectivos extends javax.swing.JPanel {
-    
+
     private JPanel jPMostrar;
-    
+
     private JTablaCompuesta tabla;
     private ModeloTablaCompuesta modelo;
     private SeccionTabla datosColectivos;
@@ -26,9 +27,9 @@ public class BuscarColectivos extends javax.swing.JPanel {
         checkBoxColectivosActivos.setSelected(true);
         vincularTablaConFormulario();
     }
-    
-    private void mostrarCarga(Colectivo colectivo){
-      CargaDeColectivos r1 = new CargaDeColectivos(colectivo);
+
+    private void mostrarCarga(Colectivo colectivo) {
+        CargaDeColectivos r1 = new CargaDeColectivos(colectivo);
         r1.setSize(817, 602);
         r1.setLocation(0, 0);
 
@@ -37,15 +38,15 @@ public class BuscarColectivos extends javax.swing.JPanel {
         jPMostrar.revalidate();
         jPMostrar.repaint();
     }
-    
+
     private void vincularTablaConFormulario() {
         modelo = new ModeloTablaCompuesta();
-                
+
         this.datosColectivos = new SeccionTabla(
                 "Colectivos",
                 "Colectivos"
         );
-        
+
         datosColectivos.agregarColumna("Marca");
         datosColectivos.agregarColumna("Modelo");
         datosColectivos.agregarColumna(
@@ -58,11 +59,10 @@ public class BuscarColectivos extends javax.swing.JPanel {
         modelo.agregarSeccion(datosColectivos);
         tabla = new JTablaCompuesta(modelo);
         tabla.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        jScrollPane1.setViewportView(tabla); 
-        
+        jScrollPane1.setViewportView(tabla);
+
     }
-    
-   
+
     private void borrarLista() {
         int filas = modelo.getRowCount() - 1;
         if (filas > 0) {
@@ -72,21 +72,50 @@ public class BuscarColectivos extends javax.swing.JPanel {
             tabla.repaint();
         }
     }
-    
-    private void actualizarTabla(){
+
+    private void actualizarTabla() {
         borrarLista();
         vincularTablaConFormulario();
     }
-    
-    private void llenarTabla(){
+
+    private void actualizarTablaConBusqueda(String matriculaParcial, boolean estado) {
+        ColectivoData colectivoData = new ColectivoData();
+        List<Colectivo> colectivos = colectivoData.buscarColectivoPorMatricula(matriculaParcial, estado);
+
+        modelo = new ModeloTablaCompuesta();
+        this.datosColectivos = new SeccionTabla("Colectivos", "Colectivos");
+
+        datosColectivos.agregarColumna("Marca");
+        datosColectivos.agregarColumna("Modelo");
+        datosColectivos.agregarColumna("Matricula", jTMatricula, true);
+        datosColectivos.agregarColumna("Capacidad");
+
+        // Llenar la tabla con los colectivos encontrados
+        for (Colectivo colectivo : colectivos) {
+            int idColectivo = colectivo.getIdColectivo();
+            this.datosColectivos.agregarFila(idColectivo, new Object[]{
+                colectivo.getMarca(),
+                colectivo.getModelo(),
+                colectivo.getMatricula(),
+                colectivo.getCapacidad()
+            });
+        }
+
+        modelo.agregarSeccion(datosColectivos);
+        tabla = new JTablaCompuesta(modelo);
+        tabla.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        jScrollPane1.setViewportView(tabla);
+    }
+
+    private void llenarTabla() {
         boolean estado = checkBoxColectivosActivos.isSelected();
         borrarLista();
         ColectivoData colectivoData = new ColectivoData();
         List<Colectivo> colectivos = colectivoData.listarColectivos(
                 estado
         );
-        
-        for(Colectivo colectivo : colectivos){
+
+        for (Colectivo colectivo : colectivos) {
             int idColectivo = colectivo.getIdColectivo();
             this.datosColectivos.agregarFila(idColectivo, new Object[]{
                 colectivo.getMarca(),
@@ -97,7 +126,22 @@ public class BuscarColectivos extends javax.swing.JPanel {
         }
     }
 
-   
+    private void llenarTabla(List<Colectivo> colectivos) {
+        boolean estado = checkBoxColectivosActivos.isSelected();
+        borrarLista();
+        ColectivoData colectivoData = new ColectivoData();
+
+        for (Colectivo colectivo : colectivos) {
+            int idColectivo = colectivo.getIdColectivo();
+            this.datosColectivos.agregarFila(idColectivo, new Object[]{
+                colectivo.getMarca(),
+                colectivo.getModelo(),
+                colectivo.getMatricula(),
+                colectivo.getCapacidad()
+            });
+        }
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -110,7 +154,8 @@ public class BuscarColectivos extends javax.swing.JPanel {
         jPanel1 = new javax.swing.JPanel();
         jLMatricula = new javax.swing.JLabel();
         jTMatricula = new javax.swing.JTextField();
-        jBBuscar = new javax.swing.JButton();
+        jBModificar = new javax.swing.JButton();
+        btnLimpiar = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setMaximumSize(new java.awt.Dimension(772, 397));
@@ -192,22 +237,34 @@ public class BuscarColectivos extends javax.swing.JPanel {
                 jTMatriculaMouseClicked(evt);
             }
         });
-
-        jBBuscar.setBackground(new java.awt.Color(255, 255, 255));
-        jBBuscar.setForeground(new java.awt.Color(102, 102, 102));
-        jBBuscar.setText("Buscar");
-        jBBuscar.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(0, 102, 102)));
-        jBBuscar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jBBuscarMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                jBBuscarMouseExited(evt);
+        jTMatricula.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTMatriculaKeyReleased(evt);
             }
         });
-        jBBuscar.addActionListener(new java.awt.event.ActionListener() {
+
+        jBModificar.setBackground(new java.awt.Color(255, 255, 255));
+        jBModificar.setForeground(new java.awt.Color(102, 102, 102));
+        jBModificar.setText("Modificar");
+        jBModificar.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(0, 102, 102)));
+        jBModificar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jBModificarMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jBModificarMouseExited(evt);
+            }
+        });
+        jBModificar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBBuscarActionPerformed(evt);
+                jBModificarActionPerformed(evt);
+            }
+        });
+
+        btnLimpiar.setText("Limpiar");
+        btnLimpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimpiarActionPerformed(evt);
             }
         });
 
@@ -215,30 +272,34 @@ public class BuscarColectivos extends javax.swing.JPanel {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(15, 15, 15)
-                        .addComponent(jTMatricula))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(66, 66, 66)
-                        .addComponent(jBBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addGap(21, 21, 21))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(0, 54, Short.MAX_VALUE)
                 .addComponent(jLMatricula, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(47, 47, 47))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(14, 14, 14)
+                        .addComponent(jBModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnLimpiar)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jTMatricula)
+                        .addGap(21, 21, 21))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(22, 22, 22)
-                .addComponent(jLMatricula, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(33, 33, 33)
+                .addComponent(jLMatricula, javax.swing.GroupLayout.DEFAULT_SIZE, 67, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTMatricula)
-                .addGap(18, 18, 18)
-                .addComponent(jBBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(45, 45, 45)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jBModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnLimpiar))
                 .addGap(36, 36, 36))
         );
 
@@ -291,24 +352,24 @@ public class BuscarColectivos extends javax.swing.JPanel {
         jBEliminar.setForeground(new Color(102, 102, 102));
     }//GEN-LAST:event_jBEliminarMouseExited
 
-    private void jBBuscarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBBuscarMouseEntered
-        jBBuscar.setBackground(new Color(0, 102, 102));
-        jBBuscar.setForeground(new Color(255, 255, 255));
-    }//GEN-LAST:event_jBBuscarMouseEntered
+    private void jBModificarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBModificarMouseEntered
+        jBModificar.setBackground(new Color(0, 102, 102));
+        jBModificar.setForeground(new Color(255, 255, 255));
+    }//GEN-LAST:event_jBModificarMouseEntered
 
-    private void jBBuscarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBBuscarMouseExited
-        jBBuscar.setBackground(new Color(255, 255, 255));
-        jBBuscar.setForeground(new Color(102, 102, 102));
-    }//GEN-LAST:event_jBBuscarMouseExited
+    private void jBModificarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBModificarMouseExited
+        jBModificar.setBackground(new Color(255, 255, 255));
+        jBModificar.setForeground(new Color(102, 102, 102));
+    }//GEN-LAST:event_jBModificarMouseExited
 
     private void jTMatriculaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTMatriculaMouseClicked
-        if(jTMatricula.getText().equals("Ingrese la matricula")){
+        if (jTMatricula.getText().equals("Ingrese la matricula")) {
             jTMatricula.setText("");
         }
     }//GEN-LAST:event_jTMatriculaMouseClicked
 
     private void jTMatriculaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTMatriculaFocusLost
-        if(jTMatricula.getText().isBlank()){
+        if (jTMatricula.getText().isBlank()) {
             jTMatricula.setText("Ingrese la matricula");
         }
     }//GEN-LAST:event_jTMatriculaFocusLost
@@ -321,28 +382,61 @@ public class BuscarColectivos extends javax.swing.JPanel {
         int indiceFila = tabla.getSelectedRow();
         int clavePrimaria = modelo.getClavePrimariaDeFila(indiceFila);
         ColectivoData colectivoData = new ColectivoData();
-        
-        if(indiceFila != -1 && clavePrimaria != -1){
+
+        if (indiceFila != -1 && clavePrimaria != -1) {
             colectivoData.eliminarColectivo(clavePrimaria);
             modelo.eliminarFila(indiceFila);
         }
     }//GEN-LAST:event_jBEliminarActionPerformed
 
-    private void jBBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBBuscarActionPerformed
+    private void jBModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBModificarActionPerformed
+        if (jTMatricula.getText().isBlank()
+                || jTMatricula.getText().equals("Ingrese la matricula")) {
+            JOptionPane.showMessageDialog(null,
+                    "Debes seleccionar un registro para modificar");
+            return;
+        }
+
         ColectivoData colectivoData = new ColectivoData();
         Colectivo colectivo = colectivoData.buscarColectivoPorMatricula(
                 jTMatricula.getText());
-        if(colectivo != null){
+        if (colectivo != null) {
             mostrarCarga(colectivo);
         }
-        
-    }//GEN-LAST:event_jBBuscarActionPerformed
+
+    }//GEN-LAST:event_jBModificarActionPerformed
+
+    private void jTMatriculaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTMatriculaKeyReleased
+        String matriculaParcial = jTMatricula.getText().toUpperCase();
+        jTMatricula.setText(matriculaParcial);
+
+        if (evt.getKeyCode() == KeyEvent.VK_ESCAPE) {
+            jTMatricula.setText("Ingrese la matricula");
+            actualizarTabla();
+            return;
+        }
+
+        if (matriculaParcial.isBlank() || matriculaParcial.equals(
+                "Ingrese la matricula")) {
+            actualizarTabla();
+            return;
+        }
+
+        actualizarTablaConBusqueda(matriculaParcial,
+                checkBoxColectivosActivos.isSelected());
+    }//GEN-LAST:event_jTMatriculaKeyReleased
+
+    private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
+        jTMatricula.setText("Ingrese la matricula");
+        actualizarTabla();
+    }//GEN-LAST:event_btnLimpiarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnLimpiar;
     private javax.swing.JCheckBox checkBoxColectivosActivos;
-    private javax.swing.JButton jBBuscar;
     private javax.swing.JButton jBEliminar;
+    private javax.swing.JButton jBModificar;
     private javax.swing.JLabel jLColectivo;
     private javax.swing.JLabel jLMatricula;
     private javax.swing.JPanel jPanel1;
