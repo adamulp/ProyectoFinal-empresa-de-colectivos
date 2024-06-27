@@ -9,11 +9,14 @@ import javax.swing.JComboBox;
 
 public class CargaDeColectivos extends javax.swing.JPanel {
     
+    private Colectivo colectivo;
+    
     public CargaDeColectivos() {
         initComponents();
         initCombos();
         comboMarca.setSelectedIndex(-1);
         comboModelo.setSelectedIndex(-1);
+        checkBoxActivo.setSelected(true);
         jBActualizar.setEnabled(false);
     }
     
@@ -26,8 +29,8 @@ public class CargaDeColectivos extends javax.swing.JPanel {
         jBActualizar.setEnabled(true);
         txtCapacidad.setText(Integer.toString(colectivo.getCapacidad()));
         txtMatricula.setText(colectivo.getMatricula());
-        
-        
+        checkBoxActivo.setSelected(colectivo.estaActivo());
+        this.colectivo = colectivo;
     }
     
     private void setComboEditable(JComboBox combo){
@@ -64,6 +67,7 @@ public class CargaDeColectivos extends javax.swing.JPanel {
         comboModelo.setSelectedIndex(-1);
         txtCapacidad.setText("");
         txtMatricula.setText("");
+        this.colectivo = new Colectivo();
     }
 
     /**
@@ -88,6 +92,7 @@ public class CargaDeColectivos extends javax.swing.JPanel {
         jBActualizar = new javax.swing.JButton();
         jBLimpieza = new javax.swing.JButton();
         lblModelo = new javax.swing.JLabel();
+        checkBoxActivo = new javax.swing.JCheckBox();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -140,6 +145,11 @@ public class CargaDeColectivos extends javax.swing.JPanel {
                 jBAgregarMouseExited(evt);
             }
         });
+        jBAgregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBAgregarActionPerformed(evt);
+            }
+        });
 
         jBActualizar.setBackground(new java.awt.Color(255, 255, 255));
         jBActualizar.setForeground(new java.awt.Color(102, 102, 102));
@@ -151,6 +161,11 @@ public class CargaDeColectivos extends javax.swing.JPanel {
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 jBActualizarMouseExited(evt);
+            }
+        });
+        jBActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBActualizarActionPerformed(evt);
             }
         });
 
@@ -175,47 +190,52 @@ public class CargaDeColectivos extends javax.swing.JPanel {
         lblModelo.setForeground(new java.awt.Color(102, 102, 102));
         lblModelo.setText("Modelo");
 
+        checkBoxActivo.setText("Activo");
+
         javax.swing.GroupLayout panelColectivoLayout = new javax.swing.GroupLayout(panelColectivo);
         panelColectivo.setLayout(panelColectivoLayout);
         panelColectivoLayout.setHorizontalGroup(
             panelColectivoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelColectivoLayout.createSequentialGroup()
-                .addGroup(panelColectivoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelColectivoLayout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(jBAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panelColectivoLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(panelColectivoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(comboModelo, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(panelColectivoLayout.createSequentialGroup()
-                                .addComponent(lblMarca)
-                                .addGap(54, 54, 54)
-                                .addComponent(comboMarca, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addGap(44, 44, 44)
-                .addComponent(jBActualizar, javax.swing.GroupLayout.DEFAULT_SIZE, 182, Short.MAX_VALUE)
-                .addGap(44, 44, 44)
-                .addComponent(jBLimpieza, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(67, 67, 67))
-            .addGroup(panelColectivoLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lblModelo)
-                .addGap(290, 290, 290)
-                .addGroup(panelColectivoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(panelColectivoLayout.createSequentialGroup()
-                        .addComponent(lblMatricula)
-                        .addGap(46, 46, 46)
-                        .addComponent(txtMatricula, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(panelColectivoLayout.createSequentialGroup()
-                        .addComponent(lblCapacidad)
-                        .addGap(40, 40, 40)
-                        .addComponent(txtCapacidad, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelColectivoLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(lblDatosColectivo)
-                .addGap(342, 342, 342))
+                .addGroup(panelColectivoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelColectivoLayout.createSequentialGroup()
+                        .addGroup(panelColectivoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panelColectivoLayout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(jBAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(panelColectivoLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addGroup(panelColectivoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(comboModelo, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(panelColectivoLayout.createSequentialGroup()
+                                        .addComponent(lblMarca)
+                                        .addGap(54, 54, 54)
+                                        .addComponent(comboMarca, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addGap(44, 44, 44)
+                        .addComponent(jBActualizar, javax.swing.GroupLayout.DEFAULT_SIZE, 182, Short.MAX_VALUE)
+                        .addGap(44, 44, 44)
+                        .addComponent(jBLimpieza, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelColectivoLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(lblModelo)
+                        .addGap(290, 290, 290)
+                        .addGroup(panelColectivoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panelColectivoLayout.createSequentialGroup()
+                                .addComponent(lblCapacidad)
+                                .addGap(40, 40, 40)
+                                .addComponent(txtCapacidad, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(panelColectivoLayout.createSequentialGroup()
+                                .addComponent(lblMatricula)
+                                .addGap(46, 46, 46)
+                                .addComponent(txtMatricula, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(44, 44, 44)
+                                .addComponent(checkBoxActivo)))
+                        .addGap(32, 32, 32))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelColectivoLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(lblDatosColectivo)
+                        .addGap(275, 275, 275)))
+                .addGap(67, 67, 67))
         );
         panelColectivoLayout.setVerticalGroup(
             panelColectivoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -227,7 +247,8 @@ public class CargaDeColectivos extends javax.swing.JPanel {
                     .addComponent(lblMarca)
                     .addComponent(comboMarca)
                     .addComponent(lblMatricula, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtMatricula))
+                    .addComponent(txtMatricula)
+                    .addComponent(checkBoxActivo))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
                 .addGroup(panelColectivoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtCapacidad)
@@ -298,8 +319,42 @@ public class CargaDeColectivos extends javax.swing.JPanel {
         limpiarCampos();
     }//GEN-LAST:event_jBLimpiezaActionPerformed
 
+    private void jBAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAgregarActionPerformed
+        Colectivo colectivo = new Colectivo();
+        colectivo.setMatricula(txtMatricula.getText());
+        colectivo.setMarca((String)comboMarca.getSelectedItem());
+        colectivo.setModelo((String) comboModelo.getSelectedItem());
+        colectivo.setEstado(checkBoxActivo.isSelected());
+        if(txtCapacidad.getText() != null){
+            int capacidad = Integer.valueOf(txtCapacidad.getText());
+            colectivo.setCapacidad(capacidad);
+        }
+
+        ColectivoData colectivoData = new ColectivoData();
+        colectivoData.guardarColectivo(colectivo);
+        limpiarCampos();
+    }//GEN-LAST:event_jBAgregarActionPerformed
+
+    private void jBActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBActualizarActionPerformed
+        this.colectivo.setMatricula(txtMatricula.getText());
+        this.colectivo.setMarca((String)comboMarca.getSelectedItem());
+        this.colectivo.setModelo((String) comboModelo.getSelectedItem());
+        this.colectivo.setEstado(checkBoxActivo.isSelected());
+        
+        if(txtCapacidad.getText() != null){
+            int capacidad = Integer.valueOf(txtCapacidad.getText());
+            this.colectivo.setCapacidad(capacidad);
+        }
+        
+       
+        ColectivoData colectivoData = new ColectivoData();
+        colectivoData.modificarColectivo(this.colectivo);
+        limpiarCampos();
+    }//GEN-LAST:event_jBActualizarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JCheckBox checkBoxActivo;
     private javax.swing.JComboBox<String> comboMarca;
     private javax.swing.JComboBox<String> comboModelo;
     private javax.swing.JButton jBActualizar;

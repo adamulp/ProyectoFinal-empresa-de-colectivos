@@ -146,21 +146,23 @@ public class ColectivoData {
 
     public void modificarColectivo(Colectivo colectivo) {
         String sql = "UPDATE Colectivos SET ID_Colectivo = ? , Matricula = ?, Marca = ?, "
-                + "Modelo = ? WHERE ID_Colectivo = ?";
+                + "Modelo = ?, Capacidad = ?, Estado = ? "
+                + " WHERE ID_Colectivo = ?";
         PreparedStatement ps = null;
         try {
             ps = con.prepareStatement(sql);
             ps.setInt(1, colectivo.getIdColectivo());
             ps.setString(2, colectivo.getMatricula());
             ps.setString(3, colectivo.getMarca());
-            ps.setDate(4, Date.valueOf(colectivo.getModelo()));
+            ps.setString(4, colectivo.getModelo());
             ps.setInt(5, colectivo.getCapacidad());
             ps.setBoolean(6, colectivo.estaActivo());
+            ps.setInt(7, colectivo.getIdColectivo());
             int exito = ps.executeUpdate();
             if (exito == 1) {
                 JOptionPane.showMessageDialog(null, "Modificado Exitosamente.");
             } else {
-                JOptionPane.showMessageDialog(null, "El colectivo no existe");
+                JOptionPane.showMessageDialog(null, "No se encuentra el colectivo");
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Colectivo " + ex.getMessage());
