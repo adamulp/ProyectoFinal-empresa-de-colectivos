@@ -299,9 +299,11 @@ public class BuscarColectivos extends javax.swing.JPanel {
 
     private void jBEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBEliminarActionPerformed
         int indiceFila = tabla.getSelectedRow();
-        if(indiceFila != -1){
-//            Object val = modelo.getValueAt(indiceFila, 
-//                    datosColectivos.
+        int clavePrimaria = modelo.getClavePrimariaDeFila(indiceFila);
+        ColectivoData colectivoData = new ColectivoData();
+        
+        if(indiceFila != -1 && clavePrimaria != -1){
+            colectivoData.eliminarColectivo(clavePrimaria);
             modelo.eliminarFila(indiceFila);
         }
     }//GEN-LAST:event_jBEliminarActionPerformed

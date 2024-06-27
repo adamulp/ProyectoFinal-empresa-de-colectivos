@@ -19,6 +19,17 @@ public class ModeloTablaCompuesta extends AbstractTableModel {
         totalFilas = Math.max(totalFilas, seccion.getFilas().size());
         fireTableStructureChanged();
     }
+    
+    public int getClavePrimariaDeFila(int indiceFila) {
+        for (SeccionTabla seccion : secciones) {
+            List<FilaSeccion> filas = seccion.getFilas();
+            if (indiceFila < filas.size()) {
+                FilaSeccion fila = filas.get(indiceFila);
+                return fila.getClavePrimaria();
+            }
+        }
+        return -1;
+    }
 
     public void eliminarFila(int indiceFila) {
         for (SeccionTabla seccion : secciones) {
