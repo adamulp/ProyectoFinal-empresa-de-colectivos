@@ -3,8 +3,11 @@ package vistas.jtabla;
 import javax.swing.table.AbstractTableModel;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
+import javax.swing.table.DefaultTableModel;
 
 public class ModeloTablaCompuesta extends AbstractTableModel {
+
     protected List<SeccionTabla> secciones = new ArrayList<>();
     protected int totalColumnas = 0;
     protected int totalFilas = 0;
@@ -15,6 +18,21 @@ public class ModeloTablaCompuesta extends AbstractTableModel {
         totalColumnas += seccion.getNombresColumnas().size();
         totalFilas = Math.max(totalFilas, seccion.getFilas().size());
         fireTableStructureChanged();
+    }
+
+    public void eliminarFila(int indiceFila) {
+        for (SeccionTabla seccion : secciones) {
+            List<FilaSeccion> filas = seccion.getFilas();
+            if (indiceFila < filas.size()) {
+                filas.remove(indiceFila);
+            }
+        }
+
+        totalFilas = 0;
+        for (SeccionTabla seccion : secciones) {
+            totalFilas = Math.max(totalFilas, seccion.getFilas().size());
+        }
+        fireTableRowsDeleted(indiceFila, indiceFila);
     }
 
     @Override

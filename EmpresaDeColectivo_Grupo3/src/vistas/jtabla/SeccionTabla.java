@@ -9,14 +9,20 @@ public class SeccionTabla {
     protected String nombreTabla;
     protected List<String> nombresColumnas = new ArrayList<>();
     protected List<FormularioData> columnasConfiguracion = new ArrayList<>();
-    protected List<FilaSeccion> filas = new ArrayList<>();
+    protected List<FilaSeccion> filas;
     protected int columnaInicio;
     
 
     public SeccionTabla(String nombreSeccion, String nombreTabla) {
         this.nombreSeccion = nombreSeccion;
         this.nombreTabla = nombreTabla;
+        this.filas = new ArrayList<>();
+        
     }
+    
+//    public void quitarFilasVista(){
+//        this.filas = new ArrayList<>();
+//    }
     
     public void agregarColumna(FormularioData columna) {
         nombresColumnas.add(columna.getNombreColumna());

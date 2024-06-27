@@ -31,7 +31,7 @@ USE `proyecto-final-empresa-colectivos`;
 
 CREATE TABLE IF NOT EXISTS `Colectivos` (
   `ID_Colectivo` int(11) NOT NULL AUTO_INCREMENT,
-  `Matricula` varchar(255) NOT NULL,
+  `Matricula` varchar(255) NOT NULL UNIQUE,
   `Marca` varchar(255) NOT NULL,
   `Modelo` varchar(255) NOT NULL,
   `Capacidad` int(11) NOT NULL,

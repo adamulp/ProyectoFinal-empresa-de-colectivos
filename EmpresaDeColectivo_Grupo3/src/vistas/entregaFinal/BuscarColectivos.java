@@ -47,8 +47,25 @@ public class BuscarColectivos extends javax.swing.JPanel {
         
     }
     
+   
+    private void borrarLista() {
+        int filas = modelo.getRowCount() - 1;
+        if (filas > 0) {
+            for (int i = filas; i >= 0; i--) {
+                modelo.eliminarFila(i);
+            }
+            tabla.repaint();
+        }
+    }
+    
+    private void actualizarTabla(){
+        borrarLista();
+        vincularTablaConFormulario();
+    }
+    
     private void llenarTabla(){
         boolean estado = checkBoxColectivosActivos.isSelected();
+        borrarLista();
         ColectivoData colectivoData = new ColectivoData();
         List<Colectivo> colectivos = colectivoData.listarColectivos(
                 estado
@@ -114,6 +131,11 @@ public class BuscarColectivos extends javax.swing.JPanel {
         checkBoxColectivosActivos.setBackground(new java.awt.Color(255, 255, 255));
         checkBoxColectivosActivos.setForeground(new java.awt.Color(102, 102, 102));
         checkBoxColectivosActivos.setText("Colectivos activos");
+        checkBoxColectivosActivos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkBoxColectivosActivosActionPerformed(evt);
+            }
+        });
 
         jBEliminar.setBackground(new java.awt.Color(255, 255, 255));
         jBEliminar.setForeground(new java.awt.Color(102, 102, 102));
@@ -265,6 +287,10 @@ public class BuscarColectivos extends javax.swing.JPanel {
             jTMatricula.setText("Ingrese la matricula");
         }
     }//GEN-LAST:event_jTMatriculaFocusLost
+
+    private void checkBoxColectivosActivosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxColectivosActivosActionPerformed
+        actualizarTabla();
+    }//GEN-LAST:event_checkBoxColectivosActivosActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
