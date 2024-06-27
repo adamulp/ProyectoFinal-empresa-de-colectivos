@@ -216,11 +216,41 @@ public class ColectivoData {
         return marcas;
     }
     
+    public List<String> listarModelos(String marca) {
+        List<String> modelos = new ArrayList<>();
+        String sql;
+        sql = " SELECT DISTINCT Modelo "
+                + " FROM Colectivos "
+                + " WHERE marca = ? ";
+       
+        PreparedStatement ps;
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setString(1, marca);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                String modelo = rs.getString("Modelo");
+                modelos.add(modelo);
+            }
+            rs.close();
+            ps.close();
+        }
+        catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null,
+                    "Error al acceder la bd desde "
+                  + "listarMarcas()"
+                  + " " + ex.getMessage());
+        }
+
+        return modelos;
+    }
+    
     public List<String> listarModelos() {
         List<String> modelos = new ArrayList<>();
         String sql;
         sql = " SELECT DISTINCT Modelo "
-                + " FROM Colectivos";
+                + " FROM Colectivos ";
        
         PreparedStatement ps;
         try {

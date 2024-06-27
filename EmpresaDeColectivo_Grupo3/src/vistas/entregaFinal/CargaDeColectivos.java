@@ -5,6 +5,7 @@ import accesoADatos.ColectivoData;
 import java.awt.Color;
 import java.util.List;
 import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
 
 
 public class CargaDeColectivos extends javax.swing.JPanel {
@@ -120,6 +121,11 @@ public class CargaDeColectivos extends javax.swing.JPanel {
         comboMarca.setBackground(new java.awt.Color(255, 255, 255));
         comboMarca.setForeground(new java.awt.Color(102, 102, 102));
         comboMarca.setSelectedIndex(-1);
+        comboMarca.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                comboMarcaItemStateChanged(evt);
+            }
+        });
 
         comboModelo.setBackground(new java.awt.Color(255, 255, 255));
         comboModelo.setForeground(new java.awt.Color(102, 102, 102));
@@ -329,8 +335,30 @@ public class CargaDeColectivos extends javax.swing.JPanel {
             int capacidad = Integer.valueOf(txtCapacidad.getText());
             colectivo.setCapacidad(capacidad);
         }
-
+        
+        int idColectivoExistente = -1;
         ColectivoData colectivoData = new ColectivoData();
+        Colectivo colectivoExistente = colectivoData.buscarColectivoPorMatricula(
+                colectivo.getMatricula()
+        );
+        if(colectivoExistente != null){
+            idColectivoExistente = colectivoExistente.getIdColectivo();
+            int respuesta = JOptionPane.showConfirmDialog(
+            null, 
+            "Ya existe un registro con la matricula" + colectivo.getMatricula()
+            + ", ¿querés actualizar el registro?", 
+            "Confirmar", 
+            JOptionPane.YES_NO_OPTION,
+            JOptionPane.QUESTION_MESSAGE
+            );
+
+            if (respuesta == JOptionPane.YES_OPTION) {
+                colectivo.setIdColectivo(idColectivoExistente);
+                colectivoData.modificarColectivo(colectivo);
+                limpiarCampos();
+            }
+            return;
+        }
         colectivoData.guardarColectivo(colectivo);
         limpiarCampos();
     }//GEN-LAST:event_jBAgregarActionPerformed
@@ -351,6 +379,18 @@ public class CargaDeColectivos extends javax.swing.JPanel {
         colectivoData.modificarColectivo(this.colectivo);
         limpiarCampos();
     }//GEN-LAST:event_jBActualizarActionPerformed
+
+    private void comboMarcaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboMarcaItemStateChanged
+        ColectivoData colectivoData = new ColectivoData();
+        String marca = (String) comboMarca.getSelectedItem();
+        List<String> modelos = colectivoData.listarModelos(marca);
+        
+        comboModelo.removeAllItems();        
+        for(String modelo : modelos){
+            comboModelo.addItem(modelo);
+        }
+        comboModelo.setSelectedIndex(-1);
+    }//GEN-LAST:event_comboMarcaItemStateChanged
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
