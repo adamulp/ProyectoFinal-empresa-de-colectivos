@@ -31,8 +31,8 @@ public class BuscarColectivos extends javax.swing.JPanel {
                 "Colectivos"
         );
         
-        datosColectivos.agregarColumna("Modelo");
         datosColectivos.agregarColumna("Marca");
+        datosColectivos.agregarColumna("Modelo");
         datosColectivos.agregarColumna(
                 "Matricula",
                 jTMatricula,
@@ -57,9 +57,9 @@ public class BuscarColectivos extends javax.swing.JPanel {
         for(Colectivo colectivo : colectivos){
             int idColectivo = colectivo.getIdColectivo();
             this.datosColectivos.agregarFila(idColectivo, new Object[]{
+                colectivo.getMarca(),
+                colectivo.getModelo(),
                 colectivo.getMatricula(),
-                colectivo.getMarca(),
-                colectivo.getMarca(),
                 colectivo.getCapacidad()
             });
         }
