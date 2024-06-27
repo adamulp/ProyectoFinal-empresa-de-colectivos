@@ -298,7 +298,12 @@ public class BuscarColectivos extends javax.swing.JPanel {
     }//GEN-LAST:event_checkBoxColectivosActivosActionPerformed
 
     private void jBEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBEliminarActionPerformed
-        // TODO add your handling code here:
+        int indiceFila = tabla.getSelectedRow();
+        if(indiceFila != -1){
+//            Object val = modelo.getValueAt(indiceFila, 
+//                    datosColectivos.
+            modelo.eliminarFila(indiceFila);
+        }
     }//GEN-LAST:event_jBEliminarActionPerformed
 
 
