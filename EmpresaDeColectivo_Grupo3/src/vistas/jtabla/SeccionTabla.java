@@ -23,6 +23,10 @@ public class SeccionTabla {
         columnasConfiguracion.add(columna);
     }
     
+    public void agregarColumna(String nombreColumna){
+        agregarColumna(new FormularioData(nombreColumna));
+    }
+    
     public void agregarColumna(String nombreColumna, Object campoGUI, boolean editable){
         agregarColumna(new FormularioData(nombreColumna, campoGUI, editable));
     }

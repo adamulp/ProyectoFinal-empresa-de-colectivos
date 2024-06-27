@@ -1,14 +1,68 @@
 package vistas.entregaFinal;
 
+import EmpresaDeColectivo.Entidades.Colectivo;
+import accesoADatos.ColectivoData;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.util.List;
+import javax.swing.ListSelectionModel;
+import vistas.jtabla.JTablaCompuesta;
+import vistas.jtabla.ModeloTablaCompuesta;
+import vistas.jtabla.SeccionTabla;
 
 
 public class BuscarColectivos extends javax.swing.JPanel {
+    
+    private JTablaCompuesta tabla;
+    private ModeloTablaCompuesta modelo;
+    private SeccionTabla datosColectivos;
 
     public BuscarColectivos() {
         initComponents();
+        checkBoxColectivosActivos.setSelected(true);
+        vincularTablaConFormulario();
+    }
+    
+    private void vincularTablaConFormulario() {
+        modelo = new ModeloTablaCompuesta();
+                
+        this.datosColectivos = new SeccionTabla(
+                "Colectivos",
+                "Colectivos"
+        );
         
+        datosColectivos.agregarColumna("Modelo");
+        datosColectivos.agregarColumna("Marca");
+        datosColectivos.agregarColumna(
+                "Matricula",
+                jTMatricula,
+                true
+        );
+        datosColectivos.agregarColumna("Capacidad");
+        llenarTabla();
+        modelo.agregarSeccion(datosColectivos);
+        tabla = new JTablaCompuesta(modelo);
+        tabla.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        jScrollPane1.setViewportView(tabla); 
+        
+    }
+    
+    private void llenarTabla(){
+        boolean estado = checkBoxColectivosActivos.isSelected();
+        ColectivoData colectivoData = new ColectivoData();
+        List<Colectivo> colectivos = colectivoData.listarColectivos(
+                estado
+        );
+        
+        for(Colectivo colectivo : colectivos){
+            int idColectivo = colectivo.getIdColectivo();
+            this.datosColectivos.agregarFila(idColectivo, new Object[]{
+                colectivo.getMatricula(),
+                colectivo.getMarca(),
+                colectivo.getMarca(),
+                colectivo.getCapacidad()
+            });
+        }
     }
 
    
@@ -19,12 +73,12 @@ public class BuscarColectivos extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable = new javax.swing.JTable();
         jLColectivo = new javax.swing.JLabel();
-        jCheckBox1 = new javax.swing.JCheckBox();
+        checkBoxColectivosActivos = new javax.swing.JCheckBox();
         jBEliminar = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLMatricula = new javax.swing.JLabel();
         jTMatricula = new javax.swing.JTextField();
-        jBuscar = new javax.swing.JButton();
+        jBBuscar = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setMaximumSize(new java.awt.Dimension(772, 397));
@@ -57,9 +111,9 @@ public class BuscarColectivos extends javax.swing.JPanel {
         jLColectivo.setForeground(new java.awt.Color(51, 51, 51));
         jLColectivo.setText("Colectivos");
 
-        jCheckBox1.setBackground(new java.awt.Color(255, 255, 255));
-        jCheckBox1.setForeground(new java.awt.Color(102, 102, 102));
-        jCheckBox1.setText("Colectivos activos");
+        checkBoxColectivosActivos.setBackground(new java.awt.Color(255, 255, 255));
+        checkBoxColectivosActivos.setForeground(new java.awt.Color(102, 102, 102));
+        checkBoxColectivosActivos.setText("Colectivos activos");
 
         jBEliminar.setBackground(new java.awt.Color(255, 255, 255));
         jBEliminar.setForeground(new java.awt.Color(102, 102, 102));
@@ -97,16 +151,16 @@ public class BuscarColectivos extends javax.swing.JPanel {
             }
         });
 
-        jBuscar.setBackground(new java.awt.Color(255, 255, 255));
-        jBuscar.setForeground(new java.awt.Color(102, 102, 102));
-        jBuscar.setText("Buscar");
-        jBuscar.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(0, 102, 102)));
-        jBuscar.addMouseListener(new java.awt.event.MouseAdapter() {
+        jBBuscar.setBackground(new java.awt.Color(255, 255, 255));
+        jBBuscar.setForeground(new java.awt.Color(102, 102, 102));
+        jBBuscar.setText("Buscar");
+        jBBuscar.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(0, 102, 102)));
+        jBBuscar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jBuscarMouseEntered(evt);
+                jBBuscarMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                jBuscarMouseExited(evt);
+                jBBuscarMouseExited(evt);
             }
         });
 
@@ -121,7 +175,7 @@ public class BuscarColectivos extends javax.swing.JPanel {
                         .addComponent(jTMatricula))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(66, 66, 66)
-                        .addComponent(jBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jBBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addGap(21, 21, 21))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
@@ -137,7 +191,7 @@ public class BuscarColectivos extends javax.swing.JPanel {
                 .addGap(33, 33, 33)
                 .addComponent(jTMatricula)
                 .addGap(18, 18, 18)
-                .addComponent(jBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jBBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(36, 36, 36))
         );
 
@@ -153,7 +207,7 @@ public class BuscarColectivos extends javax.swing.JPanel {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jBEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(241, 241, 241)
-                                .addComponent(jCheckBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(checkBoxColectivosActivos, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(23, 23, 23)
                                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 510, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -174,7 +228,7 @@ public class BuscarColectivos extends javax.swing.JPanel {
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(27, 27, 27)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jCheckBox1, javax.swing.GroupLayout.DEFAULT_SIZE, 51, Short.MAX_VALUE)
+                            .addComponent(checkBoxColectivosActivos, javax.swing.GroupLayout.DEFAULT_SIZE, 51, Short.MAX_VALUE)
                             .addComponent(jBEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addGap(235, 235, 235))
         );
@@ -190,15 +244,15 @@ public class BuscarColectivos extends javax.swing.JPanel {
         jBEliminar.setForeground(new Color(102, 102, 102));
     }//GEN-LAST:event_jBEliminarMouseExited
 
-    private void jBuscarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBuscarMouseEntered
-        jBuscar.setBackground(new Color(0, 102, 102));
-        jBuscar.setForeground(new Color(255, 255, 255));
-    }//GEN-LAST:event_jBuscarMouseEntered
+    private void jBBuscarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBBuscarMouseEntered
+        jBBuscar.setBackground(new Color(0, 102, 102));
+        jBBuscar.setForeground(new Color(255, 255, 255));
+    }//GEN-LAST:event_jBBuscarMouseEntered
 
-    private void jBuscarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBuscarMouseExited
-        jBuscar.setBackground(new Color(255, 255, 255));
-        jBuscar.setForeground(new Color(102, 102, 102));
-    }//GEN-LAST:event_jBuscarMouseExited
+    private void jBBuscarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBBuscarMouseExited
+        jBBuscar.setBackground(new Color(255, 255, 255));
+        jBBuscar.setForeground(new Color(102, 102, 102));
+    }//GEN-LAST:event_jBBuscarMouseExited
 
     private void jTMatriculaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTMatriculaMouseClicked
         if(jTMatricula.getText().equals("Ingrese la matricula")){
@@ -214,9 +268,9 @@ public class BuscarColectivos extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JCheckBox checkBoxColectivosActivos;
+    private javax.swing.JButton jBBuscar;
     private javax.swing.JButton jBEliminar;
-    private javax.swing.JButton jBuscar;
-    private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JLabel jLColectivo;
     private javax.swing.JLabel jLMatricula;
     private javax.swing.JPanel jPanel1;

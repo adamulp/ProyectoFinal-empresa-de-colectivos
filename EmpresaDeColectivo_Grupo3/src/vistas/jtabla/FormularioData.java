@@ -12,7 +12,10 @@ public class FormularioData {
     private boolean habilitado;
     private String tipoCampo;
     private List<Object> listaValores;
-
+    
+    public FormularioData(String nombreColumna){
+        this.nombreColumna = nombreColumna;
+    }
     public FormularioData(String nombreColumna, Object campoGUI, boolean habilitado) {
         this.nombreColumna = nombreColumna;
         this.campoGUI = campoGUI;

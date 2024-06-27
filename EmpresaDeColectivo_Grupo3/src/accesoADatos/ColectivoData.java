@@ -107,12 +107,18 @@ public class ColectivoData {
         }
         return colectivo;
     }
-
-    public List<Colectivo> listarColectivos() {
+    
+    public List<Colectivo> listarColectivos(boolean activo) {
         List<Colectivo> colectivos = new ArrayList<>();
+        String sql;
+        if(!activo){
+            sql = "SELECT * FROM Colectivos WHERE Estado = 0 ";
+        }else{
+            sql = "SELECT * FROM Colectivos WHERE Estado = 1 ";
+        }
+        
         try {
-            String sql = "SELECT * FROM Colectivos WHERE Estado = 1 ";
-            PreparedStatement ps = con.prepareStatement(sql);
+           PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
@@ -132,6 +138,10 @@ public class ColectivoData {
         }
         return colectivos;
 
+    }
+    
+    public List<Colectivo> listarColectivos() {
+        return listarColectivos(true);
     }
 
     public void modificarColectivo(Colectivo colectivo) {
