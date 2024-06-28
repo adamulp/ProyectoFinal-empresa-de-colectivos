@@ -1,6 +1,7 @@
 package vistas.entregaFinal;
 
 import java.awt.Color;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -12,7 +13,6 @@ public class CargaRuta extends javax.swing.JPanel {
         initComponents();
     }
 
-   
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -54,6 +54,11 @@ public class CargaRuta extends javax.swing.JPanel {
         jTOrigen.setForeground(new java.awt.Color(153, 153, 153));
         jTOrigen.setText("Ingrese origen");
         jTOrigen.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 153, 153)));
+        jTOrigen.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTOrigenFocusLost(evt);
+            }
+        });
         jTOrigen.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jTOrigenMousePressed(evt);
@@ -65,18 +70,25 @@ public class CargaRuta extends javax.swing.JPanel {
             }
         });
 
+        jSPHoras.setModel(new javax.swing.SpinnerNumberModel(0, 0, 23, 1));
         jSPHoras.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(0, 153, 153)));
 
         jTDestino.setBackground(new java.awt.Color(255, 255, 255));
         jTDestino.setForeground(new java.awt.Color(153, 153, 153));
         jTDestino.setText("Ingrese destino");
         jTDestino.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 153, 153)));
+        jTDestino.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTDestinoFocusLost(evt);
+            }
+        });
         jTDestino.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jTDestinoMousePressed(evt);
             }
         });
 
+        jSPMinutos.setModel(new javax.swing.SpinnerNumberModel(0, 0, 59, 1));
         jSPMinutos.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(0, 153, 153)));
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -244,24 +256,24 @@ public class CargaRuta extends javax.swing.JPanel {
     }//GEN-LAST:event_jBLimpiarMouseExited
 
     private void jTOrigenMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTOrigenMousePressed
-          if (jTOrigen.getText().equals("Ingrese origen")) {
+        if (jTOrigen.getText().equals("Ingrese origen")) {
             jTOrigen.setText("");
             jTOrigen.setForeground(Color.black);
         }
         if (jTDestino.getText().isEmpty()) {
-          jTDestino.setText("Ingrese destino");
-           jTDestino.setForeground(Color.GRAY);
+            jTDestino.setText("Ingrese destino");
+            jTDestino.setForeground(Color.GRAY);
         }
     }//GEN-LAST:event_jTOrigenMousePressed
 
     private void jTDestinoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTDestinoMousePressed
-          if (jTDestino.getText().equals("Ingrese destino")) {
-           jTDestino.setText("");
-           jTDestino.setForeground(Color.black);
+        if (jTDestino.getText().equals("Ingrese destino")) {
+            jTDestino.setText("");
+            jTDestino.setForeground(Color.black);
         }
         if (jTOrigen.getText().isEmpty()) {
             jTOrigen.setText("Ingrese origen");
-           jTOrigen.setForeground(Color.gray);
+            jTOrigen.setForeground(Color.gray);
         }
     }//GEN-LAST:event_jTDestinoMousePressed
 
@@ -276,12 +288,50 @@ public class CargaRuta extends javax.swing.JPanel {
         jTDestino.setText("Ingrese destino");
         jTOrigen.setForeground(new java.awt.Color(102, 102, 102));
         jTDestino.setForeground(new java.awt.Color(102, 102, 102));
-        
+
     }//GEN-LAST:event_jBLimpiarActionPerformed
 
     private void jBGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBGuardarActionPerformed
-        // TODO add your handling code here:
+        boolean error = false;
+        if ((int) jSPHoras.getValue() <= 0
+                && (int) jSPMinutos.getValue() <= 0) {
+            JOptionPane.showMessageDialog(null,
+                    "La duración tiene que ser mayor a zero");
+            error = true;
+        }
+        if (jTOrigen.getText().isBlank()
+                || jTDestino.getText().isBlank()
+                || jTOrigen.getText().equals("Ingrese origen")
+                || jTDestino.getText().equals("Ingrese destino")) {
+            JOptionPane.showMessageDialog(null,
+                    "Los campos del origen y del destino "
+                    + "no pueden estar vacíos");
+            error = true;
+        }
+        if (jTOrigen.getText().equals(jTDestino.getText())) {
+            JOptionPane.showMessageDialog(null,
+                    "Los campos del origen y del destino "
+                    + "no pueden ser iguales");
+            error = true;
+        }
+        if(error){
+            return;
+        }
     }//GEN-LAST:event_jBGuardarActionPerformed
+
+    private void jTOrigenFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTOrigenFocusLost
+        if (jTOrigen.getText().isBlank()) {
+            jTOrigen.setText("Ingrese origen");
+            jTOrigen.setForeground(new java.awt.Color(102, 102, 102));
+        }
+    }//GEN-LAST:event_jTOrigenFocusLost
+
+    private void jTDestinoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTDestinoFocusLost
+        if (jTDestino.getText().isBlank()) {
+            jTDestino.setText("Ingrese destino");
+            jTDestino.setForeground(new java.awt.Color(102, 102, 102));
+        }
+    }//GEN-LAST:event_jTDestinoFocusLost
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
