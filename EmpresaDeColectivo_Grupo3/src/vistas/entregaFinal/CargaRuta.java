@@ -1,6 +1,9 @@
 package vistas.entregaFinal;
 
+import EmpresaDeColectivo.Entidades.Ruta;
+import accesoADatos.RutaData;
 import java.awt.Color;
+import java.time.Duration;
 import javax.swing.JOptionPane;
 
 /**
@@ -282,12 +285,7 @@ public class CargaRuta extends javax.swing.JPanel {
     }//GEN-LAST:event_jTOrigenActionPerformed
 
     private void jBLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBLimpiarActionPerformed
-        jSPHoras.setValue(0);
-        jSPMinutos.setValue(0);
-        jTOrigen.setText("Ingrese origen");
-        jTDestino.setText("Ingrese destino");
-        jTOrigen.setForeground(new java.awt.Color(102, 102, 102));
-        jTDestino.setForeground(new java.awt.Color(102, 102, 102));
+        limpiarCampos();
 
     }//GEN-LAST:event_jBLimpiarActionPerformed
 
@@ -317,8 +315,30 @@ public class CargaRuta extends javax.swing.JPanel {
         if(error){
             return;
         }
+        Ruta ruta = new Ruta();
+        ruta.setOrigen(jTOrigen.getText());
+        ruta.setDestino(jTDestino.getText());
+        
+        long minutos = (int)jSPHoras.getValue() * 60 + (int) jSPMinutos.getValue();
+        Duration duracion = Duration.ofMinutes((minutos));
+        
+        ruta.setDuracionEstimada(Duration.ZERO);
+        ruta.setEstado(true);
+        
+        RutaData rutaData = new RutaData();
+        rutaData.guardarRuta(ruta);
+        
+        
     }//GEN-LAST:event_jBGuardarActionPerformed
-
+    
+    private void limpiarCampos(){
+        jSPHoras.setValue(0);
+        jSPMinutos.setValue(0);
+        jTOrigen.setText("Ingrese origen");
+        jTDestino.setText("Ingrese destino");
+        jTOrigen.setForeground(new java.awt.Color(102, 102, 102));
+        jTDestino.setForeground(new java.awt.Color(102, 102, 102));
+    }
     private void jTOrigenFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTOrigenFocusLost
         if (jTOrigen.getText().isBlank()) {
             jTOrigen.setText("Ingrese origen");
