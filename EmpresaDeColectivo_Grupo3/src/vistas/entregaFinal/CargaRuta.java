@@ -23,12 +23,12 @@ public class CargaRuta extends javax.swing.JPanel {
         jLDestino = new javax.swing.JLabel();
         jLDuracion = new javax.swing.JLabel();
         jTOrigen = new javax.swing.JTextField();
-        jSP1 = new javax.swing.JSpinner();
+        jSPHoras = new javax.swing.JSpinner();
         jTDestino = new javax.swing.JTextField();
-        jSP2 = new javax.swing.JSpinner();
+        jSPMinutos = new javax.swing.JSpinner();
         jLabel5 = new javax.swing.JLabel();
         jBGuardar = new javax.swing.JButton();
-        jBLimpiar2 = new javax.swing.JButton();
+        jBLimpiar = new javax.swing.JButton();
         jLCargar = new javax.swing.JLabel();
 
         setPreferredSize(new java.awt.Dimension(817, 602));
@@ -65,7 +65,7 @@ public class CargaRuta extends javax.swing.JPanel {
             }
         });
 
-        jSP1.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(0, 153, 153)));
+        jSPHoras.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(0, 153, 153)));
 
         jTDestino.setBackground(new java.awt.Color(255, 255, 255));
         jTDestino.setForeground(new java.awt.Color(153, 153, 153));
@@ -77,7 +77,7 @@ public class CargaRuta extends javax.swing.JPanel {
             }
         });
 
-        jSP2.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(0, 153, 153)));
+        jSPMinutos.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(0, 153, 153)));
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel5.setText(":");
@@ -94,17 +94,27 @@ public class CargaRuta extends javax.swing.JPanel {
                 jBGuardarMouseExited(evt);
             }
         });
+        jBGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBGuardarActionPerformed(evt);
+            }
+        });
 
-        jBLimpiar2.setBackground(new java.awt.Color(255, 255, 255));
-        jBLimpiar2.setForeground(new java.awt.Color(102, 102, 102));
-        jBLimpiar2.setText("Limpiar");
-        jBLimpiar2.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(0, 102, 102)));
-        jBLimpiar2.addMouseListener(new java.awt.event.MouseAdapter() {
+        jBLimpiar.setBackground(new java.awt.Color(255, 255, 255));
+        jBLimpiar.setForeground(new java.awt.Color(102, 102, 102));
+        jBLimpiar.setText("Limpiar");
+        jBLimpiar.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(0, 102, 102)));
+        jBLimpiar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jBLimpiar2MouseEntered(evt);
+                jBLimpiarMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                jBLimpiar2MouseExited(evt);
+                jBLimpiarMouseExited(evt);
+            }
+        });
+        jBLimpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBLimpiarActionPerformed(evt);
             }
         });
 
@@ -125,17 +135,17 @@ public class CargaRuta extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 75, Short.MAX_VALUE)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jSP1, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jSPHoras, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 8, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jSP2, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jSPMinutos, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jTDestino)
                             .addComponent(jTOrigen))
                         .addGap(111, 111, 111)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jBGuardar, javax.swing.GroupLayout.DEFAULT_SIZE, 141, Short.MAX_VALUE)
-                            .addComponent(jBLimpiar2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jBLimpiar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addContainerGap(68, Short.MAX_VALUE))))
         );
         jPanel2Layout.setVerticalGroup(
@@ -162,13 +172,13 @@ public class CargaRuta extends javax.swing.JPanel {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(3, 3, 3)
-                        .addComponent(jBLimpiar2, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jBLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(23, 23, 23)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLDuracion)
-                            .addComponent(jSP1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jSP2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jSPHoras, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jSPMinutos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel5))))
                 .addContainerGap(30, Short.MAX_VALUE))
         );
@@ -223,15 +233,15 @@ public class CargaRuta extends javax.swing.JPanel {
         jBGuardar.setForeground(new Color(102, 102, 102));
     }//GEN-LAST:event_jBGuardarMouseExited
 
-    private void jBLimpiar2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBLimpiar2MouseEntered
-        jBLimpiar2.setBackground(new Color(0, 102, 102));
-        jBLimpiar2.setForeground(new Color(255, 255, 255));
-    }//GEN-LAST:event_jBLimpiar2MouseEntered
+    private void jBLimpiarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBLimpiarMouseEntered
+        jBLimpiar.setBackground(new Color(0, 102, 102));
+        jBLimpiar.setForeground(new Color(255, 255, 255));
+    }//GEN-LAST:event_jBLimpiarMouseEntered
 
-    private void jBLimpiar2MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBLimpiar2MouseExited
-        jBLimpiar2.setBackground(new Color(255, 255, 255));
-        jBLimpiar2.setForeground(new Color(102, 102, 102));
-    }//GEN-LAST:event_jBLimpiar2MouseExited
+    private void jBLimpiarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBLimpiarMouseExited
+        jBLimpiar.setBackground(new Color(255, 255, 255));
+        jBLimpiar.setForeground(new Color(102, 102, 102));
+    }//GEN-LAST:event_jBLimpiarMouseExited
 
     private void jTOrigenMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTOrigenMousePressed
           if (jTOrigen.getText().equals("Ingrese origen")) {
@@ -259,10 +269,24 @@ public class CargaRuta extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTOrigenActionPerformed
 
+    private void jBLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBLimpiarActionPerformed
+        jSPHoras.setValue(0);
+        jSPMinutos.setValue(0);
+        jTOrigen.setText("Ingrese origen");
+        jTDestino.setText("Ingrese destino");
+        jTOrigen.setForeground(new java.awt.Color(102, 102, 102));
+        jTDestino.setForeground(new java.awt.Color(102, 102, 102));
+        
+    }//GEN-LAST:event_jBLimpiarActionPerformed
+
+    private void jBGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBGuardarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jBGuardarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBGuardar;
-    private javax.swing.JButton jBLimpiar2;
+    private javax.swing.JButton jBLimpiar;
     private javax.swing.JLabel jLCargar;
     private javax.swing.JLabel jLDestino;
     private javax.swing.JLabel jLDuracion;
@@ -270,8 +294,8 @@ public class CargaRuta extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JSpinner jSP1;
-    private javax.swing.JSpinner jSP2;
+    private javax.swing.JSpinner jSPHoras;
+    private javax.swing.JSpinner jSPMinutos;
     private javax.swing.JTextField jTDestino;
     private javax.swing.JTextField jTOrigen;
     // End of variables declaration//GEN-END:variables

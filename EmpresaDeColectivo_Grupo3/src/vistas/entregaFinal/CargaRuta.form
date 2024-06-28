@@ -101,11 +101,11 @@
                               <EmptySpace pref="75" max="32767" attributes="0"/>
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                   <Group type="102" attributes="0">
-                                      <Component id="jSP1" min="-2" pref="95" max="-2" attributes="0"/>
+                                      <Component id="jSPHoras" min="-2" pref="95" max="-2" attributes="0"/>
                                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                       <Component id="jLabel5" min="-2" pref="8" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="jSP2" min="-2" pref="96" max="-2" attributes="0"/>
+                                      <Component id="jSPMinutos" min="-2" pref="96" max="-2" attributes="0"/>
                                   </Group>
                                   <Component id="jTDestino" alignment="0" max="32767" attributes="0"/>
                                   <Component id="jTOrigen" alignment="0" max="32767" attributes="0"/>
@@ -113,7 +113,7 @@
                               <EmptySpace min="-2" pref="111" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                   <Component id="jBGuardar" alignment="0" pref="141" max="32767" attributes="0"/>
-                                  <Component id="jBLimpiar2" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="jBLimpiar" alignment="0" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace pref="68" max="32767" attributes="0"/>
                           </Group>
@@ -152,14 +152,14 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
-                              <Component id="jBLimpiar2" min="-2" pref="34" max="-2" attributes="0"/>
+                              <Component id="jBLimpiar" min="-2" pref="34" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="jLDuracion" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jSP1" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jSP2" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jSPHoras" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jSPMinutos" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
@@ -225,7 +225,7 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTOrigenActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JSpinner" name="jSP1">
+            <Component class="javax.swing.JSpinner" name="jSPHoras">
               <Properties>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="org.netbeans.modules.form.compat2.border.MatteColorBorderInfo">
@@ -257,7 +257,7 @@
                 <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jTDestinoMousePressed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JSpinner" name="jSP2">
+            <Component class="javax.swing.JSpinner" name="jSPMinutos">
               <Properties>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="org.netbeans.modules.form.compat2.border.MatteColorBorderInfo">
@@ -296,9 +296,10 @@
               <Events>
                 <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jBGuardarMouseEntered"/>
                 <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jBGuardarMouseExited"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBGuardarActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="jBLimpiar2">
+            <Component class="javax.swing.JButton" name="jBLimpiar">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -316,8 +317,9 @@
                 </Property>
               </Properties>
               <Events>
-                <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jBLimpiar2MouseEntered"/>
-                <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jBLimpiar2MouseExited"/>
+                <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jBLimpiarMouseEntered"/>
+                <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jBLimpiarMouseExited"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBLimpiarActionPerformed"/>
               </Events>
             </Component>
           </SubComponents>
