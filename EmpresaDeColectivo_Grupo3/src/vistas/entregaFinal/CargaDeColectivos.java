@@ -333,6 +333,11 @@ public class CargaDeColectivos extends javax.swing.JPanel {
         colectivo.setEstado(checkBoxActivo.isSelected());
         if(txtCapacidad.getText() != null){
             int capacidad = Integer.valueOf(txtCapacidad.getText());
+            if(capacidad > 100){
+                JOptionPane.showMessageDialog(null, 
+                        "La capacidad no puede superar 100");
+                return;
+            }
             colectivo.setCapacidad(capacidad);
         }
         
@@ -371,6 +376,11 @@ public class CargaDeColectivos extends javax.swing.JPanel {
         
         if(txtCapacidad.getText() != null){
             int capacidad = Integer.valueOf(txtCapacidad.getText());
+            if(capacidad > 100){
+                JOptionPane.showMessageDialog(null, 
+                        "La capacidad no puede superar 100");
+                return;
+            }
             this.colectivo.setCapacidad(capacidad);
         }
         

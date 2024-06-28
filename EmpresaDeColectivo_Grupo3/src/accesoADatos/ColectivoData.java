@@ -101,7 +101,8 @@ public class ColectivoData {
                 colectivo.setEstado(rs.getBoolean("Estado"));
             } else {
                 JOptionPane.showMessageDialog(null, "No existe "
-                        + " un registro del colectivo");
+                        + " un registro del colectivo, así que si"
+                        + " lo estás agregando recién, todo bien!");
             }
             ps.close();
         } catch (SQLException ex) {
