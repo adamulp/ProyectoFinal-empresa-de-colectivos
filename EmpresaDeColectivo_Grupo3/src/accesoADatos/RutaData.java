@@ -3,7 +3,6 @@ package accesoADatos;
 
 import EmpresaDeColectivo.Entidades.Ruta;
 import java.sql.Connection;
-import java.sql.Connection;
 import java.sql.Date;
 import java.sql.Time;
 import java.sql.PreparedStatement;
@@ -419,7 +418,7 @@ public class RutaData {
         return rutas;
     }
     
-    public List<String> listarOrigenesPorDestinos(String destino, Boolean activo){
+    public List<String> listarOrigenesPorDestino(String destino, Boolean activo){
         List<String> origenes = new ArrayList<>();
 
         String sql = " SELECT DISTINCT Origen "
@@ -536,51 +535,6 @@ public class RutaData {
         return rutas;
     }
 
-    public List<Ruta> listarRutasxDuracionMin(Duration duracion) {
-        List<Ruta> rutas = new ArrayList<>();
-
-        String sql = " SELECT "
-                + " ID_Ruta, Origen, Destino, Duracion_Estimada, Estado "
-                + " FROM Rutas "
-                + " WHERE Duracion_Estimada >= ? "
-                + " AND Estado = 1";
-        PreparedStatement ps;
-        try {
-            ps = con.prepareStatement(sql);
-            Time sqlTime = mariaDbTime(duracion);
-            ps.setTime(1, sqlTime);
-            ps.setBoolean(1, true);
-            ResultSet rs = ps.executeQuery();
-
-            while (rs.next()) {
-                Ruta ruta = new Ruta();
-                ruta.setIdRuta(rs.getInt("ID_Ruta"));
-                ruta.setOrigen(rs.getString("Origen"));
-                ruta.setDestino(rs.getString("Destino"));
-                
-                sqlTime = rs.getTime("Duracion_Estimada");
-                Duration duracionEstimada = null;
-                if (sqlTime != null) {
-                    duracionEstimada = duracion(sqlTime);
-                }
-                ruta.setDuracionEstimada(duracionEstimada);
-                ruta.setEstado(rs.getBoolean("Estado"));
-
-                rutas.add(ruta);
-            }
-            rs.close();
-            ps.close();
-        }
-            catch (SQLException ex) {
-                JOptionPane.showMessageDialog(null,
-                    "Error al acceder la bd desde "
-                    + "listarRutasxDuracionMin(Duration duracion)"
-                    + " " + ex.getMessage());
-        }
-
-        return rutas;
-    }
-
     public List<Ruta> listarRutasxDuracionMax(Duration duracion) {
         List<Ruta> rutas = new ArrayList<>();
 
@@ -623,88 +577,6 @@ public class RutaData {
         }
 
         return rutas;
-    }
-
-    public List<Ruta> listarRutasxDuracion(Duration min, Duration max) {
-//        + " WHERE Duracion_Estimada IS BETWEEN ? AND ? "
-      List<Ruta> rutas = new ArrayList<>();
-
-        String sql = " SELECT "
-                + " ID_Ruta, Origen, Destino, Duracion_Estimada, Estado "
-                + " FROM Rutas "
-                + " WHERE Duracion_Estimada IS BETWEEN ? AND ? "
-                + " AND Estado = 1";
-        PreparedStatement ps;
-        try {
-            ps = con.prepareStatement(sql);
-            Time sqlTime1 = mariaDbTime(min);
-            ps.setTime(1, sqlTime1);
-            Time sqlTime2 = mariaDbTime(max);
-            ps.setTime(2, sqlTime2);
-            ResultSet rs = ps.executeQuery();
-
-            while (rs.next()) {
-                Ruta ruta = new Ruta();
-                ruta.setIdRuta(rs.getInt("ID_Ruta"));
-                ruta.setOrigen(rs.getString("Origen"));
-                ruta.setDestino(rs.getString("Destino"));
-                
-                Time sqlTime = rs.getTime("Duracion_Estimada");
-                Duration duracionEstimada = null;
-                if (sqlTime != null) {
-                    duracionEstimada = duracion(sqlTime);
-                }
-                ruta.setDuracionEstimada(duracionEstimada);
-                ruta.setEstado(rs.getBoolean("Estado"));
-
-                rutas.add(ruta);
-            }
-            rs.close();
-            ps.close();
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null,
-                "Error al acceder la bd desde "
-                + "listarRutasxDuracionMin(Duration duracion)"
-                + " " + ex.getMessage());
-        }
-
-        return rutas;
-    }
-
-   public List<Ruta> listarRutasxDuracion(Duration duracion) {
-    List<Ruta> rutas = new ArrayList<>();
-
-    String sql = "SELECT ID_Ruta, Origen, Destino, Duracion_Estimada, Estado "
-                + "FROM Rutas "
-                + "WHERE Duracion_Estimada = ? AND Estado = 1";
-    try (PreparedStatement ps = con.prepareStatement(sql)) {
-        Time sqlTime = mariaDbTime(duracion);
-        ps.setTime(1, sqlTime);
-        ResultSet rs = ps.executeQuery();
-
-        while (rs.next()) {
-            Ruta ruta = new Ruta();
-            ruta.setIdRuta(rs.getInt("ID_Ruta"));
-            ruta.setOrigen(rs.getString("Origen"));
-            ruta.setDestino(rs.getString("Destino"));
-
-            sqlTime = rs.getTime("Duracion_Estimada");
-            Duration duracionEstimada = null;
-            if (sqlTime != null) {
-                duracionEstimada = duracion(sqlTime);
-            }
-            ruta.setDuracionEstimada(duracionEstimada);
-            ruta.setEstado(rs.getBoolean("Estado"));
-
-            rutas.add(ruta);
-        }
-    } catch (SQLException ex) {
-        JOptionPane.showMessageDialog(null,
-                "Error al acceder la base de datos desde listarRutasxDuracion: " + ex.getMessage());
-    }
-
-    return rutas;
-
     }
 
    public List<String> listarOrigenesUnicos(Boolean activo){
